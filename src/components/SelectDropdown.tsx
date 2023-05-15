@@ -22,6 +22,10 @@ function SelectDropdown({ dropDownOptions, selectedOption, onChange }: Props) {
 				value={selectedOption}
 				label="Select a cause"
 				onChange={(option) => onChange(option)}
+				className="outline-none hover:border-[#dc1a22]"
+				sx={{
+					border: "none",
+				}}
 			>
 				{dropDownOptions.map(({ label, value }) => (
 					<MenuItem key={value} value={value}>
