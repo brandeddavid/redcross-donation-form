@@ -2,21 +2,36 @@
 import Image from "next/image";
 import { useState } from "react";
 import Button from "@mui/material/Button";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import RadioButton from "@/components/RadioButton";
+import SelectDropdown from "@/components/SelectDropdown";
+import { SelectChangeEvent } from "@mui/material/Select";
 
 export default function Home() {
-	const [step, setStep] = useState(1);
+	const causeOptions = [
+		{
+			label: "Red Cross 1",
+			value: "red-cross-1",
+		},
+		{
+			label: "Red Cross 2",
+			value: "red-cross-2",
+		},
+	];
+
+	const [step, setStep] = useState(0);
+	const [selectedCause, setSelectedCause] = useState("");
+
+	const onCauseSelect = (event: SelectChangeEvent) => {
+		setSelectedCause(event.target.value);
+	};
 
 	return (
 		<main className="flex w-full min-h-screen">
 			<div className="flex-1 hidden md:flex">
 				<div className="relative w-full h-full">
 					<Image
-						src="https://brandeddavid.s3.eu-west-1.amazonaws.com/public/maasai.jpg"
+						src={`https://brandeddavid.s3.eu-west-1.amazonaws.com/public/${
+							selectedCause || "maasai"
+						}.jpg`}
 						alt=""
 						fill
 					/>
@@ -31,26 +46,15 @@ export default function Home() {
 				</div>
 
 				<div>
-					<FormControl className="w-[400px] outline-[#dc1a22]">
-						<InputLabel id="demo-simple-select-label">
-							Select a cause
-						</InputLabel>
-						<Select
-							labelId="demo-simple-select-label"
-							id="demo-simple-select"
-							value=""
-							label="Select a cause"
-							onChange={() => {}}
-						>
-							<MenuItem value={10}>Ten</MenuItem>
-							<MenuItem value={20}>Twenty</MenuItem>
-							<MenuItem value={30}>Thirty</MenuItem>
-						</Select>
-					</FormControl>
+					<SelectDropdown
+						dropDownOptions={causeOptions}
+						selectedOption={selectedCause}
+						onChange={onCauseSelect}
+					/>
 				</div>
 				<div>
 					<Button className="" variant="outlined">
-						Donate
+						Continue
 					</Button>
 				</div>
 			</div>
