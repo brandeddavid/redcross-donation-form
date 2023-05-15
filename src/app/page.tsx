@@ -1,6 +1,7 @@
 "use client";
 import FormFooter from "@/components/FormFooter";
 import FormHeader from "@/components/FormHeader";
+import FormStepOne from "@/components/FormStepOne";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -19,11 +20,11 @@ export default function Home() {
 				</div>
 			</div>
 			<div className="flex-auto bg-white">
-				<div className="flex flex-col justify-between h-full p-10">
+				<div className="flex flex-col h-full p-10">
 					<div className="flex-auto">
 						<FormHeader step={step} />
 					</div>
-					<div className="flex-auto">Hello</div>
+					<div className="flex-auto">{step === 1 && <FormStepOne />}</div>
 					<div className="flex-auto">
 						<FormFooter />
 					</div>
