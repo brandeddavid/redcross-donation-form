@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import { Tabs, Tab, Button, ButtonGroup, Input } from "@mui/material";
 import RadioButton from "./RadioButton";

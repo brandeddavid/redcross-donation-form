@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
 	Divider,
@@ -7,8 +8,8 @@ import {
 	Button,
 	CardActions,
 } from "@mui/material";
-import RadioButton from "./RadioButton";
 import DonationFormAmount from "./DonationFormAmount";
+import DonationFormPersonalDetails from "./DonationFormPersonalDetails";
 
 type Props = {
 	step: number;
@@ -35,9 +36,7 @@ function DonationForm({ step, onContinue, onBack }: Props) {
 			</Stepper>
 			<Divider />
 			{step === 1 && <DonationFormAmount />}
-			{step === 2 && (
-				<div className="p-[30px] flex flex-col space-y-[40px]">Hello</div>
-			)}
+			{step === 2 && <DonationFormPersonalDetails />}
 			<Divider />
 			<CardActions className="flex justify-between p-5">
 				<Button className="px-[10px]" variant="outlined" onClick={onBack}>
