@@ -13,11 +13,12 @@ import DonationFormAmount from "./DonationFormAmount";
 type Props = {
 	step: number;
 	onContinue: () => void;
+	onBack: () => void;
 };
 
 const steps = ["Cause", "Amount", "Donate"];
 
-function DonationForm({ step, onContinue }: Props) {
+function DonationForm({ step, onContinue, onBack }: Props) {
 	return (
 		<div className="flex flex-col justify-center w-full md:w-[400px] lg:w-[600px]">
 			<Stepper
@@ -39,7 +40,7 @@ function DonationForm({ step, onContinue }: Props) {
 			)}
 			<Divider />
 			<CardActions className="flex justify-between p-5">
-				<Button className="px-[10px]" variant="outlined">
+				<Button className="px-[10px]" variant="outlined" onClick={onBack}>
 					Back
 				</Button>
 				<Button

@@ -60,7 +60,7 @@ const DonationFormAmount = (props: Props) => {
 					</Tabs>
 				</div>
 			</div>
-			<div className="flex justify-end">
+			<div className="flex justify-end overflow-scroll">
 				<ButtonGroup variant="outlined" aria-label="button group">
 					{acceptedCurrency.map((currency) => (
 						<Button
