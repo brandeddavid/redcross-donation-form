@@ -70,7 +70,7 @@ export default function Home() {
 						</div>
 					</div>
 				)}
-				{step === 1 && (
+				{step > 0 && (
 					<div className="flex justify-center flex-1 bg-white space-y-[50px] md:p-5">
 						<DonationForm step={step} onContinue={handleContinue} />
 					</div>
