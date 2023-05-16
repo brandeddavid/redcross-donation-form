@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
