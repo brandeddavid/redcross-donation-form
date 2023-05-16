@@ -21,7 +21,7 @@ const steps = ["Cause", "Amount", "Donate"];
 
 function DonationForm({ step, onContinue, onBack }: Props) {
 	return (
-		<div className="flex flex-col justify-center w-full md:w-[400px] lg:w-[600px]">
+		<div className="flex flex-col justify-between w-full md:w-[400px] lg:w-[600px]">
 			<Stepper
 				activeStep={step}
 				alternativeLabel
@@ -35,8 +35,11 @@ function DonationForm({ step, onContinue, onBack }: Props) {
 				))}
 			</Stepper>
 			<Divider />
-			{step === 1 && <DonationFormAmount />}
-			{step === 2 && <DonationFormPersonalDetails />}
+			<div className="min-h-[400px]">
+				{step === 1 && <DonationFormAmount />}
+				{step === 2 && <DonationFormPersonalDetails />}
+			</div>
+
 			<Divider />
 			<CardActions className="flex justify-between p-5">
 				<Button className="px-[10px]" variant="outlined" onClick={onBack}>
