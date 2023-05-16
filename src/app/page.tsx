@@ -73,7 +73,7 @@ export default function Home() {
 					</div>
 				)}
 				{step === 1 && (
-					<div className="flex flex-col flex-1 text-center bg-white space-y-[50px] md:p-5">
+					<div className="flex flex-col flex-1 bg-white space-y-[50px] md:p-5">
 						<DonationForm step={step} />
 					</div>
 				)}
