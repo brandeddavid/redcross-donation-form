@@ -26,8 +26,13 @@ export default function Home() {
 		setSelectedCause(event.target.value);
 	};
 	const handleContinue = () => {
-		if (step >= 0 && step <= 3) {
+		if (step >= 0 && step < 2) {
 			setStep(step + 1);
+		}
+	};
+	const handleBack = () => {
+		if (step >= 0 && step < 3) {
+			setStep(step - 1);
 		}
 	};
 
@@ -51,9 +56,12 @@ export default function Home() {
 					<div className="flex flex-col justify-center flex-1 text-center bg-white space-y-[50px] md:px-5">
 						<div>
 							<h1 className="text-5xl text-[#dc1a22]">Support our Cause</h1>
-							<h3 className="text-2xl">
-								Donate today to support humanitarian work around Kenya.
-							</h3>
+							<p className="px-5 mt-5">
+								Donate today to support humanitarian work around Kenya. In times
+								of crisis, we meet the urgent needs of women, men, young and the
+								old. Help enable a rapid response to disasters. Your
+								contribution can make a difference.
+							</p>
 						</div>
 
 						<div>
@@ -72,7 +80,11 @@ export default function Home() {
 				)}
 				{step > 0 && (
 					<div className="flex justify-center flex-1 bg-white space-y-[50px] md:p-5">
-						<DonationForm step={step} onContinue={handleContinue} />
+						<DonationForm
+							step={step}
+							onBack={handleBack}
+							onContinue={handleContinue}
+						/>
 					</div>
 				)}
 			</main>
