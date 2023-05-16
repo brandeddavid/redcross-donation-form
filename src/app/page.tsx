@@ -47,11 +47,32 @@ export default function Home() {
 	return (
 		<ThemeProvider theme={theme}>
 			<main className="flex w-full min-h-screen">
-				<div className="flex-1 hidden md:flex">
-					<div className="relative w-full h-full">
-						<Image src={`/${selectedCause || "maasai"}.jpg`} alt="" fill />
+				{step === 0 && (
+					<div className="hidden md:flex flex-1">
+						<div className="relative w-full h-full">
+							<Image src={`/${selectedCause || "maasai"}.jpg`} alt="" fill />
+						</div>
 					</div>
-				</div>
+				)}
+
+				{step > 0 && (
+					<div className="hidden md:flex flex-1 flex-col justify-center">
+						<div className="relative w-full h-full flex justify-end ">
+							<div className="absolute top-[30%] h-[400px] w-auto bg-white flex flex-col text-center justify-center">
+								<div>
+									<h1 className="text-3xl">{`Support ${selectedCause}`}</h1>
+									<p className="px-5 mt-5">
+										Donate today to support humanitarian work around Kenya. In
+										times of crisis, we meet the urgent needs of women, men,
+										young and the old. Help enable a rapid response to
+										disasters. Your contribution can make a difference.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				)}
+
 				{step === 0 && (
 					<div className="flex flex-col justify-center flex-1 text-center bg-white space-y-[50px] md:px-5">
 						<div>

@@ -35,7 +35,7 @@ const DonationFormAmount = (props: Props) => {
 			setRecommended(companyUSD);
 	}, [donateAs, selectedCurrency]);
 	return (
-		<div className="p-[30px] flex flex-col space-y-[40px]">
+		<div className="px-5 flex flex-col space-y-[40px]">
 			<RadioButton
 				formLabel="Select donate as"
 				radioOptions={[
@@ -61,7 +61,7 @@ const DonationFormAmount = (props: Props) => {
 					</Tabs>
 				</div>
 			</div>
-			<div className="flex justify-end overflow-scroll">
+			<div className="flex justify-end">
 				<ButtonGroup variant="outlined" aria-label="button group">
 					{acceptedCurrency.map((currency) => (
 						<Button
