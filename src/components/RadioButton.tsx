@@ -8,9 +8,16 @@ import FormControl from "@mui/material/FormControl";
 type Props = {
 	formLabel: string;
 	radioOptions: Array<{ label: string; value: string }>;
+	onChange: (string) => void;
+	selectedOption: string;
 };
 
-function RadioButton({ formLabel, radioOptions }: Props) {
+function RadioButton({
+	formLabel,
+	radioOptions,
+	onChange,
+	selectedOption,
+}: Props) {
 	return (
 		<FormControl>
 			<FormLabel id="demo-row-radio-buttons-group-label">{formLabel}</FormLabel>
@@ -29,6 +36,8 @@ function RadioButton({ formLabel, radioOptions }: Props) {
 										color: "#dc1a22",
 									},
 								}}
+								onChange={() => onChange(value)}
+								checked={selectedOption === value}
 							/>
 						}
 						label={label}

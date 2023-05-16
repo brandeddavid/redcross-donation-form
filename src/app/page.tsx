@@ -25,8 +25,10 @@ export default function Home() {
 	const onCauseSelect = (event: SelectChangeEvent) => {
 		setSelectedCause(event.target.value);
 	};
-	const handleStepChange = (event) => {
-		setStep(step + 1);
+	const handleContinue = () => {
+		if (step >= 0 && step <= 3) {
+			setStep(step + 1);
+		}
 	};
 
 	const theme = createTheme({
@@ -62,19 +64,15 @@ export default function Home() {
 							/>
 						</div>
 						<div>
-							<Button
-								className=""
-								variant="outlined"
-								onClick={handleStepChange}
-							>
+							<Button className="" variant="outlined" onClick={handleContinue}>
 								Continue
 							</Button>
 						</div>
 					</div>
 				)}
 				{step === 1 && (
-					<div className="flex flex-col flex-1 bg-white space-y-[50px] md:p-5">
-						<DonationForm step={step} />
+					<div className="flex justify-center flex-1 bg-white space-y-[50px] md:p-5">
+						<DonationForm step={step} onContinue={handleContinue} />
 					</div>
 				)}
 			</main>
