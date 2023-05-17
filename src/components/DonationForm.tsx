@@ -15,20 +15,12 @@ type Props = {
 	step: number;
 	onContinue: () => void;
 	onBack: () => void;
-	currency: string;
-	donation: string;
 	selectedCause: string;
 };
 
 const steps = ["Cause", "Amount", "Donate"];
 
-function DonationForm({
-	step,
-	onContinue,
-	onBack,
-	currency = "KSH",
-	selectedCause,
-}: Props) {
+function DonationForm({ step, onContinue, onBack, selectedCause }: Props) {
 	const [donation, setDonation] = useState("");
 	const [selectedCurrency, setSelectedCurrency] = useState("KSH");
 	const [donateAs, setDonateAs] = useState("individual");
@@ -79,7 +71,7 @@ function DonationForm({
 						{step === 2 && (
 							<p>
 								You are donating
-								<span className="text-[#dc1a22]">{` ${currency} ${donation}`}</span>{" "}
+								<span className="text-[#dc1a22]">{` ${selectedCurrency} ${donation}`}</span>{" "}
 								{`to ${selectedCause}`}
 							</p>
 						)}

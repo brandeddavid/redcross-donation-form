@@ -9,7 +9,7 @@ import FormControl from "@mui/material/FormControl";
 type Props = {
 	formLabel: string;
 	radioOptions: Array<{ label: string; value: string }>;
-	onChange: (string) => void;
+	onChange: (value: string) => void;
 	selectedOption: string;
 };
 
