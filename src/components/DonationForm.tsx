@@ -62,7 +62,7 @@ function DonationForm({
 						setDonateAs={setDonateAs}
 					/>
 				)}
-				{step === 2 && <DonationFormPersonalDetails />}
+				{step === 2 && <DonationFormPersonalDetails donateAs={donateAs} />}
 			</div>
 
 			<div>

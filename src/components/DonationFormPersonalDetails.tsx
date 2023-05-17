@@ -10,9 +10,9 @@ import {
 	FormControl,
 } from "@mui/material";
 
-type Props = {};
+type Props = { donateAs: string };
 
-const DonationFormPersonalDetails = (props: Props) => {
+const DonationFormPersonalDetails = ({ donateAs }: Props) => {
 	const [donateAnonymously, setDonateAnonymously] = useState(false);
 	return (
 		<div className="p-[30px] flex flex-col space-y-[40px]">
@@ -31,6 +31,16 @@ const DonationFormPersonalDetails = (props: Props) => {
 			</div>
 			{!donateAnonymously && (
 				<FormGroup className="space-y-[40px]">
+					{donateAs === "company" && (
+						<div className="flex">
+							<TextField
+								label="Company name"
+								placeholder="Enter company name"
+								variant="standard"
+								fullWidth
+							/>
+						</div>
+					)}
 					<div className="flex justify-between space-x-5">
 						<TextField
 							label="First name"
