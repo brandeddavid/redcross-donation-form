@@ -15,9 +15,9 @@ type Props = {
 	step: number;
 	onContinue: () => void;
 	onBack: () => void;
-	currency?: string;
-	donation?: string;
-	selectedCause?: string;
+	currency: string;
+	donation: string;
+	selectedCause: string;
 };
 
 const steps = ["Cause", "Amount", "Donate"];
@@ -32,6 +32,12 @@ function DonationForm({
 	const [donation, setDonation] = useState("");
 	const [selectedCurrency, setSelectedCurrency] = useState("KSH");
 	const [donateAs, setDonateAs] = useState("individual");
+	const [handleProcessingFee, setHandleProcessingFee] = useState(false);
+
+	const toggleHandleProcessingFee = () =>
+		setHandleProcessingFee(!handleProcessingFee);
+
+	console.log(handleProcessingFee);
 
 	return (
 		<div className="flex flex-col justify-between w-full md:w-[400px] lg:w-[600px]">
@@ -39,7 +45,6 @@ function DonationForm({
 				<Stepper
 					activeStep={step}
 					alternativeLabel
-					// orientation="vertical"
 					className="px-[10px] py-[20px]"
 				>
 					{steps.map((label) => (
@@ -60,6 +65,8 @@ function DonationForm({
 						setSelectedCurrency={setSelectedCurrency}
 						donateAs={donateAs}
 						setDonateAs={setDonateAs}
+						handleProcessingFee={handleProcessingFee}
+						toggleHandleProcessingFee={toggleHandleProcessingFee}
 					/>
 				)}
 				{step === 2 && <DonationFormPersonalDetails donateAs={donateAs} />}

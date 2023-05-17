@@ -1,6 +1,15 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Tabs, Tab, Button, ButtonGroup, Input } from "@mui/material";
+import {
+	Tabs,
+	Tab,
+	Button,
+	ButtonGroup,
+	Input,
+	FormGroup,
+	FormControlLabel,
+	Checkbox,
+} from "@mui/material";
 import RadioButton from "./RadioButton";
 
 type Props = {
@@ -10,9 +19,18 @@ type Props = {
 	setSelectedCurrency: (value: string) => void;
 	donateAs: string;
 	setDonateAs: (value: string) => void;
+	handleProcessingFee: boolean;
+	toggleHandleProcessingFee: () => void;
 };
 const tabs = ["ONE TIME", "MONTHLY"];
 const acceptedCurrency = ["KSH", "USD"];
+
+const Label = () => (
+	<div className="text-sm text-gray-500">
+		Please add <span className="text-[#dc1a22]">KES 175.00 </span>to cover
+		processing fees & other expenses associated with my donation
+	</div>
+);
 
 const DonationFormAmount = ({
 	donation,
@@ -21,10 +39,12 @@ const DonationFormAmount = ({
 	setSelectedCurrency,
 	donateAs,
 	setDonateAs,
+	handleProcessingFee,
+	toggleHandleProcessingFee,
 }: Props) => {
 	const [activeTab, setActiveTab] = useState(0);
 	const [paymentOption, setPaymentOption] = useState("");
-	const [recommended, setRecommended] = useState([]);
+	const [recommended, setRecommended] = useState<any[]>([]);
 	const [showOtherAmountInput, setShowOtherAmountInput] = useState(false);
 
 	useEffect(() => {
@@ -45,8 +65,9 @@ const DonationFormAmount = ({
 		if (donateAs === "company" && selectedCurrency === "USD")
 			setRecommended(companyUSD);
 	}, [donateAs, selectedCurrency]);
+
 	return (
-		<div className="py-[50px] flex flex-col space-y-[40px]">
+		<div className="py-[50px] px-5 flex flex-col space-y-[30px]">
 			<RadioButton
 				formLabel="Select donate as"
 				radioOptions={[
@@ -114,7 +135,14 @@ const DonationFormAmount = ({
 						</Button>
 					))}
 				</div>
-				<div>{showOtherAmountInput && <Input />}</div>
+				<div>
+					{showOtherAmountInput && (
+						<Input
+							value={donation}
+							onChange={(event) => setDonation(event.target.value)}
+						/>
+					)}
+				</div>
 			</div>
 			<RadioButton
 				formLabel="Select payment option"
@@ -125,6 +153,21 @@ const DonationFormAmount = ({
 				onChange={(value) => setPaymentOption(value)}
 				selectedOption={paymentOption}
 			/>
+			{donation && (
+				<div>
+					<FormGroup>
+						<FormControlLabel
+							control={
+								<Checkbox
+									onClick={toggleHandleProcessingFee}
+									checked={handleProcessingFee}
+								/>
+							}
+							label={<Label />}
+						/>
+					</FormGroup>
+				</div>
+			)}
 		</div>
 	);
 };
