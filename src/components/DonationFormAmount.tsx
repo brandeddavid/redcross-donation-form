@@ -35,7 +35,7 @@ const DonationFormAmount = (props: Props) => {
 			setRecommended(companyUSD);
 	}, [donateAs, selectedCurrency]);
 	return (
-		<div className="px-5 flex flex-col space-y-[40px]">
+		<div className="py-[50px] flex flex-col space-y-[40px]">
 			<RadioButton
 				formLabel="Select donate as"
 				radioOptions={[
@@ -78,7 +78,7 @@ const DonationFormAmount = (props: Props) => {
 					))}
 				</ButtonGroup>
 			</div>
-			<div className="flex flex-col space-y-2">
+			<div className="flex flex-col space-y-[40px]">
 				<div className="flex space-x-2">
 					{recommended.map((amount) => (
 						<Button

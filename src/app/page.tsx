@@ -50,7 +50,7 @@ export default function Home() {
 				<div className="relative hidden md:flex flex-1 flex-col justify-center">
 					<div className=" w-full h-full flex justify-end ">
 						<Image
-							className="bg-[#dc1a22] opacity-20 z-10"
+							className={`${selectedCause && "opacity-20"} z-10`}
 							src={`/${selectedCause || "maasai"}.jpg`}
 							alt=""
 							fill

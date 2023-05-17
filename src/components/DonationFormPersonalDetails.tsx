@@ -15,7 +15,7 @@ type Props = {};
 const DonationFormPersonalDetails = (props: Props) => {
 	const [donateAnonymously, setDonateAnonymously] = useState(false);
 	return (
-		<div className="p-[30px] flex flex-col space-y-[20px]">
+		<div className="p-[30px] flex flex-col space-y-[40px]">
 			<div>
 				<FormGroup>
 					<FormControlLabel
