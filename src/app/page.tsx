@@ -107,6 +107,7 @@ export default function Home() {
 							step={step}
 							onBack={handleBack}
 							onContinue={handleContinue}
+							selectedCause={selectedCause}
 						/>
 					</div>
 				)}

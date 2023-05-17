@@ -3,17 +3,28 @@ import React, { useEffect, useState } from "react";
 import { Tabs, Tab, Button, ButtonGroup, Input } from "@mui/material";
 import RadioButton from "./RadioButton";
 
-type Props = {};
+type Props = {
+	donation: string;
+	setDonation: (value: string) => void;
+	selectedCurrency: string;
+	setSelectedCurrency: (value: string) => void;
+	donateAs: string;
+	setDonateAs: (value: string) => void;
+};
 const tabs = ["ONE TIME", "MONTHLY"];
 const acceptedCurrency = ["KSH", "USD"];
 
-const DonationFormAmount = (props: Props) => {
-	const [selectedCurrency, setSelectedCurrency] = useState("KSH");
+const DonationFormAmount = ({
+	donation,
+	setDonation,
+	selectedCurrency,
+	setSelectedCurrency,
+	donateAs,
+	setDonateAs,
+}: Props) => {
 	const [activeTab, setActiveTab] = useState(0);
-	const [donateAs, setDonateAs] = useState("individual");
 	const [paymentOption, setPaymentOption] = useState("");
 	const [recommended, setRecommended] = useState([]);
-	const [donation, setDonation] = useState("");
 	const [showOtherAmountInput, setShowOtherAmountInput] = useState(false);
 
 	useEffect(() => {

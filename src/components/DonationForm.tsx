@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
 	Divider,
 	StepLabel,
@@ -27,9 +27,12 @@ function DonationForm({
 	onContinue,
 	onBack,
 	currency = "KSH",
-	donation = "1000",
-	selectedCause = "Red-cross-1",
+	selectedCause,
 }: Props) {
+	const [donation, setDonation] = useState("");
+	const [selectedCurrency, setSelectedCurrency] = useState("KSH");
+	const [donateAs, setDonateAs] = useState("individual");
+
 	return (
 		<div className="flex flex-col justify-between w-full md:w-[400px] lg:w-[600px]">
 			<div>
@@ -49,19 +52,32 @@ function DonationForm({
 			</div>
 
 			<div className="h-full">
-				{step === 1 && <DonationFormAmount />}
+				{step === 1 && (
+					<DonationFormAmount
+						donation={donation}
+						setDonation={setDonation}
+						selectedCurrency={selectedCurrency}
+						setSelectedCurrency={setSelectedCurrency}
+						donateAs={donateAs}
+						setDonateAs={setDonateAs}
+					/>
+				)}
 				{step === 2 && <DonationFormPersonalDetails />}
 			</div>
 
 			<div>
 				<Divider />
 				<CardActions className="flex flex-col p-5">
-					<div>
+					<div className="flex justify-start">
 						{step === 2 && (
-							<p>{`You are donating ${currency} ${donation} to ${selectedCause}`}</p>
+							<p>
+								You are donating
+								<span className="text-[#dc1a22]">{` ${currency} ${donation}`}</span>{" "}
+								{`to ${selectedCause}`}
+							</p>
 						)}
 					</div>
-					<div className="flex flex-row w-full justify-between mt-5">
+					<div className="flex flex-row w-full justify-between">
 						<div>
 							<Button
 								className="px-[10px] justify-start"
