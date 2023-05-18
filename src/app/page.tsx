@@ -4,8 +4,9 @@ import { useState } from "react";
 import Button from "@mui/material/Button";
 import SelectDropdown from "@/components/SelectDropdown";
 import { SelectChangeEvent } from "@mui/material/Select";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 import DonationForm from "@/components/DonationForm";
+import { ThemeProvider } from "@mui/material";
+import { theme } from "../theme/theme";
 
 export default function Home() {
 	const causeOptions = [
@@ -36,19 +37,11 @@ export default function Home() {
 		}
 	};
 
-	const theme = createTheme({
-		palette: {
-			primary: {
-				main: "#dc1a22",
-			},
-		},
-	});
-
 	return (
 		<ThemeProvider theme={theme}>
 			<main className="flex w-full min-h-screen">
-				<div className="relative hidden md:flex flex-1 flex-col justify-center">
-					<div className=" w-full h-full flex justify-end ">
+				<div className="relative flex-col justify-center flex-1 hidden md:flex">
+					<div className="flex justify-end w-full h-full ">
 						<Image
 							className={`${selectedCause && "opacity-20"} z-10`}
 							src={`/${selectedCause || "maasai"}.jpg`}
