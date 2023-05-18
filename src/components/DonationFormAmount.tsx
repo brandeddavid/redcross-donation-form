@@ -11,6 +11,7 @@ import {
 	Checkbox,
 } from "@mui/material";
 import RadioButton from "./RadioButton";
+import { type } from "os";
 
 type Props = {
 	donation: string;
@@ -21,14 +22,19 @@ type Props = {
 	setDonateAs: (value: string) => void;
 	handleProcessingFee: boolean;
 	toggleHandleProcessingFee: () => void;
+	processingFee: number;
 };
+type LabelProps = {
+	processingFee: number;
+};
+
 const tabs = ["ONE TIME", "MONTHLY"];
 const acceptedCurrency = ["KSH", "USD"];
 
-const Label = () => (
+const Label = ({ processingFee }: LabelProps) => (
 	<div className="text-sm text-gray-500">
-		Please add <span className="text-[#dc1a22]">KES 175.00 </span>to cover
-		processing fees & other expenses associated with my donation
+		Please add <span className="text-[#dc1a22]">{`${processingFee}`}</span>to
+		cover processing fees & other expenses associated with my donation
 	</div>
 );
 
@@ -41,6 +47,7 @@ const DonationFormAmount = ({
 	setDonateAs,
 	handleProcessingFee,
 	toggleHandleProcessingFee,
+	processingFee,
 }: Props) => {
 	const [activeTab, setActiveTab] = useState(0);
 	const [paymentOption, setPaymentOption] = useState("");
@@ -163,7 +170,7 @@ const DonationFormAmount = ({
 									checked={handleProcessingFee}
 								/>
 							}
-							label={<Label />}
+							label={<Label processingFee={processingFee} />}
 						/>
 					</FormGroup>
 				</div>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
 	Divider,
 	StepLabel,
@@ -25,11 +25,20 @@ function DonationForm({ step, onContinue, onBack, selectedCause }: Props) {
 	const [selectedCurrency, setSelectedCurrency] = useState("KSH");
 	const [donateAs, setDonateAs] = useState("individual");
 	const [handleProcessingFee, setHandleProcessingFee] = useState(false);
+	const [processingFee, setProcessingFee] = useState(0);
 
 	const toggleHandleProcessingFee = () =>
 		setHandleProcessingFee(!handleProcessingFee);
 
-	console.log(handleProcessingFee);
+	useEffect(() => {
+		if (donation && handleProcessingFee) {
+			const fee = 0.1 * Number(donation);
+
+			setProcessingFee(fee);
+		}
+	}, [donation, handleProcessingFee]);
+
+	const totalDonationAmount = donation + processingFee;
 
 	return (
 		<div className="flex flex-col justify-between w-full md:w-[400px] lg:w-[600px]">
@@ -59,6 +68,7 @@ function DonationForm({ step, onContinue, onBack, selectedCause }: Props) {
 						setDonateAs={setDonateAs}
 						handleProcessingFee={handleProcessingFee}
 						toggleHandleProcessingFee={toggleHandleProcessingFee}
+						processingFee={processingFee}
 					/>
 				)}
 				{step === 2 && <DonationFormPersonalDetails donateAs={donateAs} />}
@@ -71,12 +81,12 @@ function DonationForm({ step, onContinue, onBack, selectedCause }: Props) {
 						{step === 2 && (
 							<p>
 								You are donating
-								<span className="text-[#dc1a22]">{` ${selectedCurrency} ${donation}`}</span>{" "}
+								<span className="text-[#dc1a22]">{` ${selectedCurrency} ${totalDonationAmount}`}</span>{" "}
 								{`to ${selectedCause}`}
 							</p>
 						)}
 					</div>
-					<div className="flex flex-row w-full justify-between">
+					<div className="flex flex-row justify-between w-full">
 						<div>
 							<Button
 								className="px-[10px] justify-start"
