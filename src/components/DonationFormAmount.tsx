@@ -85,22 +85,34 @@ const DonationFormAmount = ({
 				onChange={(value) => setDonateAs(value)}
 				selectedOption={donateAs}
 			/>
-			<div>
-				<div className="flex justify-center">
-					<Tabs
-						value={activeTab}
-						onChange={(event, value) => {
-							setActiveTab(value);
-						}}
-						aria-label="basic tabs example"
-						className="flex w-full"
-					>
-						{tabs.map((tab) => (
-							<Tab className="flex-auto" key={tab} label={tab} />
-						))}
-					</Tabs>
+			<RadioButton
+				formLabel="Select payment option"
+				radioOptions={[
+					{ label: "Donate Now", value: "donate-now" },
+					{ label: "Make a Pledge", value: "make-pledge" },
+				]}
+				onChange={(value) => setPaymentOption(value)}
+				selectedOption={paymentOption}
+			/>
+
+			{paymentOption !== "donate-now" && (
+				<div>
+					<div className="flex justify-center">
+						<Tabs
+							value={activeTab}
+							onChange={(event, value) => {
+								setActiveTab(value);
+							}}
+							aria-label="basic tabs example"
+							className="flex w-full"
+						>
+							{tabs.map((tab) => (
+								<Tab className="flex-auto" key={tab} label={tab} />
+							))}
+						</Tabs>
+					</div>
 				</div>
-			</div>
+			)}
 
 			<div className="flex justify-end">
 				<div className="flex flex-col">
@@ -163,15 +175,7 @@ const DonationFormAmount = ({
 					)}
 				</div>
 			</div>
-			<RadioButton
-				formLabel="Select payment option"
-				radioOptions={[
-					{ label: "Donate Now", value: "donate-now" },
-					{ label: "Make a Pledge", value: "make-pledge" },
-				]}
-				onChange={(value) => setPaymentOption(value)}
-				selectedOption={paymentOption}
-			/>
+
 			{donation && (
 				<div>
 					<FormGroup>
