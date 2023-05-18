@@ -21,7 +21,7 @@ type Props = {
 const steps = ["Cause", "Amount", "Donate"];
 
 function DonationForm({ step, onContinue, onBack, selectedCause }: Props) {
-	const [donation, setDonation] = useState("");
+	const [donation, setDonation] = useState<number | string>("");
 	const [selectedCurrency, setSelectedCurrency] = useState("KSH");
 	const [donateAs, setDonateAs] = useState("individual");
 	const [handleProcessingFee, setHandleProcessingFee] = useState(false);
@@ -79,9 +79,9 @@ function DonationForm({ step, onContinue, onBack, selectedCause }: Props) {
 			<div>
 				<Divider />
 				<CardActions className="flex flex-col p-5">
-					<div className="flex justify-start">
+					<div className="flex text-left">
 						{step === 2 && (
-							<p>
+							<p className="mb-5 text-sm text-gray-500">
 								You are donating
 								<span className="text-[#dc1a22]">{` ${selectedCurrency} ${
 									handleProcessingFee ? totalDonationAmount : donation
