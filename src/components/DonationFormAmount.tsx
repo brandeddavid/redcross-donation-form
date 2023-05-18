@@ -11,10 +11,9 @@ import {
 	Checkbox,
 } from "@mui/material";
 import RadioButton from "./RadioButton";
-import { type } from "os";
 
 type Props = {
-	donation: string;
+	donation: string | number;
 	setDonation: (value: string) => void;
 	selectedCurrency: string;
 	setSelectedCurrency: (value: string) => void;
@@ -26,14 +25,16 @@ type Props = {
 };
 type LabelProps = {
 	processingFee: number;
+	currency: string;
 };
 
 const tabs = ["ONE TIME", "MONTHLY"];
 const acceptedCurrency = ["KSH", "USD"];
 
-const Label = ({ processingFee }: LabelProps) => (
+const Label = ({ processingFee, currency }: LabelProps) => (
 	<div className="text-sm text-gray-500">
-		Please add <span className="text-[#dc1a22]">{`${processingFee}`}</span>to
+		Please add{" "}
+		<span className="text-[#dc1a22]">{`${currency} ${processingFee}`}</span> to
 		cover processing fees & other expenses associated with my donation
 	</div>
 );
@@ -100,25 +101,36 @@ const DonationFormAmount = ({
 					</Tabs>
 				</div>
 			</div>
+
 			<div className="flex justify-end">
-				<ButtonGroup variant="outlined" aria-label="button group">
-					{acceptedCurrency.map((currency) => (
-						<Button
-							key={currency}
-							className={`${
-								(currency === selectedCurrency &&
-									"bg-[#dc1a22] text-white hover:bg-[#dc1a22]") ||
-								""
-							}`}
-							onClick={() => setSelectedCurrency(currency)}
-						>
-							{currency}
-						</Button>
-					))}
-				</ButtonGroup>
+				<div className="flex flex-col">
+					<p className="flex text-sm text-gray-500 mb-[10px]">
+						Toggle currency
+					</p>
+					<ButtonGroup variant="outlined" aria-label="button group">
+						{acceptedCurrency.map((currency) => (
+							<Button
+								key={currency}
+								className={`${
+									(currency === selectedCurrency &&
+										"bg-[#dc1a22] text-white hover:bg-[#dc1a22]") ||
+									""
+								}`}
+								onClick={() => {
+									setSelectedCurrency(currency);
+									setDonation("");
+								}}
+							>
+								{currency}
+							</Button>
+						))}
+					</ButtonGroup>
+				</div>
 			</div>
-			<div className="flex flex-col space-y-[40px]">
-				<div className="flex space-x-2">
+
+			<div className="flex flex-col">
+				<p className="mb-[10px] text-gray-600">Select an amount</p>
+				<div className="flex justify-between space-x-2">
 					{recommended.map((amount) => (
 						<Button
 							className={`${
@@ -154,8 +166,8 @@ const DonationFormAmount = ({
 			<RadioButton
 				formLabel="Select payment option"
 				radioOptions={[
-					{ label: "Pay Now", value: "pay-now" },
-					{ label: "Make Pledge", value: "make-pledge" },
+					{ label: "Donate Now", value: "donate-now" },
+					{ label: "Make a Pledge", value: "make-pledge" },
 				]}
 				onChange={(value) => setPaymentOption(value)}
 				selectedOption={paymentOption}
@@ -170,7 +182,12 @@ const DonationFormAmount = ({
 									checked={handleProcessingFee}
 								/>
 							}
-							label={<Label processingFee={processingFee} />}
+							label={
+								<Label
+									processingFee={processingFee}
+									currency={selectedCurrency}
+								/>
+							}
 						/>
 					</FormGroup>
 				</div>
