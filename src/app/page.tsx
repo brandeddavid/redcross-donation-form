@@ -13,10 +13,16 @@ export default function Home() {
 		{
 			label: "Red Cross 1",
 			value: "red-cross-1",
+			description: "",
+			startDate: "14/02/2023",
+			endDate: "14/02/2024",
 		},
 		{
 			label: "Red Cross 2",
 			value: "red-cross-2",
+			description: "",
+			startDate: "7/11/2022",
+			endDate: "1/12/2023",
 		},
 	];
 
@@ -87,6 +93,12 @@ export default function Home() {
 								selectedOption={selectedCause}
 								onChange={onCauseSelect}
 							/>
+							{selectedCause && (
+								<p className="text-sm text-gray-500 mt-[5px]">
+									Campaign from <strong>14 May 2023</strong> to{" "}
+									<strong>25 Dec 2023</strong>
+								</p>
+							)}
 						</div>
 						<div>
 							<Button onClick={handleContinue}>Continue</Button>
