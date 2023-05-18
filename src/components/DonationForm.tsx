@@ -26,19 +26,21 @@ function DonationForm({ step, onContinue, onBack, selectedCause }: Props) {
 	const [donateAs, setDonateAs] = useState("individual");
 	const [handleProcessingFee, setHandleProcessingFee] = useState(false);
 	const [processingFee, setProcessingFee] = useState(0);
+	const [totalDonationAmount, setTotalDonationAmount] = useState<
+		number | string
+	>(0);
 
 	const toggleHandleProcessingFee = () =>
 		setHandleProcessingFee(!handleProcessingFee);
 
 	useEffect(() => {
-		if (donation && handleProcessingFee) {
+		if (donation) {
 			const fee = 0.1 * Number(donation);
 
 			setProcessingFee(fee);
+			setTotalDonationAmount(Number(donation) + processingFee);
 		}
-	}, [donation, handleProcessingFee]);
-
-	const totalDonationAmount = donation + processingFee;
+	}, [donation, processingFee]);
 
 	return (
 		<div className="flex flex-col justify-between w-full md:w-[400px] lg:w-[600px]">
@@ -81,7 +83,9 @@ function DonationForm({ step, onContinue, onBack, selectedCause }: Props) {
 						{step === 2 && (
 							<p>
 								You are donating
-								<span className="text-[#dc1a22]">{` ${selectedCurrency} ${totalDonationAmount}`}</span>{" "}
+								<span className="text-[#dc1a22]">{` ${selectedCurrency} ${
+									handleProcessingFee ? totalDonationAmount : donation
+								}`}</span>{" "}
 								{`to ${selectedCause}`}
 							</p>
 						)}

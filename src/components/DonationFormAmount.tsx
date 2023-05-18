@@ -33,7 +33,7 @@ const acceptedCurrency = ["KSH", "USD"];
 
 const Label = ({ processingFee }: LabelProps) => (
 	<div className="text-sm text-gray-500">
-		Please add <span className="text-[#dc1a22]">{`${processingFee}`}</span>to
+		Please add <span className="text-[#dc1a22]">{`${processingFee}`}</span> to
 		cover processing fees & other expenses associated with my donation
 	</div>
 );
