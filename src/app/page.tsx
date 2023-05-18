@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import Button from "@mui/material/Button";
+import Button from "@/components/Button";
 import SelectDropdown from "@/components/SelectDropdown";
 import { SelectChangeEvent } from "@mui/material/Select";
 import DonationForm from "@/components/DonationForm";
@@ -88,9 +88,7 @@ export default function Home() {
 							/>
 						</div>
 						<div>
-							<Button className="" variant="outlined" onClick={handleContinue}>
-								Continue
-							</Button>
+							<Button onClick={handleContinue}>Continue</Button>
 						</div>
 					</div>
 				)}
