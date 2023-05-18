@@ -40,19 +40,17 @@ export default function Home() {
 	return (
 		<ThemeProvider theme={theme}>
 			<main className="flex w-full min-h-screen">
-				<div className="relative flex-col justify-center flex-1 hidden md:flex">
-					<div className="flex justify-end w-full h-full ">
-				<div className="relative flex-col justify-center flex-1 hidden md:flex">
+				<div className="relative flex-col justify-center flex-1 hidden bg-gray-300 md:flex">
 					<div className="flex justify-end w-full h-[700px]">
 						<Image
-							className={`${selectedCause ? "opacity-20" : "opacity-50"} z-10`}
+							className={`${step > 0 ? "opacity-20" : "opacity-50"} z-10`}
 							src={`/${selectedCause || "maasai"}.jpg`}
 							alt=""
 							height={700}
 							width={700}
 						/>
 					</div>
-					{selectedCause && (
+					{selectedCause && step > 0 && (
 						<div className="z-20 absolute top-[30%] h-[400px] bg-[#dc1a22] w-auto text-white opacity-70 flex flex-col text-center justify-center">
 							<div>
 								<h1 className="text-3xl">{`Support ${selectedCause}`}</h1>
