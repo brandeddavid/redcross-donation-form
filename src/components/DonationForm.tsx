@@ -18,11 +18,11 @@ type Props = {
 	selectedCause: string;
 };
 
-const steps = ["Cause", "Amount", "Donate"];
+const steps = ["Cause", "Amount", "Donate", "Pay"];
 
 function DonationForm({ step, onContinue, onBack, selectedCause }: Props) {
 	const [donation, setDonation] = useState<number | string>("");
-	const [selectedCurrency, setSelectedCurrency] = useState("KSH");
+	const [selectedCurrency, setSelectedCurrency] = useState("KES");
 	const [donateAs, setDonateAs] = useState("individual");
 	const [handleProcessingFee, setHandleProcessingFee] = useState(false);
 	const [processingFee, setProcessingFee] = useState(0);
@@ -43,13 +43,9 @@ function DonationForm({ step, onContinue, onBack, selectedCause }: Props) {
 	}, [donation, processingFee]);
 
 	return (
-		<div className="flex flex-col justify-between w-full md:w-[400px] lg:w-[600px]">
+		<div className="flex flex-col justify-start w-full lg:w-[600px]">
 			<div>
-				<Stepper
-					activeStep={step}
-					alternativeLabel
-					className="px-[10px] py-[20px]"
-				>
+				<Stepper activeStep={step} alternativeLabel className="py-[20px]">
 					{steps.map((label) => (
 						<Step key={label}>
 							<StepLabel>{label}</StepLabel>
