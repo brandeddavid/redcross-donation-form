@@ -5,6 +5,7 @@ type Props = {
 	children: any;
 	onClick: () => void;
 	variant?: "text" | "outlined" | "contained";
+	className?: string;
 };
 
 const styles = () => ({
@@ -13,12 +14,19 @@ const styles = () => ({
 	},
 });
 
-const Button = ({ children, onClick, variant = "outlined" }: Props) => {
+const Button = ({
+	children,
+	onClick,
+	variant = "outlined",
+	className = "",
+}: Props) => {
 	return (
 		<Btn
 			variant={variant}
 			onClick={onClick}
+			className={className}
 			sx={{
+				borderRadius: 0,
 				":hover": {
 					bgcolor: "#ed1c24",
 					color: "white",

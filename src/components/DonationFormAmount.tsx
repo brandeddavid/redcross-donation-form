@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import {
 	Tabs,
 	Tab,
-	Button,
 	ButtonGroup,
 	Input,
 	FormGroup,
@@ -11,6 +10,7 @@ import {
 	Checkbox,
 } from "@mui/material";
 import RadioButton from "./RadioButton";
+import Button from "@/components/Button";
 
 type Props = {
 	donation: string | number;
@@ -29,7 +29,7 @@ type LabelProps = {
 };
 
 const tabs = ["ONE TIME", "MONTHLY"];
-const acceptedCurrency = ["KSH", "USD"];
+const acceptedCurrency = ["KES", "USD"];
 
 const Label = ({ processingFee, currency }: LabelProps) => (
 	<div className="text-sm text-gray-500">
@@ -61,13 +61,13 @@ const DonationFormAmount = ({
 		const companyKSH = [10000, 50000, 100000, "Other"];
 		const companyUSD = [1000, 5000, 10000, "Other"];
 
-		if (donateAs === "individual" && selectedCurrency === "KSH")
+		if (donateAs === "individual" && selectedCurrency === "KES")
 			setRecommended(individualKSH);
 
 		if (donateAs === "individual" && selectedCurrency === "USD")
 			setRecommended(individualUSD);
 
-		if (donateAs === "company" && selectedCurrency === "KSH")
+		if (donateAs === "company" && selectedCurrency === "KES")
 			setRecommended(companyKSH);
 
 		if (donateAs === "company" && selectedCurrency === "USD")
@@ -144,31 +144,30 @@ const DonationFormAmount = ({
 				<p className="mb-[10px] text-gray-600">Select an amount</p>
 				<div className="flex justify-between space-x-2">
 					{recommended.map((amount) => (
-						<Button
-							className={`${
-								(amount === donation &&
-									"bg-[#dc1a22] text-white hover:bg-[#dc1a22]") ||
-								""
-							}`}
-							key={amount}
-							variant="outlined"
-							onClick={() => {
-								if (amount === "Other") {
-									setShowOtherAmountInput(true);
-									setDonation("");
-								} else {
-									setShowOtherAmountInput(false);
-									setDonation(amount);
-								}
-							}}
-						>
-							{amount}
-						</Button>
+						<div key={amount} className="flex min-w-[100px]">
+							<Button
+								variant="outlined"
+								onClick={() => {
+									if (amount === "Other") {
+										setShowOtherAmountInput(true);
+										setDonation("");
+									} else {
+										setShowOtherAmountInput(false);
+										setDonation(amount);
+									}
+								}}
+							>
+								<div>{`${
+									amount === "Other" ? "" : selectedCurrency
+								} ${amount}`}</div>
+							</Button>
+						</div>
 					))}
 				</div>
-				<div>
+				<div className="mt-[20px]">
 					{showOtherAmountInput && (
 						<Input
+							placeholder="Enter amount"
 							value={donation}
 							onChange={(event) => setDonation(event.target.value)}
 						/>
