@@ -93,7 +93,7 @@ export default function Home() {
 					</div>
 				)}
 				{step > 0 && (
-					<div className="flex justify-center flex-1 bg-white space-y-[50px] md:p-5">
+					<div className="flex justify-center flex-1 bg-white space-y-[50px] md:p-5 md:max-w-[500px]">
 						<DonationForm
 							step={step}
 							onBack={handleBack}

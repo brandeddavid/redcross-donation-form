@@ -86,7 +86,7 @@ const DonationFormAmount = ({
 				selectedOption={donateAs}
 			/>
 			<RadioButton
-				formLabel="Select payment option"
+				formLabel="Select donation option"
 				radioOptions={[
 					{ label: "Donate Now", value: "donate-now" },
 					{ label: "Make a Pledge", value: "make-pledge" },

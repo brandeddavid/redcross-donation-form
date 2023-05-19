@@ -43,7 +43,7 @@ function DonationForm({ step, onContinue, onBack, selectedCause }: Props) {
 	}, [donation, processingFee]);
 
 	return (
-		<div className="flex flex-col justify-between w-full md:w-[400px] lg:w-[600px]">
+		<div className="flex flex-col justify-start w-full lg:w-[600px]">
 			<div>
 				<Stepper
 					activeStep={step}
