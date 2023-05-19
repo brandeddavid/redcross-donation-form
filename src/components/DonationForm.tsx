@@ -45,11 +45,7 @@ function DonationForm({ step, onContinue, onBack, selectedCause }: Props) {
 	return (
 		<div className="flex flex-col justify-start w-full lg:w-[600px]">
 			<div>
-				<Stepper
-					activeStep={step}
-					alternativeLabel
-					className="px-[10px] py-[20px]"
-				>
+				<Stepper activeStep={step} alternativeLabel className="py-[20px]">
 					{steps.map((label) => (
 						<Step key={label}>
 							<StepLabel>{label}</StepLabel>
