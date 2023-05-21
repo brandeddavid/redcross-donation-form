@@ -23,7 +23,7 @@ const steps = ["Cause", "Amount", "Donate", "Pay"];
 
 function DonationForm({ step, onContinue, onBack, selectedCause }: Props) {
 	const [donation, setDonation] = useState<number | string>("");
-	const [selectedCurrency, setSelectedCurrency] = useState("KSH");
+	const [selectedCurrency, setSelectedCurrency] = useState("KES");
 	const [donateAs, setDonateAs] = useState("individual");
 	const [handleProcessingFee, setHandleProcessingFee] = useState(false);
 	const [processingFee, setProcessingFee] = useState(0);

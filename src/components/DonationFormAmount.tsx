@@ -51,7 +51,7 @@ const DonationFormAmount = ({
 	processingFee,
 }: Props) => {
 	const [activeTab, setActiveTab] = useState(0);
-	const [paymentOption, setPaymentOption] = useState("");
+	const [donationOption, setDonationOption] = useState("");
 	const [recommended, setRecommended] = useState<any[]>([]);
 	const [showOtherAmountInput, setShowOtherAmountInput] = useState(false);
 
@@ -91,11 +91,11 @@ const DonationFormAmount = ({
 					{ label: "Donate Now", value: "donate-now" },
 					{ label: "Make a Pledge", value: "make-pledge" },
 				]}
-				onChange={(value) => setPaymentOption(value)}
-				selectedOption={paymentOption}
+				onChange={(value) => setDonationOption(value)}
+				selectedOption={donationOption}
 			/>
 
-			{paymentOption !== "donate-now" && (
+			{donationOption !== "donate-now" && (
 				<div>
 					<div className="flex justify-center">
 						<Tabs
