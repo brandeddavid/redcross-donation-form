@@ -158,7 +158,10 @@ const DonationFormAmount = ({
 								}}
 							>
 								<div>
-									{`${amount === "Other" ? "" : selectedCurrency} ${amount}`}
+									<span className="hidden md:inline-block">{`${
+										amount === "Other" ? "" : selectedCurrency
+									} `}</span>
+									{amount}
 								</div>
 							</Button>
 						</div>

@@ -17,7 +17,12 @@ const DonationFormPayment = (props: Props) => {
 				allowScrollButtonsMobile
 			>
 				{paymentOptions.map((option) => (
-					<Tab key={option} label={option} value={option} onClick={() => {}} />
+					<Tab
+						key={option}
+						label={option}
+						value={option}
+						onClick={() => setPaymentOption(option)}
+					/>
 				))}
 			</Tabs>
 		</div>
