@@ -144,7 +144,7 @@ const DonationFormAmount = ({
 				<p className="mb-[10px] text-gray-600">Select an amount</p>
 				<div className="flex justify-between space-x-2">
 					{recommended.map((amount) => (
-						<div key={amount} className="flex min-w-[100px]">
+						<div key={amount} className="flex">
 							<Button
 								variant="outlined"
 								onClick={() => {
@@ -157,9 +157,9 @@ const DonationFormAmount = ({
 									}
 								}}
 							>
-								<div>{`${
-									amount === "Other" ? "" : selectedCurrency
-								} ${amount}`}</div>
+								<div>
+									{`${amount === "Other" ? "" : selectedCurrency} ${amount}`}
+								</div>
 							</Button>
 						</div>
 					))}
