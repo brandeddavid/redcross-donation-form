@@ -27,12 +27,12 @@ export default function Home() {
 		setSelectedCause(event.target.value);
 	};
 	const handleContinue = () => {
-		if (step >= 0 && step < 2) {
+		if (step >= 0 && step < 3) {
 			setStep(step + 1);
 		}
 	};
 	const handleBack = () => {
-		if (step >= 0 && step < 3) {
+		if (step >= 0 && step < 4) {
 			setStep(step - 1);
 		}
 	};

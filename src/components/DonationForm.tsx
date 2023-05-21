@@ -19,7 +19,7 @@ type Props = {
 	selectedCause: string;
 };
 
-const steps = ["Cause", "Amount", "Donate"];
+const steps = ["Cause", "Amount", "Donate", "Pay"];
 
 function DonationForm({ step, onContinue, onBack, selectedCause }: Props) {
 	const [donation, setDonation] = useState<number | string>("");
@@ -107,7 +107,7 @@ function DonationForm({ step, onContinue, onBack, selectedCause }: Props) {
 								className="px-[10px] bg-[#dc1a22] text-white hover:bg-[#dc1a22]"
 								onClick={onContinue}
 							>
-								{step !== 2 ? "Continue" : "Donate"}
+								{step !== 3 ? "Continue" : "Donate"}
 							</Button>
 						</div>
 					</div>
