@@ -26,7 +26,7 @@ function RadioButton({
 				row
 				aria-labelledby="demo-row-radio-buttons-group-label"
 				name="row-radio-buttons-group"
-				className="space-x-[40px]"
+				className="md:space-x-[40px]"
 			>
 				{radioOptions.map(({ label, value }) => (
 					<FormControlLabel

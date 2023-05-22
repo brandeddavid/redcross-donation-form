@@ -1,15 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import {
-	Divider,
-	StepLabel,
-	Step,
-	Stepper,
-	Button,
-	CardActions,
-} from "@mui/material";
+import { Divider, StepLabel, Step, Stepper, CardActions } from "@mui/material";
+import Button from "./Button";
 import DonationFormAmount from "./DonationFormAmount";
 import DonationFormPersonalDetails from "./DonationFormPersonalDetails";
+import DonationFormPayment from "./DonationFormPayment";
 
 type Props = {
 	step: number;
@@ -43,9 +38,13 @@ function DonationForm({ step, onContinue, onBack, selectedCause }: Props) {
 	}, [donation, processingFee]);
 
 	return (
-		<div className="flex flex-col justify-start w-full lg:w-[600px]">
+		<div className="flex flex-col justify-between w-full md:w-[400px] lg:w-[600px]">
 			<div>
-				<Stepper activeStep={step} alternativeLabel className="py-[20px]">
+				<Stepper
+					activeStep={step}
+					alternativeLabel
+					className="px-[10px] py-[20px]"
+				>
 					{steps.map((label) => (
 						<Step key={label}>
 							<StepLabel>{label}</StepLabel>
@@ -70,43 +69,46 @@ function DonationForm({ step, onContinue, onBack, selectedCause }: Props) {
 					/>
 				)}
 				{step === 2 && <DonationFormPersonalDetails donateAs={donateAs} />}
+				{step === 3 && <DonationFormPayment />}
 			</div>
 
-			<div>
-				<Divider />
-				<CardActions className="flex flex-col p-5">
-					<div className="flex text-left">
-						{step === 2 && (
-							<p className="mb-5 text-sm text-gray-500">
-								You are donating
-								<span className="text-[#dc1a22]">{` ${selectedCurrency} ${
-									handleProcessingFee ? totalDonationAmount : donation
-								}`}</span>{" "}
-								{`to ${selectedCause}`}
-							</p>
-						)}
-					</div>
-					<div className="flex flex-row justify-between w-full">
-						<div>
-							<Button
-								className="px-[10px] justify-start"
-								variant="outlined"
-								onClick={onBack}
-							>
-								Back
-							</Button>
+			{step !== 3 && (
+				<div>
+					<Divider />
+					<CardActions className="flex flex-col p-5">
+						<div className="flex text-left">
+							{step === 2 && (
+								<p className="mb-5 text-sm text-gray-500">
+									You are donating
+									<span className="text-[#dc1a22]">{` ${selectedCurrency} ${
+										handleProcessingFee ? totalDonationAmount : donation
+									}`}</span>{" "}
+									{`to ${selectedCause}`}
+								</p>
+							)}
 						</div>
-						<div>
-							<Button
-								className="px-[10px] bg-[#dc1a22] text-white hover:bg-[#dc1a22]"
-								onClick={onContinue}
-							>
-								{step !== 2 ? "Continue" : "Donate"}
-							</Button>
+						<div className="flex flex-row justify-between w-full">
+							<div>
+								<Button
+									className="px-[10px] justify-start"
+									variant="outlined"
+									onClick={onBack}
+								>
+									Back
+								</Button>
+							</div>
+							<div>
+								<Button
+									className="px-[10px] bg-[#dc1a22] text-white hover:bg-[#dc1a22]"
+									onClick={onContinue}
+								>
+									{step !== 3 ? "Continue" : "Donate"}
+								</Button>
+							</div>
 						</div>
-					</div>
-				</CardActions>
-			</div>
+					</CardActions>
+				</div>
+			)}
 		</div>
 	);
 }

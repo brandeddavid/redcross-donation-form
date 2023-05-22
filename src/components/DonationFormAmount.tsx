@@ -51,7 +51,7 @@ const DonationFormAmount = ({
 	processingFee,
 }: Props) => {
 	const [activeTab, setActiveTab] = useState(0);
-	const [paymentOption, setPaymentOption] = useState("");
+	const [donationOption, setDonationOption] = useState("");
 	const [recommended, setRecommended] = useState<any[]>([]);
 	const [showOtherAmountInput, setShowOtherAmountInput] = useState(false);
 
@@ -75,7 +75,7 @@ const DonationFormAmount = ({
 	}, [donateAs, selectedCurrency]);
 
 	return (
-		<div className="py-[50px] px-5 flex flex-col space-y-[30px]">
+		<div className="py-[10px] md:py-[50px] md:px-5 flex flex-col space-y-[20px] md:space-y-[30px]">
 			<RadioButton
 				formLabel="Select donate as"
 				radioOptions={[
@@ -91,11 +91,11 @@ const DonationFormAmount = ({
 					{ label: "Donate Now", value: "donate-now" },
 					{ label: "Make a Pledge", value: "make-pledge" },
 				]}
-				onChange={(value) => setPaymentOption(value)}
-				selectedOption={paymentOption}
+				onChange={(value) => setDonationOption(value)}
+				selectedOption={donationOption}
 			/>
 
-			{paymentOption !== "donate-now" && (
+			{donationOption !== "donate-now" && (
 				<div>
 					<div className="flex justify-center">
 						<Tabs
@@ -144,7 +144,7 @@ const DonationFormAmount = ({
 				<p className="mb-[10px] text-gray-600">Select an amount</p>
 				<div className="flex justify-between space-x-2">
 					{recommended.map((amount) => (
-						<div key={amount} className="flex min-w-[100px]">
+						<div key={amount} className="flex">
 							<Button
 								variant="outlined"
 								onClick={() => {
@@ -157,9 +157,12 @@ const DonationFormAmount = ({
 									}
 								}}
 							>
-								<div>{`${
-									amount === "Other" ? "" : selectedCurrency
-								} ${amount}`}</div>
+								<div>
+									<span className="hidden md:inline-block">{`${
+										amount === "Other" ? "" : selectedCurrency
+									} `}</span>
+									{amount}
+								</div>
 							</Button>
 						</div>
 					))}
