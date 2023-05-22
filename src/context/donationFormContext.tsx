@@ -13,6 +13,7 @@ type DonationFormDetails = {
 	donationAmount: number | string;
 	processingFee: string;
 	totalDonationAmount: string;
+	paymentOption: string;
 } | null;
 type DonationFormDetailsContext = {
 	donationFormDetails: DonationFormDetails | null;
@@ -22,6 +23,7 @@ type DonationFormDetailsContext = {
 	toggleHandleProcessingFee: () => void;
 	setDonateAnonymously: () => void;
 	setDonationAmount: (amount: string) => void;
+	setPaymentOption: (value: string) => void;
 };
 
 const initialFormDetails = {
@@ -33,6 +35,7 @@ const initialFormDetails = {
 	donationAmount: "",
 	processingFee: "",
 	totalDonationAmount: "",
+	paymentOption: "Mpesa",
 };
 
 export const DonationFormContext = createContext<DonationFormDetailsContext>({
@@ -43,6 +46,7 @@ export const DonationFormContext = createContext<DonationFormDetailsContext>({
 	toggleHandleProcessingFee: () => {},
 	setDonateAnonymously: () => {},
 	setDonationAmount: () => {},
+	setPaymentOption: () => {},
 });
 
 const DonationFormProvider = ({ children }: Props) => {
@@ -112,6 +116,13 @@ const DonationFormProvider = ({ children }: Props) => {
 		[donationFormDetails]
 	);
 
+	const setPaymentOption = (option: string) => {
+		setDonationFormDetails({
+			...donationFormDetails,
+			paymentOption: option,
+		});
+	};
+
 	const { donationAmount, handleProcessingFee, processingFee } =
 		donationFormDetails;
 
@@ -145,6 +156,7 @@ const DonationFormProvider = ({ children }: Props) => {
 				toggleHandleProcessingFee,
 				setDonateAnonymously,
 				setDonationAmount,
+				setPaymentOption,
 			}}
 		>
 			{children}
