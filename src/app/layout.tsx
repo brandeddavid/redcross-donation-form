@@ -1,6 +1,7 @@
 import "./globals.css";
+import React from "react";
 import { Inter } from "next/font/google";
-import RedcrossCausesProvider from "@/context/redcrossCausesContext";
+import RedcrossCausesProvider from "../context/redcrossCausesContext";
 
 const inter = Inter({ subsets: ["latin"] });
 

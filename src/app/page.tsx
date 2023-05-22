@@ -1,13 +1,14 @@
 "use client";
+import React from "react";
 import Image from "next/image";
 import { useContext, useState } from "react";
-import Button from "@/components/Button";
-import SelectDropdown from "@/components/SelectDropdown";
+import Button from "../components/Button";
+import SelectDropdown from "../components/SelectDropdown";
 import { SelectChangeEvent } from "@mui/material/Select";
-import DonationForm from "@/components/DonationForm";
+import DonationForm from "..//components/DonationForm";
 import { ThemeProvider } from "@mui/material";
 import { theme } from "../theme/theme";
-import { RedcrossCausesContext } from "@/context/redcrossCausesContext";
+import { RedcrossCausesContext } from "../context/redcrossCausesContext";
 
 export default function Home() {
 	const defaultDescription = `Donate today to support humanitarian work around Kenya. In times
