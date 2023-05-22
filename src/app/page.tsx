@@ -20,8 +20,6 @@ export default function Home() {
 	);
 	const [step, setStep] = useState(0);
 
-	console.log({ redCrossCauses, selectedCause });
-
 	const onCauseSelect = (event: SelectChangeEvent) => {
 		console.log(event.target);
 		onRedCrossCauseSelect(event.target.value);

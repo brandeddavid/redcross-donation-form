@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
 	Tabs,
 	Tab,
@@ -10,22 +10,17 @@ import {
 	Checkbox,
 } from "@mui/material";
 import RadioButton from "./RadioButton";
-import Button from "@/components/Button";
+import Button from "../components/Button";
+import { DonationFormContext } from "../context/donationFormContext";
 
 type Props = {
 	donation: string | number;
 	setDonation: (value: string) => void;
-	selectedCurrency: string;
-	setSelectedCurrency: (value: string) => void;
-	donateAs: string;
-	setDonateAs: (value: string) => void;
-	handleProcessingFee: boolean;
-	toggleHandleProcessingFee: () => void;
 	processingFee: number;
 };
 type LabelProps = {
 	processingFee: number;
-	currency: string;
+	currency: string | undefined;
 };
 
 const tabs = ["ONE TIME", "MONTHLY"];
@@ -42,18 +37,19 @@ const Label = ({ processingFee, currency }: LabelProps) => (
 const DonationFormAmount = ({
 	donation,
 	setDonation,
-	selectedCurrency,
-	setSelectedCurrency,
-	donateAs,
-	setDonateAs,
-	handleProcessingFee,
-	toggleHandleProcessingFee,
+
 	processingFee,
 }: Props) => {
 	const [activeTab, setActiveTab] = useState(0);
-	const [donationOption, setDonationOption] = useState("");
 	const [recommended, setRecommended] = useState<any[]>([]);
 	const [showOtherAmountInput, setShowOtherAmountInput] = useState(false);
+	const {
+		donationFormDetails,
+		setDonateAs,
+		setSelectedCurrency,
+		setDonationOption,
+		toggleHandleProcessingFee,
+	} = useContext(DonationFormContext);
 
 	useEffect(() => {
 		const individualKSH = [100, 500, 1000, "Other"];
@@ -61,18 +57,34 @@ const DonationFormAmount = ({
 		const companyKSH = [10000, 50000, 100000, "Other"];
 		const companyUSD = [1000, 5000, 10000, "Other"];
 
-		if (donateAs === "individual" && selectedCurrency === "KES")
+		if (
+			donationFormDetails &&
+			donationFormDetails.donateAs === "individual" &&
+			donationFormDetails.selectedCurrency === "KES"
+		)
 			setRecommended(individualKSH);
 
-		if (donateAs === "individual" && selectedCurrency === "USD")
+		if (
+			donationFormDetails &&
+			donationFormDetails.donateAs === "individual" &&
+			donationFormDetails.selectedCurrency === "USD"
+		)
 			setRecommended(individualUSD);
 
-		if (donateAs === "company" && selectedCurrency === "KES")
+		if (
+			donationFormDetails &&
+			donationFormDetails.donateAs === "company" &&
+			donationFormDetails.selectedCurrency === "KES"
+		)
 			setRecommended(companyKSH);
 
-		if (donateAs === "company" && selectedCurrency === "USD")
+		if (
+			donationFormDetails &&
+			donationFormDetails.donateAs === "company" &&
+			donationFormDetails.selectedCurrency === "USD"
+		)
 			setRecommended(companyUSD);
-	}, [donateAs, selectedCurrency]);
+	}, [donationFormDetails]);
 
 	return (
 		<div className="py-[10px] md:py-[50px] md:px-5 flex flex-col space-y-[20px] md:space-y-[30px]">
@@ -83,7 +95,7 @@ const DonationFormAmount = ({
 					{ label: "Company", value: "company" },
 				]}
 				onChange={(value) => setDonateAs(value)}
-				selectedOption={donateAs}
+				selectedOption={donationFormDetails?.donateAs}
 			/>
 			<RadioButton
 				formLabel="Select donation option"
@@ -92,10 +104,10 @@ const DonationFormAmount = ({
 					{ label: "Make a Pledge", value: "make-pledge" },
 				]}
 				onChange={(value) => setDonationOption(value)}
-				selectedOption={donationOption}
+				selectedOption={donationFormDetails?.donationOption}
 			/>
 
-			{donationOption !== "donate-now" && (
+			{donationFormDetails?.donationOption !== "donate-now" && (
 				<div>
 					<div className="flex justify-center">
 						<Tabs
@@ -124,7 +136,7 @@ const DonationFormAmount = ({
 							<Button
 								key={currency}
 								className={`${
-									(currency === selectedCurrency &&
+									(currency === donationFormDetails?.selectedCurrency &&
 										"bg-[#ed1c24] text-white hover:bg-[#ed1c24]") ||
 									""
 								}`}
@@ -159,7 +171,9 @@ const DonationFormAmount = ({
 							>
 								<div>
 									<span className="hidden md:inline-block">{`${
-										amount === "Other" ? "" : selectedCurrency
+										amount === "Other"
+											? ""
+											: donationFormDetails?.selectedCurrency
 									} `}</span>
 									{amount}
 								</div>
@@ -185,13 +199,13 @@ const DonationFormAmount = ({
 							control={
 								<Checkbox
 									onClick={toggleHandleProcessingFee}
-									checked={handleProcessingFee}
+									checked={donationFormDetails?.handleProcessingFee}
 								/>
 							}
 							label={
 								<Label
 									processingFee={processingFee}
-									currency={selectedCurrency}
+									currency={donationFormDetails?.selectedCurrency}
 								/>
 							}
 						/>

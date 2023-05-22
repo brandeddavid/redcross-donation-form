@@ -2,6 +2,7 @@ import "./globals.css";
 import React from "react";
 import { Inter } from "next/font/google";
 import RedcrossCausesProvider from "../context/redcrossCausesContext";
+import DonationFormProvider from "../context/donationFormContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,10 +17,12 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<RedcrossCausesProvider>
-			<html lang="en">
-				<body className={inter.className}>{children}</body>
-			</html>
-		</RedcrossCausesProvider>
+		<DonationFormProvider>
+			<RedcrossCausesProvider>
+				<html lang="en">
+					<body className={inter.className}>{children}</body>
+				</html>
+			</RedcrossCausesProvider>
+		</DonationFormProvider>
 	);
 }

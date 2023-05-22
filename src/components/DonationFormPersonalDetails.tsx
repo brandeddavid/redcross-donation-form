@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
 	Checkbox,
 	FormGroup,
@@ -9,11 +9,13 @@ import {
 	InputLabel,
 	FormControl,
 } from "@mui/material";
+import { DonationFormContext } from "../context/donationFormContext";
 
-type Props = { donateAs: string };
+type Props = {};
 
-const DonationFormPersonalDetails = ({ donateAs }: Props) => {
-	const [donateAnonymously, setDonateAnonymously] = useState(false);
+const DonationFormPersonalDetails = ({}: Props) => {
+	const { donationFormDetails, setDonateAnonymously } =
+		useContext(DonationFormContext);
 
 	return (
 		<div className="p-[30px] flex flex-col space-y-[40px]">
@@ -22,17 +24,17 @@ const DonationFormPersonalDetails = ({ donateAs }: Props) => {
 					<FormControlLabel
 						control={
 							<Checkbox
-								checked={donateAnonymously}
-								onClick={() => setDonateAnonymously(!donateAnonymously)}
+								checked={donationFormDetails?.donateAnonymously}
+								onClick={setDonateAnonymously}
 							/>
 						}
 						label="Donate anonymously"
 					/>
 				</FormGroup>
 			</div>
-			{!donateAnonymously && (
+			{!donationFormDetails?.donateAnonymously && (
 				<FormGroup className="space-y-[40px]">
-					{donateAs === "company" && (
+					{donationFormDetails?.donateAs === "company" && (
 						<div className="flex">
 							<TextField
 								label="Company name"

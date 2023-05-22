@@ -1,32 +1,30 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Divider, StepLabel, Step, Stepper, CardActions } from "@mui/material";
 import Button from "./Button";
 import DonationFormAmount from "./DonationFormAmount";
 import DonationFormPersonalDetails from "./DonationFormPersonalDetails";
 import DonationFormPayment from "./DonationFormPayment";
+import { DonationFormContext } from "../context/donationFormContext";
+import { RedcrossCausesContext } from "../context/redcrossCausesContext";
 
 type Props = {
 	step: number;
 	onContinue: () => void;
 	onBack: () => void;
-	selectedCause: string;
 };
 
 const steps = ["Cause", "Amount", "Donate", "Pay"];
 
-function DonationForm({ step, onContinue, onBack, selectedCause }: Props) {
+function DonationForm({ step, onContinue, onBack }: Props) {
 	const [donation, setDonation] = useState<number | string>("");
-	const [selectedCurrency, setSelectedCurrency] = useState("KES");
-	const [donateAs, setDonateAs] = useState("individual");
-	const [handleProcessingFee, setHandleProcessingFee] = useState(false);
 	const [processingFee, setProcessingFee] = useState(0);
 	const [totalDonationAmount, setTotalDonationAmount] = useState<
 		number | string
 	>(0);
 
-	const toggleHandleProcessingFee = () =>
-		setHandleProcessingFee(!handleProcessingFee);
+	const { donationFormDetails } = useContext(DonationFormContext);
+	const { selectedCause } = useContext(RedcrossCausesContext);
 
 	useEffect(() => {
 		if (donation) {
@@ -59,16 +57,10 @@ function DonationForm({ step, onContinue, onBack, selectedCause }: Props) {
 					<DonationFormAmount
 						donation={donation}
 						setDonation={setDonation}
-						selectedCurrency={selectedCurrency}
-						setSelectedCurrency={setSelectedCurrency}
-						donateAs={donateAs}
-						setDonateAs={setDonateAs}
-						handleProcessingFee={handleProcessingFee}
-						toggleHandleProcessingFee={toggleHandleProcessingFee}
 						processingFee={processingFee}
 					/>
 				)}
-				{step === 2 && <DonationFormPersonalDetails donateAs={donateAs} />}
+				{step === 2 && <DonationFormPersonalDetails />}
 				{step === 3 && <DonationFormPayment />}
 			</div>
 
@@ -80,10 +72,14 @@ function DonationForm({ step, onContinue, onBack, selectedCause }: Props) {
 							{step === 2 && (
 								<p className="mb-5 text-sm text-gray-500">
 									You are donating
-									<span className="text-[#ed1c24]">{` ${selectedCurrency} ${
-										handleProcessingFee ? totalDonationAmount : donation
+									<span className="text-[#ed1c24]">{` ${
+										donationFormDetails?.selectedCurrency
+									} ${
+										donationFormDetails?.handleProcessingFee
+											? totalDonationAmount
+											: donation
 									}`}</span>{" "}
-									{`to ${selectedCause}`}
+									{`to ${selectedCause?.label}`}
 								</p>
 							)}
 						</div>

@@ -10,7 +10,7 @@ type Props = {
 	formLabel: string;
 	radioOptions: Array<{ label: string; value: string }>;
 	onChange: (value: string) => void;
-	selectedOption: string;
+	selectedOption: string | undefined;
 };
 
 function RadioButton({
