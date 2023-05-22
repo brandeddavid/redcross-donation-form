@@ -15,7 +15,7 @@ type Props = {
 
 function SelectDropdown({ dropDownOptions, selectedOption, onChange }: Props) {
 	return (
-		<FormControl className="w-[300px] outline-[#dc1a22]">
+		<FormControl className="w-[300px] outline-[#ed1c24]">
 			<InputLabel id="demo-simple-select-label">Select a cause</InputLabel>
 			<Select
 				labelId="demo-simple-select-label"

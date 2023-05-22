@@ -42,25 +42,18 @@ export default function Home() {
 				<div className="relative flex-col justify-center flex-1 hidden md:flex">
 					<div className="flex justify-end w-full h-full ">
 						<Image
-							className={`${selectedCause && "opacity-20"} z-10`}
+							className="z-10 opacity-50"
 							src={`/${selectedCause?.value || "maasai"}.jpg`}
 							alt=""
 							fill
 						/>
 					</div>
 					{selectedCause && step > 0 && (
-						<div className="z-20 absolute top-[30%] h-[400px] bg-[#dc1a22] w-auto text-white opacity-70 flex flex-col text-center justify-center">
+						<div className="z-20 absolute top-[30%] h-[400px] bg-[#ed1c24] w-auto text-white opacity-70 flex flex-col text-center justify-center">
 							<div>
 								<h1 className="text-3xl">{`Support ${selectedCause?.label}`}</h1>
 								<p className="px-5 mt-5">
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-									do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-									Ut enim ad minim veniam, quis nostrud exercitation ullamco
-									laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-									irure dolor in reprehenderit in voluptate velit esse cillum
-									dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-									cupidatat non proident, sunt in culpa qui officia deserunt
-									mollit anim id est laborum.
+									{selectedCause?.description || defaultDescription}
 								</p>
 							</div>
 						</div>
@@ -68,9 +61,9 @@ export default function Home() {
 				</div>
 
 				{step === 0 && (
-					<div className="flex flex-col justify-center flex-1 text-center bg-white space-y-[50px] md:px-5">
-						<div>
-							<h1 className="text-5xl text-[#dc1a22]">{`Support ${
+					<div className="flex flex-col justify-center flex-1 text-center bg-white space-y-[50px]">
+						<div className="bg-[#ed1c24] text-white p-[20px] md:p-[40px]">
+							<h1 className="text-5xl">{`Support ${
 								selectedCause?.label || "our Cause"
 							}`}</h1>
 							<p className="px-5 mt-5">
@@ -86,7 +79,13 @@ export default function Home() {
 							/>
 						</div>
 						<div>
-							<Button onClick={handleContinue}>Continue</Button>
+							<Button
+								className="py-[10px] px-[40px]"
+								onClick={handleContinue}
+								disabled={!selectedCause}
+							>
+								Continue
+							</Button>
 						</div>
 					</div>
 				)}
@@ -96,7 +95,7 @@ export default function Home() {
 							step={step}
 							onBack={handleBack}
 							onContinue={handleContinue}
-							selectedCause={selectedCause}
+							selectedCause={selectedCause?.value || ""}
 						/>
 					</div>
 				)}
