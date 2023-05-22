@@ -1,30 +1,29 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "@/components/Button";
 import SelectDropdown from "@/components/SelectDropdown";
 import { SelectChangeEvent } from "@mui/material/Select";
 import DonationForm from "@/components/DonationForm";
 import { ThemeProvider } from "@mui/material";
 import { theme } from "../theme/theme";
+import { RedcrossCausesContext } from "@/context/redcrossCausesContext";
 
 export default function Home() {
-	const causeOptions = [
-		{
-			label: "Red Cross 1",
-			value: "red-cross-1",
-		},
-		{
-			label: "Red Cross 2",
-			value: "red-cross-2",
-		},
-	];
-
+	const defaultDescription = `Donate today to support humanitarian work around Kenya. In times
+								of crisis, we meet the urgent needs of women, men, young and the
+								old. Help enable a rapid response to disasters. Your
+								contribution can make a difference.`;
+	const { redCrossCauses, selectedCause, onRedCrossCauseSelect } = useContext(
+		RedcrossCausesContext
+	);
 	const [step, setStep] = useState(0);
-	const [selectedCause, setSelectedCause] = useState("");
+
+	console.log({ redCrossCauses, selectedCause });
 
 	const onCauseSelect = (event: SelectChangeEvent) => {
-		setSelectedCause(event.target.value);
+		console.log(event.target);
+		onRedCrossCauseSelect(event.target.value);
 	};
 	const handleContinue = () => {
 		if (step >= 0 && step < 3) {
@@ -44,15 +43,15 @@ export default function Home() {
 					<div className="flex justify-end w-full h-full ">
 						<Image
 							className={`${selectedCause && "opacity-20"} z-10`}
-							src={`/${selectedCause || "maasai"}.jpg`}
+							src={`/${selectedCause?.value || "maasai"}.jpg`}
 							alt=""
 							fill
 						/>
 					</div>
-					{selectedCause && (
+					{selectedCause && step > 0 && (
 						<div className="z-20 absolute top-[30%] h-[400px] bg-[#dc1a22] w-auto text-white opacity-70 flex flex-col text-center justify-center">
 							<div>
-								<h1 className="text-3xl">{`Support ${selectedCause}`}</h1>
+								<h1 className="text-3xl">{`Support ${selectedCause?.label}`}</h1>
 								<p className="px-5 mt-5">
 									Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
 									do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -71,19 +70,18 @@ export default function Home() {
 				{step === 0 && (
 					<div className="flex flex-col justify-center flex-1 text-center bg-white space-y-[50px] md:px-5">
 						<div>
-							<h1 className="text-5xl text-[#dc1a22]">Support our Cause</h1>
+							<h1 className="text-5xl text-[#dc1a22]">{`Support ${
+								selectedCause?.label || "our Cause"
+							}`}</h1>
 							<p className="px-5 mt-5">
-								Donate today to support humanitarian work around Kenya. In times
-								of crisis, we meet the urgent needs of women, men, young and the
-								old. Help enable a rapid response to disasters. Your
-								contribution can make a difference.
+								{selectedCause?.description || defaultDescription}
 							</p>
 						</div>
 
 						<div>
 							<SelectDropdown
-								dropDownOptions={causeOptions}
-								selectedOption={selectedCause}
+								dropDownOptions={redCrossCauses}
+								selectedOption={selectedCause?.value || ""}
 								onChange={onCauseSelect}
 							/>
 						</div>
