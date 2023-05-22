@@ -34,12 +34,7 @@ const Label = ({ processingFee, currency }: LabelProps) => (
 	</div>
 );
 
-const DonationFormAmount = ({
-	donation,
-	setDonation,
-
-	processingFee,
-}: Props) => {
+const DonationFormAmount = ({ processingFee }: Props) => {
 	const [activeTab, setActiveTab] = useState(0);
 	const [recommended, setRecommended] = useState<any[]>([]);
 	const [showOtherAmountInput, setShowOtherAmountInput] = useState(false);
@@ -49,6 +44,7 @@ const DonationFormAmount = ({
 		setSelectedCurrency,
 		setDonationOption,
 		toggleHandleProcessingFee,
+		setDonationAmount,
 	} = useContext(DonationFormContext);
 
 	useEffect(() => {
@@ -142,7 +138,7 @@ const DonationFormAmount = ({
 								}`}
 								onClick={() => {
 									setSelectedCurrency(currency);
-									setDonation("");
+									setDonationAmount("");
 								}}
 							>
 								{currency}
@@ -158,14 +154,19 @@ const DonationFormAmount = ({
 					{recommended.map((amount) => (
 						<div key={amount} className="flex">
 							<Button
+								className={`${
+									(amount === donationFormDetails?.donationAmount &&
+										"bg-[#ed1c24] text-white hover:bg-[#ed1c24]") ||
+									""
+								}`}
 								variant="outlined"
 								onClick={() => {
 									if (amount === "Other") {
 										setShowOtherAmountInput(true);
-										setDonation("");
+										setDonationAmount("");
 									} else {
 										setShowOtherAmountInput(false);
-										setDonation(amount);
+										setDonationAmount(amount);
 									}
 								}}
 							>
@@ -185,14 +186,14 @@ const DonationFormAmount = ({
 					{showOtherAmountInput && (
 						<Input
 							placeholder="Enter amount"
-							value={donation}
-							onChange={(event) => setDonation(event.target.value)}
+							value={donationFormDetails?.donationAmount}
+							onChange={(event) => setDonationAmount(event.target.value)}
 						/>
 					)}
 				</div>
 			</div>
 
-			{donation && (
+			{donationFormDetails?.donationAmount && (
 				<div>
 					<FormGroup>
 						<FormControlLabel
