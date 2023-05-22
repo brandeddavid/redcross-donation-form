@@ -42,48 +42,52 @@ function DonationForm({ step, onContinue, onBack }: Props) {
 				{step === 2 && <DonationFormPersonalDetails />}
 				{step === 3 && <DonationFormPayment />}
 			</div>
+			<div>
+				<Divider />
+				<CardActions className="flex flex-col p-5">
+					<div className="flex text-left">
+						{step === 2 && (
+							<p className="mb-5 text-sm text-gray-500">
+								You are donating
+								<span className="text-[#ed1c24]">{` ${
+									donationFormDetails?.selectedCurrency
+								} ${
+									donationFormDetails?.handleProcessingFee
+										? donationFormDetails?.totalDonationAmount
+										: donationFormDetails?.donationAmount
+								}`}</span>{" "}
+								{`to ${selectedCause?.label}`}
+							</p>
+						)}
+					</div>
+					<div className="flex flex-row justify-between w-full">
+						<div>
+							<Button
+								className="px-[10px] justify-start"
+								variant="outlined"
+								onClick={onBack}
+							>
+								Back
+							</Button>
+						</div>
 
-			{step !== 3 && (
-				<div>
-					<Divider />
-					<CardActions className="flex flex-col p-5">
-						<div className="flex text-left">
-							{step === 2 && (
-								<p className="mb-5 text-sm text-gray-500">
-									You are donating
-									<span className="text-[#ed1c24]">{` ${
-										donationFormDetails?.selectedCurrency
-									} ${
-										donationFormDetails?.handleProcessingFee
-											? donationFormDetails?.totalDonationAmount
-											: donationFormDetails?.donationAmount
-									}`}</span>{" "}
-									{`to ${selectedCause?.label}`}
-								</p>
-							)}
+						<div>
+							<Button
+								className="px-[10px] bg-[#ed1c24] text-white hover:bg-[#ed1c24]"
+								onClick={onContinue}
+							>
+								{step !== 3
+									? "Continue"
+									: `Donate ${donationFormDetails?.selectedCurrency} ${
+											donationFormDetails?.handleProcessingFee
+												? donationFormDetails?.totalDonationAmount
+												: donationFormDetails?.donationAmount
+									  }`}
+							</Button>
 						</div>
-						<div className="flex flex-row justify-between w-full">
-							<div>
-								<Button
-									className="px-[10px] justify-start"
-									variant="outlined"
-									onClick={onBack}
-								>
-									Back
-								</Button>
-							</div>
-							<div>
-								<Button
-									className="px-[10px] bg-[#ed1c24] text-white hover:bg-[#ed1c24]"
-									onClick={onContinue}
-								>
-									{step !== 3 ? "Continue" : "Donate"}
-								</Button>
-							</div>
-						</div>
-					</CardActions>
-				</div>
-			)}
+					</div>
+				</CardActions>
+			</div>
 		</div>
 	);
 }
