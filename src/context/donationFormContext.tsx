@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useCallback, useEffect, useState } from "react";
 
 type Props = {
 	children: JSX.Element;
@@ -11,6 +11,8 @@ type DonationFormDetails = {
 	handleProcessingFee: boolean;
 	donateAnonymously: boolean;
 	donationAmount: number | string;
+	processingFee: string;
+	totalDonationAmount: string;
 } | null;
 type DonationFormDetailsContext = {
 	donationFormDetails: DonationFormDetails | null;
@@ -29,6 +31,8 @@ const initialFormDetails = {
 	handleProcessingFee: false,
 	donateAnonymously: false,
 	donationAmount: "",
+	processingFee: "",
+	totalDonationAmount: "",
 };
 
 export const DonationFormContext = createContext<DonationFormDetailsContext>({
@@ -44,10 +48,6 @@ export const DonationFormContext = createContext<DonationFormDetailsContext>({
 const DonationFormProvider = ({ children }: Props) => {
 	const [donationFormDetails, setDonationFormDetails] =
 		useState(initialFormDetails);
-
-	useEffect(() => {
-		setDonationFormDetails({ ...initialFormDetails });
-	}, []);
 
 	const setDonateAs = (option: string) => {
 		setDonationFormDetails({ ...donationFormDetails, donateAs: option });
@@ -87,6 +87,53 @@ const DonationFormProvider = ({ children }: Props) => {
 			donationAmount: amount,
 		});
 	};
+
+	useEffect(() => {
+		setDonationFormDetails({ ...initialFormDetails });
+	}, []);
+
+	const setProcessingFee = useCallback(
+		(amount: string) => {
+			setDonationFormDetails({
+				...donationFormDetails,
+				processingFee: amount,
+			});
+		},
+		[donationFormDetails]
+	);
+
+	const setTotalDonationAmount = useCallback(
+		(amount: string) => {
+			setDonationFormDetails({
+				...donationFormDetails,
+				totalDonationAmount: amount,
+			});
+		},
+		[donationFormDetails]
+	);
+
+	const { donationAmount, handleProcessingFee, processingFee } =
+		donationFormDetails;
+
+	useEffect(() => {
+		if (donationAmount) {
+			const fee = 0.1 * Number(donationAmount);
+			setProcessingFee(fee.toString());
+		}
+	}, [donationAmount, setProcessingFee]);
+
+	useEffect(() => {
+		if (handleProcessingFee && donationAmount) {
+			setTotalDonationAmount(
+				(Number(donationAmount) + Number(processingFee)).toString()
+			);
+		}
+	}, [
+		handleProcessingFee,
+		donationAmount,
+		setTotalDonationAmount,
+		processingFee,
+	]);
 
 	return (
 		<DonationFormContext.Provider

@@ -17,23 +17,8 @@ type Props = {
 const steps = ["Cause", "Amount", "Donate", "Pay"];
 
 function DonationForm({ step, onContinue, onBack }: Props) {
-	const [donation, setDonation] = useState<number | string>("");
-	const [processingFee, setProcessingFee] = useState(0);
-	const [totalDonationAmount, setTotalDonationAmount] = useState<
-		number | string
-	>(0);
-
 	const { donationFormDetails } = useContext(DonationFormContext);
 	const { selectedCause } = useContext(RedcrossCausesContext);
-
-	useEffect(() => {
-		if (donation) {
-			const fee = 0.1 * Number(donation);
-
-			setProcessingFee(fee);
-			setTotalDonationAmount(Number(donation) + processingFee);
-		}
-	}, [donation, processingFee]);
 
 	return (
 		<div className="flex flex-col justify-between w-full md:w-[400px] lg:w-[600px]">
@@ -53,13 +38,7 @@ function DonationForm({ step, onContinue, onBack }: Props) {
 			</div>
 
 			<div className="h-full">
-				{step === 1 && (
-					<DonationFormAmount
-						donation={donation}
-						setDonation={setDonation}
-						processingFee={processingFee}
-					/>
-				)}
+				{step === 1 && <DonationFormAmount />}
 				{step === 2 && <DonationFormPersonalDetails />}
 				{step === 3 && <DonationFormPayment />}
 			</div>
@@ -76,8 +55,8 @@ function DonationForm({ step, onContinue, onBack }: Props) {
 										donationFormDetails?.selectedCurrency
 									} ${
 										donationFormDetails?.handleProcessingFee
-											? totalDonationAmount
-											: donation
+											? donationFormDetails?.totalDonationAmount
+											: donationFormDetails?.donationAmount
 									}`}</span>{" "}
 									{`to ${selectedCause?.label}`}
 								</p>

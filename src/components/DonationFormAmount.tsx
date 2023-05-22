@@ -13,13 +13,9 @@ import RadioButton from "./RadioButton";
 import Button from "../components/Button";
 import { DonationFormContext } from "../context/donationFormContext";
 
-type Props = {
-	donation: string | number;
-	setDonation: (value: string) => void;
-	processingFee: number;
-};
+type Props = {};
 type LabelProps = {
-	processingFee: number;
+	processingFee: string;
 	currency: string | undefined;
 };
 
@@ -34,7 +30,7 @@ const Label = ({ processingFee, currency }: LabelProps) => (
 	</div>
 );
 
-const DonationFormAmount = ({ processingFee }: Props) => {
+const DonationFormAmount = ({}: Props) => {
 	const [activeTab, setActiveTab] = useState(0);
 	const [recommended, setRecommended] = useState<any[]>([]);
 	const [showOtherAmountInput, setShowOtherAmountInput] = useState(false);
@@ -46,6 +42,8 @@ const DonationFormAmount = ({ processingFee }: Props) => {
 		toggleHandleProcessingFee,
 		setDonationAmount,
 	} = useContext(DonationFormContext);
+
+	console.log({ donationFormDetails });
 
 	useEffect(() => {
 		const individualKSH = [100, 500, 1000, "Other"];
@@ -205,7 +203,7 @@ const DonationFormAmount = ({ processingFee }: Props) => {
 							}
 							label={
 								<Label
-									processingFee={processingFee}
+									processingFee={donationFormDetails?.processingFee}
 									currency={donationFormDetails?.selectedCurrency}
 								/>
 							}
