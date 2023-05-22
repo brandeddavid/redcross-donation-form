@@ -47,13 +47,14 @@ export default function Home() {
 		<ThemeProvider theme={theme}>
 			<main className="flex w-full min-h-screen">
 				<div className="relative flex-col justify-center flex-1 hidden bg-[#f8f9fa] md:flex">
-					<div className="flex justify-end w-full h-[700px]">
+					<div className="flex justify-end w-full">
 						<Image
 							className={`${step > 0 ? "opacity-20" : "opacity-50"} z-10`}
 							src={`/${selectedCause || "maasai"}.jpg`}
 							alt=""
-							height={700}
-							width={700}
+							// height={700}
+							// width={700}
+							fill
 						/>
 					</div>
 					{selectedCause && step > 0 && (
@@ -73,14 +74,28 @@ export default function Home() {
 
 				{step === 0 && (
 					<div className="flex flex-col justify-center flex-1 text-center bg-white space-y-[50px] md:px-5">
-						<div className="bg-[#ed1c24] p-[20px]">
-							<h1 className="text-5xl text-white">Support our Cause</h1>
-							<p className="px-5 mt-5 text-white">
-								Donate today to support humanitarian work around Kenya. In times
-								of crisis, we meet the urgent needs of women, men, young and the
-								old. Help enable a rapid response to disasters. Your
-								contribution can make a difference.
-							</p>
+						<div>
+							<div className="relative flex flex-col md:hidden">
+								{selectedCause && (
+									<Image
+										className={`${step > 0 ? "opacity-20" : "opacity-50"}`}
+										src={`/${selectedCause || "maasai"}.jpg`}
+										alt=""
+										height={200}
+										width={500}
+									/>
+								)}
+							</div>
+
+							<div className="bg-[#ed1c24] p-[20px] absolute justify-center top-20">
+								<h1 className="text-5xl text-white">Support our Cause</h1>
+								<p className="px-5 mt-5 text-white">
+									Donate today to support humanitarian work around Kenya. In
+									times of crisis, we meet the urgent needs of women, men, young
+									and the old. Help enable a rapid response to disasters. Your
+									contribution can make a difference.
+								</p>
+							</div>
 						</div>
 
 						<div>
