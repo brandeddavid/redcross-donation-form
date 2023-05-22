@@ -80,7 +80,7 @@ function DonationForm({ step, onContinue, onBack, selectedCause }: Props) {
 							{step === 2 && (
 								<p className="mb-5 text-sm text-gray-500">
 									You are donating
-									<span className="text-[#dc1a22]">{` ${selectedCurrency} ${
+									<span className="text-[#ed1c24]">{` ${selectedCurrency} ${
 										handleProcessingFee ? totalDonationAmount : donation
 									}`}</span>{" "}
 									{`to ${selectedCause}`}
@@ -99,7 +99,7 @@ function DonationForm({ step, onContinue, onBack, selectedCause }: Props) {
 							</div>
 							<div>
 								<Button
-									className="px-[10px] bg-[#dc1a22] text-white hover:bg-[#dc1a22]"
+									className="px-[10px] bg-[#ed1c24] text-white hover:bg-[#ed1c24]"
 									onClick={onContinue}
 								>
 									{step !== 3 ? "Continue" : "Donate"}

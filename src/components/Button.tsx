@@ -6,6 +6,7 @@ type Props = {
 	onClick: () => void;
 	variant?: "text" | "outlined" | "contained";
 	className?: string;
+	disabled?: boolean;
 };
 
 const styles = () => ({
@@ -19,6 +20,7 @@ const Button = ({
 	onClick,
 	variant = "outlined",
 	className = "",
+	disabled = false,
 }: Props) => {
 	return (
 		<Btn
@@ -32,6 +34,7 @@ const Button = ({
 					color: "white",
 				},
 			}}
+			disabled={disabled}
 		>
 			{children}
 		</Btn>

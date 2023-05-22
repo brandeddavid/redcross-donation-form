@@ -35,7 +35,7 @@ function RadioButton({
 							<Radio
 								sx={{
 									"&.Mui-checked": {
-										color: "#dc1a22",
+										color: "#ed1c24",
 									},
 								}}
 								onChange={() => onChange(value)}

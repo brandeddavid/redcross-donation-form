@@ -34,7 +34,7 @@ const acceptedCurrency = ["KES", "USD"];
 const Label = ({ processingFee, currency }: LabelProps) => (
 	<div className="text-sm text-gray-500">
 		Please add{" "}
-		<span className="text-[#dc1a22]">{`${currency} ${processingFee}`}</span> to
+		<span className="text-[#ed1c24]">{`${currency} ${processingFee}`}</span> to
 		cover processing fees & other expenses associated with my donation
 	</div>
 );
@@ -125,7 +125,7 @@ const DonationFormAmount = ({
 								key={currency}
 								className={`${
 									(currency === selectedCurrency &&
-										"bg-[#dc1a22] text-white hover:bg-[#dc1a22]") ||
+										"bg-[#ed1c24] text-white hover:bg-[#ed1c24]") ||
 									""
 								}`}
 								onClick={() => {

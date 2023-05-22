@@ -15,7 +15,7 @@ const FormHeader = ({ step }: Props) => {
 
 	return (
 		<div className="border-0 border-b border-blue-900 border-solid">
-			<h1 className="text-3xl text-[#dc1a22]">{`Step ${step}`}</h1>
+			<h1 className="text-3xl text-[#ed1c24]">{`Step ${step}`}</h1>
 			<h1 className="mt-5 mb-5 text-3xl">{getHeader(step)}</h1>
 		</div>
 	);
