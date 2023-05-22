@@ -75,7 +75,7 @@ const DonationFormAmount = ({
 	}, [donateAs, selectedCurrency]);
 
 	return (
-		<div className="py-[50px] px-5 flex flex-col space-y-[30px]">
+		<div className="py-[10px] md:py-[50px] md:px-5 flex flex-col space-y-[20px] md:space-y-[30px]">
 			<RadioButton
 				formLabel="Select donate as"
 				radioOptions={[
