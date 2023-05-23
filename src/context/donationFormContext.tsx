@@ -126,6 +126,8 @@ const DonationFormProvider = ({ children }: Props) => {
 	const { donationAmount, handleProcessingFee, processingFee } =
 		donationFormDetails;
 
+	// TODO Check why this causes infinite refreshes
+
 	useEffect(() => {
 		if (donationAmount) {
 			const fee = 0.1 * Number(donationAmount);
