@@ -8,14 +8,73 @@ import {
 	Select,
 	InputLabel,
 	FormControl,
+	MenuItem,
 } from "@mui/material";
 import { DonationFormContext } from "../context/donationFormContext";
 
 type Props = {};
+type CountryOption = {
+	label: string;
+	value: string;
+};
 
 const DonationFormPersonalDetails = ({}: Props) => {
-	const { donationFormDetails, setDonateAnonymously } =
-		useContext(DonationFormContext);
+	const {
+		donationFormDetails,
+		setDonateAnonymously,
+		setFirstName,
+		setLastName,
+		setCompanyName,
+		setAddress,
+		setCountry,
+		setCounty,
+		setEmail,
+		setPhoneNumber,
+	} = useContext(DonationFormContext);
+
+	const countryList = [
+		{
+			value: "KE",
+			label: "Kenya",
+		},
+		,
+		{
+			value: "US",
+			label: "United States",
+		},
+		{
+			value: "CA",
+			label: "Canada",
+		},
+		{
+			value: "AU",
+			label: "Australia",
+		},
+		{
+			value: "BR",
+			label: "Brazil",
+		},
+		{
+			value: "IN",
+			label: "India",
+		},
+		{
+			value: "GB",
+			label: "United Kingdom",
+		},
+		{
+			value: "NZ",
+			label: "New Zealand",
+		},
+		{
+			value: "SG",
+			label: "Singapore",
+		},
+		{
+			value: "JP",
+			label: "Japan",
+		},
+	];
 
 	return (
 		<div className="p-[30px] flex flex-col space-y-[40px]">
@@ -41,6 +100,10 @@ const DonationFormPersonalDetails = ({}: Props) => {
 								placeholder="Enter company name"
 								variant="standard"
 								fullWidth
+								value={donationFormDetails?.companyName}
+								onChange={(event) => {
+									setCompanyName(event.target.value);
+								}}
 							/>
 						</div>
 					)}
@@ -50,12 +113,20 @@ const DonationFormPersonalDetails = ({}: Props) => {
 							placeholder="Enter first name"
 							variant="standard"
 							className="flex-1"
+							value={donationFormDetails?.firstName}
+							onChange={(event) => {
+								setFirstName(event.target.value);
+							}}
 						/>
 						<TextField
 							label="Last name"
 							placeholder="Enter last name"
 							variant="standard"
 							className="flex-1"
+							value={donationFormDetails?.lastName}
+							onChange={(event) => {
+								setLastName(event.target.value);
+							}}
 						/>
 					</div>
 					<div className="flex">
@@ -64,6 +135,11 @@ const DonationFormPersonalDetails = ({}: Props) => {
 							placeholder="Enter email"
 							variant="standard"
 							fullWidth
+							type="email"
+							value={donationFormDetails?.email}
+							onChange={(event) => {
+								setEmail(event.target.value);
+							}}
 						/>
 					</div>
 					<div className="flex">
@@ -72,6 +148,10 @@ const DonationFormPersonalDetails = ({}: Props) => {
 							placeholder="Enter phone"
 							variant="standard"
 							fullWidth
+							value={donationFormDetails?.phoneNumber}
+							onChange={(event) => {
+								setPhoneNumber(event.target.value);
+							}}
 						/>
 					</div>
 					<div className="flex justify-between space-x-5">
@@ -83,22 +163,38 @@ const DonationFormPersonalDetails = ({}: Props) => {
 								label="Country"
 								placeholder="Enter Country"
 								variant="standard"
-								value="Kenya"
 								fullWidth
-							/>
+								value={donationFormDetails?.country}
+								onChange={(event) => {
+									setCountry(event.target.value);
+								}}
+							>
+								{countryList.map(({ label, value }: CountryOption) => {
+									return (
+										<MenuItem key={value} value={value}>
+											{label}
+										</MenuItem>
+									);
+								})}
+							</Select>
 						</FormControl>
-						<FormControl variant="standard" className="flex-1">
-							<InputLabel id="demo-simple-select-standard-label">
-								County/Region/State
-							</InputLabel>
-							<Select
-								label="County/Region/State"
-								placeholder="Enter County/Region/State"
-								variant="standard"
-								value="Nairobi"
-								fullWidth
-							/>
-						</FormControl>
+						{donationFormDetails?.country === "KE" && (
+							<FormControl variant="standard" className="flex-1">
+								<InputLabel id="demo-simple-select-standard-label">
+									County/Region/State
+								</InputLabel>
+								<Select
+									label="County/Region/State"
+									placeholder="Enter County/Region/State"
+									variant="standard"
+									value={donationFormDetails?.county}
+									onChange={(event) => {
+										setCounty(event.target.value);
+									}}
+									fullWidth
+								/>
+							</FormControl>
+						)}
 					</div>
 					<div className="flex mb-[40px]">
 						<TextField
@@ -106,6 +202,10 @@ const DonationFormPersonalDetails = ({}: Props) => {
 							placeholder="Enter physical address"
 							variant="standard"
 							fullWidth
+							value={donationFormDetails?.address}
+							onChange={(event) => {
+								setAddress(event.target.value);
+							}}
 						/>
 					</div>
 				</FormGroup>
