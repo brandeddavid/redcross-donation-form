@@ -20,7 +20,7 @@ export default function RootLayout({
 		<DonationFormProvider>
 			<RedcrossCausesProvider>
 				<html lang="en">
-					<body className={`${inter.className} bg-[#f8f9fa]`}>
+					<body className={`${inter.className}`}>
 						<div className="h-[100px] bg-slate-800 text-white fixed top-0 left-0 right-0 z-50">
 							<header>NavBarHere</header>
 						</div>
