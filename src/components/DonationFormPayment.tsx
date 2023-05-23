@@ -8,8 +8,12 @@ type Props = {};
 const paymentOptions = ["Mpesa", "Card", "Airtel Money", "TKash"];
 
 const DonationFormPayment = ({}: Props) => {
-	const { donationFormDetails, setPaymentOption } =
-		useContext(DonationFormContext);
+	const {
+		donationFormDetails,
+		setPaymentOption,
+		setDonationAmount,
+		setPhoneNumber,
+	} = useContext(DonationFormContext);
 
 	return (
 		<div className="space-y-[40px]">
@@ -37,6 +41,10 @@ const DonationFormPayment = ({}: Props) => {
 							label="Enter Mpesa Number"
 							placeholder="Enter Mpesa number"
 							variant="standard"
+							value={donationFormDetails?.phoneNumber}
+							onChange={(event) => {
+								setPhoneNumber(event.target.value);
+							}}
 						/>
 
 						<TextField
@@ -48,6 +56,9 @@ const DonationFormPayment = ({}: Props) => {
 									? donationFormDetails?.totalDonationAmount
 									: donationFormDetails?.donationAmount
 							}`}
+							onChange={(event) => {
+								setDonationAmount(event.target.value);
+							}}
 						/>
 					</div>
 				</div>

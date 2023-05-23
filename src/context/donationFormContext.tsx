@@ -14,6 +14,14 @@ type DonationFormDetails = {
 	processingFee: string;
 	totalDonationAmount: string;
 	paymentOption: string;
+	companyName: string;
+	firstName: string;
+	lastName: string;
+	email: string;
+	phoneNumber: string;
+	country: string;
+	county: string;
+	address: string;
 } | null;
 type DonationFormDetailsContext = {
 	donationFormDetails: DonationFormDetails | null;
@@ -24,6 +32,14 @@ type DonationFormDetailsContext = {
 	setDonateAnonymously: () => void;
 	setDonationAmount: (amount: string) => void;
 	setPaymentOption: (value: string) => void;
+	setFirstName: (value: string) => void;
+	setLastName: (value: string) => void;
+	setCompanyName: (value: string) => void;
+	setEmail: (value: string) => void;
+	setPhoneNumber: (value: string) => void;
+	setCountry: (value: string) => void;
+	setCounty: (value: string) => void;
+	setAddress: (value: string) => void;
 };
 
 const initialFormDetails = {
@@ -36,6 +52,14 @@ const initialFormDetails = {
 	processingFee: "",
 	totalDonationAmount: "",
 	paymentOption: "Mpesa",
+	companyName: "",
+	firstName: "",
+	lastName: "",
+	email: "",
+	phoneNumber: "",
+	country: "KE",
+	county: "",
+	address: "",
 };
 
 export const DonationFormContext = createContext<DonationFormDetailsContext>({
@@ -47,6 +71,14 @@ export const DonationFormContext = createContext<DonationFormDetailsContext>({
 	setDonateAnonymously: () => {},
 	setDonationAmount: () => {},
 	setPaymentOption: () => {},
+	setFirstName: () => {},
+	setLastName: () => {},
+	setCompanyName: () => {},
+	setEmail: () => {},
+	setPhoneNumber: () => {},
+	setCountry: () => {},
+	setCounty: () => {},
+	setAddress: () => {},
 });
 
 const DonationFormProvider = ({ children }: Props) => {
@@ -123,8 +155,62 @@ const DonationFormProvider = ({ children }: Props) => {
 		});
 	};
 
+	const setCompanyName = (value: string) => {
+		setDonationFormDetails({
+			...donationFormDetails,
+			companyName: value,
+		});
+	};
+
+	const setFirstName = (value: string) => {
+		setDonationFormDetails({
+			...donationFormDetails,
+			firstName: value,
+		});
+	};
+
+	const setLastName = (value: string) => {
+		setDonationFormDetails({
+			...donationFormDetails,
+			lastName: value,
+		});
+	};
+
+	const setEmail = (value: string) => {
+		setDonationFormDetails({
+			...donationFormDetails,
+			email: value,
+		});
+	};
+	const setPhoneNumber = (value: string) => {
+		setDonationFormDetails({
+			...donationFormDetails,
+			phoneNumber: value,
+		});
+	};
+	const setCountry = (value: string) => {
+		setDonationFormDetails({
+			...donationFormDetails,
+			country: value,
+		});
+	};
+	const setCounty = (value: string) => {
+		setDonationFormDetails({
+			...donationFormDetails,
+			county: value,
+		});
+	};
+	const setAddress = (value: string) => {
+		setDonationFormDetails({
+			...donationFormDetails,
+			address: value,
+		});
+	};
+
 	const { donationAmount, handleProcessingFee, processingFee } =
 		donationFormDetails;
+
+	// TODO Check why this causes infinite refreshes
 
 	useEffect(() => {
 		if (donationAmount) {
@@ -157,6 +243,14 @@ const DonationFormProvider = ({ children }: Props) => {
 				setDonateAnonymously,
 				setDonationAmount,
 				setPaymentOption,
+				setFirstName,
+				setLastName,
+				setCompanyName,
+				setAddress,
+				setCountry,
+				setCounty,
+				setEmail,
+				setPhoneNumber,
 			}}
 		>
 			{children}
