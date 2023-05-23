@@ -32,12 +32,11 @@ const DonationFormPersonalDetails = ({}: Props) => {
 		setPhoneNumber,
 	} = useContext(DonationFormContext);
 
-	const countryList = [
+	const countryList: CountryOption[] = [
 		{
 			value: "KE",
 			label: "Kenya",
 		},
-		,
 		{
 			value: "US",
 			label: "United States",
