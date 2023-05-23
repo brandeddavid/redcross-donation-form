@@ -21,10 +21,13 @@ export default function RootLayout({
 			<RedcrossCausesProvider>
 				<html lang="en">
 					<body className={`${inter.className} bg-[#f8f9fa]`}>
-						<div className="h-[100px] sticky bg-slate-800 text-white">
-							NavBarHere
+						<div className="h-[100px] bg-slate-800 text-white fixed top-0 left-0 right-0 z-50">
+							<header>NavBarHere</header>
 						</div>
-						{children}
+
+						<div className="absolute top-[100px] left-0 right-0 z-10">
+							{children}
+						</div>
 					</body>
 				</html>
 			</RedcrossCausesProvider>

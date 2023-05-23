@@ -36,14 +36,13 @@ export default function Home() {
 
 	return (
 		<ThemeProvider theme={theme}>
-			<main className="flex w-full min-h-screen md:h-full">
+			<main className="flex w-full">
 				<div className="relative flex-col justify-center flex-1 hidden md:flex max-h-[650px]">
-					<div className="flex justify-end w-full h-full ">
+					<div className="flex justify-end w-full">
 						<Image
 							className="z-10 opacity-50"
 							src={`/${selectedCause?.value || "maasai"}.jpg`}
 							alt=""
-							// fill
 							height={400}
 							width={400}
 						/>
@@ -90,7 +89,7 @@ export default function Home() {
 					</div>
 				)}
 				{step > 0 && (
-					<div className="flex flex-col flex-1 bg-white space-y-[20px] md:h-[650px] overflow-scroll px-10 py-[50px] md:max-w-[300px]">
+					<div className="flex flex-col flex-1 bg-white space-y-[20px] md:h-[650px] overflow-scroll px-10 py-[50px]">
 						<DonationForm
 							step={step}
 							onBack={handleBack}
