@@ -16,12 +16,14 @@ const NavBar = (props: Props) => {
 		<nav className="relative w-full p-5">
 			<div className="flex justify-between w-full md:justify-evenly">
 				<div>
-					<Image
-						src="https://www.redcross.or.ke/assets/img/redcross-logo.svg"
-						height={100}
-						width={100}
-						alt=""
-					/>
+					<Link href="/">
+						<Image
+							src="https://www.redcross.or.ke/assets/img/redcross-logo.svg"
+							height={100}
+							width={100}
+							alt=""
+						/>
+					</Link>
 				</div>
 				<div className="absolute right-[30px] md:hidden">
 					<MenuIcon fontSize="large" sx={{ fill: "gray" }} />

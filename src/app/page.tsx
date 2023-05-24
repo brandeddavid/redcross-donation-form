@@ -37,7 +37,7 @@ export default function Home() {
 	return (
 		<ThemeProvider theme={theme}>
 			<main className="flex w-full bg-[#f8f9fa]">
-				<div className="relative flex-col justify-center flex-1 hidden md:flex max-h-[650px] bg-[#f8f9fa]">
+				<div className="relative flex-col justify-center flex-1 hidden md:flex max-h-[650px] bg-[#f8f9fa] overflow-hidden">
 					<div className="flex justify-end w-full">
 						<Image
 							className="z-10 opacity-50"
