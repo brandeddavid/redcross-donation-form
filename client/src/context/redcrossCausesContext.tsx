@@ -1,5 +1,6 @@
 "use client";
 import React, { createContext, useEffect, useState } from "react";
+import axios from "axios";
 
 type Props = {
 	children: JSX.Element;
@@ -18,25 +19,6 @@ type RedcrossCausesContext = {
 	selectedCause: RedCrossCause | null;
 	onRedCrossCauseSelect: (option: string) => void;
 };
-
-const initialCauses = [
-	{
-		id: 1,
-		label: "Red Cross 1",
-		value: "red-cross-1",
-		description: `Donate today to support Redcross 1. In times of crisis, we meet the urgent needs of women, men, young and the old. Help enable a rapid response to disasters. Your contribution can make a difference.`,
-		startDate: "7/11/2023",
-		endDate: "17/10/2024",
-	},
-	{
-		id: 2,
-		label: "Red Cross 2",
-		value: "red-cross-2",
-		description: `Donate today to support Redcross 2. In times of crisis, we meet the urgent needs of women, men, young and the old. Help enable a rapid response to disasters. Your contribution can make a difference.`,
-		startDate: "7/11/2022",
-		endDate: "1/12/2023",
-	},
-];
 
 export const RedcrossCausesContext = createContext<RedcrossCausesContext>({
 	redCrossCauses: [],
@@ -59,7 +41,31 @@ const RedcrossCausesProvider = ({ children }: Props) => {
 	};
 
 	useEffect(() => {
-		setRedCrossCauses([...initialCauses]);
+		const fetchCampaigns = async () => {
+			try {
+				const res = await axios.get("http://localhost:8800/campaigns");
+				const { data } = res;
+
+				const formattedData = data.map(
+					({ id, name, description, start_date, end_date }) => {
+						return {
+							id,
+							label: name,
+							value: name,
+							description,
+							startDate: start_date,
+							endDate: end_date,
+						};
+					}
+				);
+
+				setRedCrossCauses(formattedData);
+			} catch (error) {
+				console.error(error);
+			}
+		};
+
+		fetchCampaigns();
 	}, []);
 
 	return (

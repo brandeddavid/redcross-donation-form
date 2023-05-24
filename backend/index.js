@@ -1,8 +1,12 @@
 import express from "express";
-import mysql, { raw } from "mysql";
+import mysql from "mysql";
+import cors from "cors";
 
 const app = express();
 const port = 8800;
+
+app.use(express.json());
+app.use(cors());
 
 const db = mysql.createConnection({
 	host: "localhost",
