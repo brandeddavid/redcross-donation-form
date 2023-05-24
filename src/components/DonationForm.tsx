@@ -26,7 +26,7 @@ function DonationForm({ step, onContinue, onBack }: Props) {
 				<Stepper
 					activeStep={step}
 					alternativeLabel
-					className="px-[10px] md:py-[20px]"
+					className="px-[10px] py-[20px]"
 				>
 					{steps.map((label) => (
 						<Step key={label}>

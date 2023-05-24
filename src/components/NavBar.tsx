@@ -13,7 +13,7 @@ type Props = {};
 
 const NavBar = (props: Props) => {
 	return (
-		<nav className="relative w-full p-5">
+		<nav className="relative w-full p-5 border border-b-1">
 			<div className="flex justify-between w-full md:justify-evenly">
 				<div>
 					<Link href="/">
