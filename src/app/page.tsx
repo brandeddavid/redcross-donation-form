@@ -43,7 +43,7 @@ export default function Home() {
 							className="z-10 opacity-50"
 							src={`/${selectedCause?.value || "maasai"}.jpg`}
 							alt=""
-							height={650}
+							height={600}
 							width={400}
 						/>
 					</div>
@@ -60,7 +60,7 @@ export default function Home() {
 				</div>
 
 				{step === 0 && (
-					<div className="flex flex-col md:justify-center flex-1 text-center space-y-[50px]">
+					<div className="flex flex-col md:justify-center flex-1 text-center space-y-[50px] bg-white">
 						<div className="bg-[#ed1c24] text-white p-[20px] md:p-[40px]">
 							<h1 className="text-5xl">{`Support ${
 								selectedCause?.label || "our Cause"
