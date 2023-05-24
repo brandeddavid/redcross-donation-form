@@ -22,7 +22,7 @@ function DonationForm({ step, onContinue, onBack }: Props) {
 
 	return (
 		<div className="flex flex-col justify-between">
-			<div>
+			<div className="sticky top-0 z-50 bg-white">
 				<Stepper
 					activeStep={step}
 					alternativeLabel
@@ -42,7 +42,7 @@ function DonationForm({ step, onContinue, onBack }: Props) {
 				{step === 2 && <DonationFormPersonalDetails />}
 				{step === 3 && <DonationFormPayment />}
 			</div>
-			<div>
+			<div className="sticky bottom-0 z-50 bg-white">
 				<Divider />
 				<CardActions className="flex flex-col p-5">
 					<div className="flex text-left">

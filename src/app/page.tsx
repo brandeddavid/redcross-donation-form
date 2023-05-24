@@ -89,7 +89,7 @@ export default function Home() {
 					</div>
 				)}
 				{step > 0 && (
-					<div className="flex flex-col flex-1 bg-white space-y-[20px] md:h-[650px] overflow-y-scroll px-10 py-[50px]">
+					<div className="flex flex-col flex-1 bg-white space-y-[20px] md:h-[650px] overflow-y-scroll px-10">
 						<DonationForm
 							step={step}
 							onBack={handleBack}
