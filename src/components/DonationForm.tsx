@@ -21,12 +21,12 @@ function DonationForm({ step, onContinue, onBack }: Props) {
 	const { selectedCause } = useContext(RedcrossCausesContext);
 
 	return (
-		<div className="flex flex-col justify-between w-full md:w-[400px] lg:w-[600px]">
+		<div className="flex flex-col justify-between">
 			<div>
 				<Stepper
 					activeStep={step}
 					alternativeLabel
-					className="px-[10px] py-[20px]"
+					className="px-[10px] md:py-[20px]"
 				>
 					{steps.map((label) => (
 						<Step key={label}>
@@ -37,7 +37,7 @@ function DonationForm({ step, onContinue, onBack }: Props) {
 				<Divider />
 			</div>
 
-			<div className="h-full">
+			<div className="">
 				{step === 1 && <DonationFormAmount />}
 				{step === 2 && <DonationFormPersonalDetails />}
 				{step === 3 && <DonationFormPayment />}

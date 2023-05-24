@@ -21,7 +21,6 @@ export default function Home() {
 	const [step, setStep] = useState(0);
 
 	const onCauseSelect = (event: SelectChangeEvent) => {
-		console.log(event.target);
 		onRedCrossCauseSelect(event.target.value);
 	};
 	const handleContinue = () => {
@@ -37,18 +36,19 @@ export default function Home() {
 
 	return (
 		<ThemeProvider theme={theme}>
-			<main className="flex w-full min-h-screen">
-				<div className="relative flex-col justify-center flex-1 hidden md:flex">
-					<div className="flex justify-end w-full h-full ">
+			<main className="flex w-full bg-[#f8f9fa]">
+				<div className="relative flex-col justify-center flex-1 hidden md:flex max-h-[650px] bg-[#f8f9fa] overflow-hidden">
+					<div className="flex justify-end w-full">
 						<Image
 							className="z-10 opacity-50"
 							src={`/${selectedCause?.value || "maasai"}.jpg`}
 							alt=""
-							fill
+							height={600}
+							width={400}
 						/>
 					</div>
 					{selectedCause && step > 0 && (
-						<div className="z-20 absolute top-[30%] h-[400px] bg-[#ed1c24] w-auto text-white opacity-70 flex flex-col text-center justify-center">
+						<div className="z-20 absolute w-[400px] right-0 h-[400px] bg-[#ed1c24] text-white opacity-70 flex flex-col text-center justify-center">
 							<div>
 								<h1 className="text-3xl">{`Support ${selectedCause?.label}`}</h1>
 								<p className="px-5 mt-5">
@@ -60,7 +60,7 @@ export default function Home() {
 				</div>
 
 				{step === 0 && (
-					<div className="flex flex-col justify-center flex-1 text-center bg-white space-y-[50px]">
+					<div className="flex flex-col md:justify-center flex-1 text-center space-y-[50px] bg-white">
 						<div className="bg-[#ed1c24] text-white p-[20px] md:p-[40px]">
 							<h1 className="text-5xl">{`Support ${
 								selectedCause?.label || "our Cause"
@@ -89,7 +89,7 @@ export default function Home() {
 					</div>
 				)}
 				{step > 0 && (
-					<div className="flex justify-center flex-1 bg-white space-y-[50px] md:p-5 md:max-w-[500px] px-10">
+					<div className="flex flex-col flex-1 bg-white space-y-[20px] md:h-[650px] overflow-y-scroll px-10 py-[50px]">
 						<DonationForm
 							step={step}
 							onBack={handleBack}

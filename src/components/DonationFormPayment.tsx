@@ -64,7 +64,7 @@ const DonationFormPayment = ({}: Props) => {
 				</div>
 			)}
 
-			{donationFormDetails?.paymentOption === "Card" && (
+			{/* {donationFormDetails?.paymentOption === "Card" && (
 				<div className="flex flex-col justify-center space-y-[40px]">
 					<Button onClick={() => {}}>{`Donate ${
 						donationFormDetails?.selectedCurrency
@@ -74,7 +74,7 @@ const DonationFormPayment = ({}: Props) => {
 							: donationFormDetails?.donationAmount
 					}`}</Button>
 				</div>
-			)}
+			)} */}
 
 			{donationFormDetails?.paymentOption === "Airtel Money" && (
 				<div>
