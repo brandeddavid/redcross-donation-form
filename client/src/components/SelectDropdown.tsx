@@ -5,7 +5,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 
-type Option = { label: string; value: string };
+type Option = { id: number; label: string; value: string };
 type Options = Array<Option>;
 type Props = {
 	dropDownOptions: Options;
@@ -24,8 +24,8 @@ function SelectDropdown({ dropDownOptions, selectedOption, onChange }: Props) {
 				label="Select a cause"
 				onChange={(option) => onChange(option)}
 			>
-				{dropDownOptions.map(({ label, value }) => (
-					<MenuItem key={value} value={value}>
+				{dropDownOptions.map(({ id, label, value }) => (
+					<MenuItem key={id} value={value}>
 						{label}
 					</MenuItem>
 				))}

@@ -59,7 +59,9 @@ const RedcrossCausesProvider = ({ children }: Props) => {
 					}
 				);
 
-				setRedCrossCauses(formattedData);
+				console.log(formattedData.length);
+
+				return setRedCrossCauses(formattedData);
 			} catch (error) {
 				console.error(error);
 			}

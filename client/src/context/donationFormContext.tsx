@@ -1,5 +1,6 @@
 "use client";
 import React, { createContext, useCallback, useEffect, useState } from "react";
+import axios from "axios";
 
 type Props = {
 	children: JSX.Element;
@@ -215,22 +216,45 @@ const DonationFormProvider = ({ children }: Props) => {
 	useEffect(() => {
 		if (donationAmount) {
 			const fee = 0.1 * Number(donationAmount);
-			setProcessingFee(fee.toString());
+			return setProcessingFee(fee.toString());
 		}
+
+		return;
 	}, [donationAmount, setProcessingFee]);
 
 	useEffect(() => {
 		if (handleProcessingFee && donationAmount) {
-			setTotalDonationAmount(
+			return setTotalDonationAmount(
 				(Number(donationAmount) + Number(processingFee)).toString()
 			);
 		}
+
+		return;
 	}, [
 		handleProcessingFee,
 		donationAmount,
 		setTotalDonationAmount,
 		processingFee,
 	]);
+
+	useEffect(() => {
+		const fetchRecommended = async () => {
+			try {
+				const res = await axios.post("http://localhost:8800/recommended", {
+					currency: donationFormDetails?.selectedCurrency === "KES" ? 1 : 2,
+					donorType: donationFormDetails?.donateAs === "individual" ? 1 : 2,
+					campaignId: 2,
+				});
+				const { data } = res;
+
+				console.log(data);
+			} catch (error) {
+				console.error(error);
+			}
+		};
+
+		fetchRecommended();
+	}, []);
 
 	return (
 		<DonationFormContext.Provider
