@@ -20,24 +20,12 @@ app.get("/", (req, res) => {
 });
 
 app.get("/campaigns", (req, res) => {
-	const query = "SELECT * FROM donation_type";
+	const query = "SELECT * FROM donation_type WHERE status = 1";
 
 	db.query(query, (error, data) => {
 		if (error) {
 			return res.json(error);
 		}
-
-		// const formattedData = rawData.map(
-		// 	({ id, name, description, start_date, end_date }) => {
-		// 		return {
-		// 			id,
-		// 			name,
-		// 			description,
-		// 			startDate: start_date,
-		// 			endDate: end_date,
-		// 		};
-		// 	}
-		// );
 
 		return res.json(data);
 	});
