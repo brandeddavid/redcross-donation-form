@@ -237,12 +237,14 @@ const DonationFormProvider = ({ children }: Props) => {
 		processingFee,
 	]);
 
+	const { selectedCurrency, donateAs } = donationFormDetails;
+
 	useEffect(() => {
 		const fetchRecommended = async () => {
 			try {
 				const res = await axios.post("http://localhost:8800/recommended", {
-					currency: donationFormDetails?.selectedCurrency === "KES" ? 1 : 2,
-					donorType: donationFormDetails?.donateAs === "individual" ? 1 : 2,
+					currency: selectedCurrency === "KES" ? 1 : 2,
+					donorType: donateAs === "individual" ? 1 : 2,
 					campaignId: 2,
 				});
 				const { data } = res;
@@ -254,7 +256,7 @@ const DonationFormProvider = ({ children }: Props) => {
 		};
 
 		fetchRecommended();
-	}, []);
+	}, [selectedCurrency, donateAs]);
 
 	return (
 		<DonationFormContext.Provider

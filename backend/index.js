@@ -12,8 +12,9 @@ app.use(cors());
 const db = mysql.createConnection({
 	host: process.env.DB_HOST,
 	user: process.env.DB_USER,
-	password: process.env.DB_USER_PASSSWORD,
+	password: process.env.DB_USER_PASSWORD,
 	database: process.env.DB_NAME,
+	port: process.env.DB_PORT || 3306,
 });
 
 app.get("/", (req, res) => {
@@ -37,8 +38,6 @@ app.post("/recommended", (req, res) => {
 		body: { currency, donorType, campaignId },
 	} = req;
 	const query = `SELECT * FROM campaigndetail WHERE CampaignId = ${campaignId} and DonorType = ${donorType} and CurrencyType = ${currency}`;
-
-	console.log(req);
 
 	db.query(query, (error, data) => {
 		if (error) {

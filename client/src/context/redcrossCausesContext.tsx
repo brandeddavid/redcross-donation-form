@@ -47,7 +47,7 @@ const RedcrossCausesProvider = ({ children }: Props) => {
 				const { data } = res;
 
 				const formattedData = data.map(
-					({ id, name, description, start_date, end_date }) => {
+					({ id, name, description, start_date, end_date }: any) => {
 						return {
 							id,
 							label: name,
