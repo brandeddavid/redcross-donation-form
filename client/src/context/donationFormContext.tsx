@@ -30,6 +30,7 @@ type DonationFormDetails = {
 	country: string;
 	county: string;
 	address: string;
+	recommended: Array<any>;
 } | null;
 type DonationFormDetailsContext = {
 	donationFormDetails: DonationFormDetails | null;
@@ -68,6 +69,7 @@ const initialFormDetails = {
 	country: "KE",
 	county: "",
 	address: "",
+	recommended: [],
 };
 
 export const DonationFormContext = createContext<DonationFormDetailsContext>({
@@ -132,6 +134,13 @@ const DonationFormProvider = ({ children }: Props) => {
 		setDonationFormDetails({
 			...donationFormDetails,
 			donationAmount: amount,
+		});
+	};
+
+	const setRecommended = (value: Array<any>) => {
+		setDonationFormDetails({
+			...donationFormDetails,
+			recommended: [...value],
 		});
 	};
 
@@ -258,8 +267,18 @@ const DonationFormProvider = ({ children }: Props) => {
 					campaignId: selectedCauseId,
 				});
 				const { data } = res;
+				let recommended = [];
+				data.forEach(({ Amount }: any) => {
+					recommended.push(Amount);
+				});
 
-				console.log(data);
+				if (recommended.length > 0) {
+					return setRecommended(recommended);
+				}
+
+				return setRecommended([]);
+
+				console.log(data, recommended);
 			} catch (error) {
 				console.error(error);
 			}

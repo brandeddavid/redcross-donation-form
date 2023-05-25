@@ -32,7 +32,6 @@ const Label = ({ processingFee, currency }: LabelProps) => (
 
 const DonationFormAmount = ({}: Props) => {
 	const [activeTab, setActiveTab] = useState(0);
-	const [recommended, setRecommended] = useState<any[]>([]);
 	const [showOtherAmountInput, setShowOtherAmountInput] = useState(false);
 	const {
 		donationFormDetails,
@@ -45,40 +44,40 @@ const DonationFormAmount = ({}: Props) => {
 
 	console.log({ donationFormDetails });
 
-	useEffect(() => {
-		const individualKSH = [100, 500, 1000, "Other"];
-		const individualUSD = [1, 50, 100, "Other"];
-		const companyKSH = [10000, 50000, 100000, "Other"];
-		const companyUSD = [1000, 5000, 10000, "Other"];
+	// useEffect(() => {
+	// 	const individualKSH = [100, 500, 1000, "Other"];
+	// 	const individualUSD = [1, 50, 100, "Other"];
+	// 	const companyKSH = [10000, 50000, 100000, "Other"];
+	// 	const companyUSD = [1000, 5000, 10000, "Other"];
 
-		if (
-			donationFormDetails &&
-			donationFormDetails.donateAs === "individual" &&
-			donationFormDetails.selectedCurrency === "KES"
-		)
-			setRecommended(individualKSH);
+	// 	if (
+	// 		donationFormDetails &&
+	// 		donationFormDetails.donateAs === "individual" &&
+	// 		donationFormDetails.selectedCurrency === "KES"
+	// 	)
+	// 		setRecommended(individualKSH);
 
-		if (
-			donationFormDetails &&
-			donationFormDetails.donateAs === "individual" &&
-			donationFormDetails.selectedCurrency === "USD"
-		)
-			setRecommended(individualUSD);
+	// 	if (
+	// 		donationFormDetails &&
+	// 		donationFormDetails.donateAs === "individual" &&
+	// 		donationFormDetails.selectedCurrency === "USD"
+	// 	)
+	// 		setRecommended(individualUSD);
 
-		if (
-			donationFormDetails &&
-			donationFormDetails.donateAs === "company" &&
-			donationFormDetails.selectedCurrency === "KES"
-		)
-			setRecommended(companyKSH);
+	// 	if (
+	// 		donationFormDetails &&
+	// 		donationFormDetails.donateAs === "company" &&
+	// 		donationFormDetails.selectedCurrency === "KES"
+	// 	)
+	// 		setRecommended(companyKSH);
 
-		if (
-			donationFormDetails &&
-			donationFormDetails.donateAs === "company" &&
-			donationFormDetails.selectedCurrency === "USD"
-		)
-			setRecommended(companyUSD);
-	}, [donationFormDetails]);
+	// 	if (
+	// 		donationFormDetails &&
+	// 		donationFormDetails.donateAs === "company" &&
+	// 		donationFormDetails.selectedCurrency === "USD"
+	// 	)
+	// 		setRecommended(companyUSD);
+	// }, [donationFormDetails]);
 
 	return (
 		<div className="py-[10px] md:py-[50px] md:px-5 flex flex-col space-y-[20px] md:space-y-[30px]">
@@ -148,11 +147,16 @@ const DonationFormAmount = ({}: Props) => {
 
 			<div className="flex flex-col">
 				<p className="mb-[10px] text-gray-600">Select an amount</p>
-				<div className="flex justify-between space-x-2">
-					{recommended.map((amount) => (
-						<div key={amount} className="flex">
+				<div className="flex space-x-2 flex-wrap">
+					{donationFormDetails?.recommended.length === 0 && (
+						<div className="mt-[20px]">
+							No recommended amouts set for campaign
+						</div>
+					)}
+					{donationFormDetails?.recommended.map((amount) => (
+						<div key={amount} className="flex mb-[10px]">
 							<Button
-								className={`${
+								className={`min-w-[100px] ${
 									(amount === donationFormDetails?.donationAmount &&
 										"bg-[#ed1c24] text-white hover:bg-[#ed1c24]") ||
 									""
