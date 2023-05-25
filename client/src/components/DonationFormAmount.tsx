@@ -146,53 +146,62 @@ const DonationFormAmount = ({}: Props) => {
 			</div>
 
 			<div className="flex flex-col">
-				<p className="mb-[10px] text-gray-600">Select an amount</p>
-				<div className="flex space-x-2 flex-wrap">
-					{donationFormDetails?.recommended.length === 0 && (
-						<div className="mt-[20px]">
-							No recommended amouts set for campaign
-						</div>
-					)}
-					{donationFormDetails?.recommended.map((amount) => (
-						<div key={amount} className="flex mb-[10px]">
-							<Button
-								className={`min-w-[100px] ${
-									(amount === donationFormDetails?.donationAmount &&
-										"bg-[#ed1c24] text-white hover:bg-[#ed1c24]") ||
-									""
-								}`}
-								variant="outlined"
-								onClick={() => {
-									if (amount === "Other") {
-										setShowOtherAmountInput(true);
-										setDonationAmount("");
-									} else {
-										setShowOtherAmountInput(false);
-										setDonationAmount(amount);
-									}
-								}}
-							>
-								<div>
-									<span className="hidden md:inline-block">{`${
-										amount === "Other"
-											? ""
-											: donationFormDetails?.selectedCurrency
-									} `}</span>
-									{amount}
-								</div>
-							</Button>
-						</div>
-					))}
-				</div>
-				<div className="mt-[20px]">
-					{showOtherAmountInput && (
+				{donationFormDetails?.recommended.length === 0 && (
+					<div>
+						<p className="my-[20px] text-gray-600">Donation amount</p>
 						<Input
 							placeholder="Enter amount"
 							value={donationFormDetails?.donationAmount}
 							onChange={(event) => setDonationAmount(event.target.value)}
 						/>
-					)}
-				</div>
+					</div>
+				)}
+				{donationFormDetails && donationFormDetails.recommended.length > 0 && (
+					<div>
+						<p className="mb-[10px] text-gray-600">Select an amount</p>
+						<div className="flex space-x-2 flex-wrap">
+							{donationFormDetails?.recommended.map((amount) => (
+								<div key={amount} className="flex mb-[10px]">
+									<Button
+										className={`min-w-[100px] ${
+											(amount === donationFormDetails?.donationAmount &&
+												"bg-[#ed1c24] text-white hover:bg-[#ed1c24]") ||
+											""
+										}`}
+										variant="outlined"
+										onClick={() => {
+											if (amount === "Other") {
+												setShowOtherAmountInput(true);
+												setDonationAmount("");
+											} else {
+												setShowOtherAmountInput(false);
+												setDonationAmount(amount);
+											}
+										}}
+									>
+										<div>
+											<span className="hidden md:inline-block">{`${
+												amount === "Other"
+													? ""
+													: donationFormDetails?.selectedCurrency
+											} `}</span>
+											{amount}
+										</div>
+									</Button>
+								</div>
+							))}
+						</div>
+						<div className="mt-[20px]">
+							{showOtherAmountInput && (
+								<Input
+									placeholder="Enter amount"
+									value={donationFormDetails?.donationAmount}
+									onChange={(event) => setDonationAmount(event.target.value)}
+								/>
+							)}
+						</div>
+					</div>
+				)}
 			</div>
 
 			{donationFormDetails?.donationAmount && (
