@@ -1,6 +1,13 @@
 "use client";
-import React, { createContext, useCallback, useEffect, useState } from "react";
+import React, {
+	createContext,
+	useContext,
+	useCallback,
+	useEffect,
+	useState,
+} from "react";
 import axios from "axios";
+import { RedcrossCausesContext } from "./redcrossCausesContext";
 
 type Props = {
 	children: JSX.Element;
@@ -85,6 +92,9 @@ export const DonationFormContext = createContext<DonationFormDetailsContext>({
 const DonationFormProvider = ({ children }: Props) => {
 	const [donationFormDetails, setDonationFormDetails] =
 		useState(initialFormDetails);
+	const {
+		selectedCause: { id: selectedCauseId },
+	}: any = useContext(RedcrossCausesContext);
 
 	const setDonateAs = (option: string) => {
 		setDonationFormDetails({ ...donationFormDetails, donateAs: option });
@@ -245,7 +255,7 @@ const DonationFormProvider = ({ children }: Props) => {
 				const res = await axios.post("http://localhost:8800/recommended", {
 					currency: selectedCurrency === "KES" ? 1 : 2,
 					donorType: donateAs === "individual" ? 1 : 2,
-					campaignId: 2,
+					campaignId: selectedCauseId,
 				});
 				const { data } = res;
 
@@ -256,7 +266,7 @@ const DonationFormProvider = ({ children }: Props) => {
 		};
 
 		fetchRecommended();
-	}, [selectedCurrency, donateAs]);
+	}, [selectedCurrency, donateAs, selectedCauseId]);
 
 	return (
 		<DonationFormContext.Provider

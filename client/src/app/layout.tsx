@@ -18,8 +18,8 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<DonationFormProvider>
-			<RedcrossCausesProvider>
+		<RedcrossCausesProvider>
+			<DonationFormProvider>
 				<html lang="en">
 					<body className={`${inter.className}`}>
 						<div className="h-[100px] bg-white fixed top-0 left-0 right-0 z-50">
@@ -33,7 +33,7 @@ export default function RootLayout({
 						</div>
 					</body>
 				</html>
-			</RedcrossCausesProvider>
-		</DonationFormProvider>
+			</DonationFormProvider>
+		</RedcrossCausesProvider>
 	);
 }
