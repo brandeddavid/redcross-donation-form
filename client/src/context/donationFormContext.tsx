@@ -92,9 +92,9 @@ export const DonationFormContext = createContext<DonationFormDetailsContext>({
 const DonationFormProvider = ({ children }: Props) => {
 	const [donationFormDetails, setDonationFormDetails] =
 		useState(initialFormDetails);
-	const {
-		selectedCause: { id: selectedCauseId },
-	}: any = useContext(RedcrossCausesContext);
+	const { selectedCause }: any = useContext(RedcrossCausesContext);
+
+	const selectedCauseId = selectedCause?.id || "";
 
 	const setDonateAs = (option: string) => {
 		setDonationFormDetails({ ...donationFormDetails, donateAs: option });

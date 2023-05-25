@@ -5,7 +5,7 @@ import { useContext, useState } from "react";
 import Button from "../components/Button";
 import SelectDropdown from "../components/SelectDropdown";
 import { SelectChangeEvent } from "@mui/material/Select";
-import DonationForm from "..//components/DonationForm";
+import DonationForm from "../components/DonationForm";
 import { ThemeProvider } from "@mui/material";
 import { theme } from "../theme/theme";
 import { RedcrossCausesContext } from "../context/redcrossCausesContext";
