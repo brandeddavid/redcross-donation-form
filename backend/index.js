@@ -31,6 +31,23 @@ app.get("/campaigns", (req, res) => {
 	});
 });
 
+app.post("/recommended", (req, res) => {
+	const {
+		body: { currency, donorType, campaignId },
+	} = req;
+	const query = `SELECT * FROM campaigndetail WHERE CampaignId = ${campaignId} and DonorType = ${donorType} and CurrencyType = ${currency}`;
+
+	console.log(req);
+
+	db.query(query, (error, data) => {
+		if (error) {
+			return res.json(error);
+		}
+
+		return res.json(data);
+	});
+});
+
 app.listen(port, () => {
 	console.log("Connected to the server on port:", port);
 });
