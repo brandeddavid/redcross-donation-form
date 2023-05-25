@@ -42,43 +42,6 @@ const DonationFormAmount = ({}: Props) => {
 		setDonationAmount,
 	} = useContext(DonationFormContext);
 
-	console.log({ donationFormDetails });
-
-	// useEffect(() => {
-	// 	const individualKSH = [100, 500, 1000, "Other"];
-	// 	const individualUSD = [1, 50, 100, "Other"];
-	// 	const companyKSH = [10000, 50000, 100000, "Other"];
-	// 	const companyUSD = [1000, 5000, 10000, "Other"];
-
-	// 	if (
-	// 		donationFormDetails &&
-	// 		donationFormDetails.donateAs === "individual" &&
-	// 		donationFormDetails.selectedCurrency === "KES"
-	// 	)
-	// 		setRecommended(individualKSH);
-
-	// 	if (
-	// 		donationFormDetails &&
-	// 		donationFormDetails.donateAs === "individual" &&
-	// 		donationFormDetails.selectedCurrency === "USD"
-	// 	)
-	// 		setRecommended(individualUSD);
-
-	// 	if (
-	// 		donationFormDetails &&
-	// 		donationFormDetails.donateAs === "company" &&
-	// 		donationFormDetails.selectedCurrency === "KES"
-	// 	)
-	// 		setRecommended(companyKSH);
-
-	// 	if (
-	// 		donationFormDetails &&
-	// 		donationFormDetails.donateAs === "company" &&
-	// 		donationFormDetails.selectedCurrency === "USD"
-	// 	)
-	// 		setRecommended(companyUSD);
-	// }, [donationFormDetails]);
-
 	return (
 		<div className="py-[10px] md:py-[50px] md:px-5 flex flex-col space-y-[20px] md:space-y-[30px]">
 			<RadioButton

@@ -30,7 +30,7 @@ type DonationFormDetails = {
 	country: string;
 	county: string;
 	address: string;
-	recommended: Array<any>;
+	recommended: number[] | string[];
 } | null;
 type DonationFormDetailsContext = {
 	donationFormDetails: DonationFormDetails | null;
@@ -137,10 +137,10 @@ const DonationFormProvider = ({ children }: Props) => {
 		});
 	};
 
-	const setRecommended = (value: Array<any>) => {
+	const setRecommended = (value) => {
 		setDonationFormDetails({
 			...donationFormDetails,
-			recommended: [...value],
+			recommended: value,
 		});
 	};
 
@@ -268,8 +268,8 @@ const DonationFormProvider = ({ children }: Props) => {
 				});
 				const { data } = res;
 				let recommended = [];
-				data.forEach(({ Amount }: any) => {
-					recommended.push(Amount);
+				data.forEach(({ Amount: amount }: never) => {
+					recommended.push(amount);
 				});
 
 				if (recommended.length > 0) {
