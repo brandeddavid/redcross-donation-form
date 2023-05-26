@@ -137,7 +137,7 @@ const DonationFormProvider = ({ children }: Props) => {
 		});
 	};
 
-	const setRecommended = (value) => {
+	const setRecommended = (value: any) => {
 		setDonationFormDetails({
 			...donationFormDetails,
 			recommended: value,
@@ -267,7 +267,7 @@ const DonationFormProvider = ({ children }: Props) => {
 					campaignId: selectedCauseId,
 				});
 				const { data } = res;
-				let recommended = [];
+				let recommended: any = [];
 				data.forEach(({ Amount: amount }: never) => {
 					recommended.push(amount);
 				});

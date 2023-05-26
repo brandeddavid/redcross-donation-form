@@ -122,7 +122,7 @@ const DonationFormAmount = ({}: Props) => {
 				{donationFormDetails && donationFormDetails.recommended.length > 0 && (
 					<div>
 						<p className="mb-[10px] text-gray-600">Select an amount</p>
-						<div className="flex space-x-2 flex-wrap">
+						<div className="flex flex-wrap space-x-2">
 							{donationFormDetails?.recommended.map((amount) => (
 								<div key={amount} className="flex mb-[10px]">
 									<Button
@@ -138,7 +138,7 @@ const DonationFormAmount = ({}: Props) => {
 												setDonationAmount("");
 											} else {
 												setShowOtherAmountInput(false);
-												setDonationAmount(amount);
+												setDonationAmount(amount.toString());
 											}
 										}}
 									>
