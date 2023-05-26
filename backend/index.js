@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
 	});
 });
 
-app.get("/campaigns", (req, res) => {
+app.get("/api/campaigns", (req, res) => {
 	const query = "SELECT * FROM donation_type WHERE status = 1";
 
 	db.query(query, (error, data) => {
@@ -36,7 +36,7 @@ app.get("/campaigns", (req, res) => {
 	});
 });
 
-app.post("/recommended", (req, res) => {
+app.post("/api/recommended", (req, res) => {
 	const {
 		body: { currency, donorType, campaignId },
 	} = req;
