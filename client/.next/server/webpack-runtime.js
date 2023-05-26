@@ -22,8 +22,13 @@
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
+<<<<<<< HEAD
 /******/ 			id: moduleId,
 /******/ 			loaded: false,
+=======
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+>>>>>>> b9d2036 (rebase)
 /******/ 			exports: {}
 /******/ 		};
 /******/ 	
@@ -36,9 +41,12 @@
 /******/ 			if(threw) delete __webpack_module_cache__[moduleId];
 /******/ 		}
 /******/ 	
+<<<<<<< HEAD
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
 /******/ 	
+=======
+>>>>>>> b9d2036 (rebase)
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
@@ -47,6 +55,7 @@
 /******/ 	__webpack_require__.m = __webpack_modules__;
 /******/ 	
 /************************************************************************/
+<<<<<<< HEAD
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
@@ -101,6 +110,8 @@
 /******/ 		};
 /******/ 	})();
 /******/ 	
+=======
+>>>>>>> b9d2036 (rebase)
 /******/ 	/* webpack/runtime/ensure chunk */
 /******/ 	(() => {
 /******/ 		__webpack_require__.f = {};
@@ -123,16 +134,20 @@
 /******/ 		};
 /******/ 	})();
 /******/ 	
+<<<<<<< HEAD
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
 /******/ 		__webpack_require__.h = () => ("9cdaf8c593bb12b7")
 /******/ 	})();
 /******/ 	
+=======
+>>>>>>> b9d2036 (rebase)
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
 /******/ 	
+<<<<<<< HEAD
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
@@ -153,6 +168,8 @@
 /******/ 		};
 /******/ 	})();
 /******/ 	
+=======
+>>>>>>> b9d2036 (rebase)
 /******/ 	/* webpack/runtime/startup entrypoint */
 /******/ 	(() => {
 /******/ 		__webpack_require__.X = (result, chunkIds, fn) => {
