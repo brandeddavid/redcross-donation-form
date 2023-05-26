@@ -18,7 +18,10 @@ const db = mysql.createConnection({
 });
 
 app.get("/", (req, res) => {
-	res.send("Welcome to Redcross Donation Form API!");
+	res.send({
+		status: 200,
+		message: "Welcome to Redcross Donation Form API!"
+	});
 });
 
 app.get("/campaigns", (req, res) => {
