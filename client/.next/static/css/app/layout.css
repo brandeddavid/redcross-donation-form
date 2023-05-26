@@ -591,6 +591,10 @@ video {
   margin-left: 8px;
   margin-right: 8px;
 }
+.my-\[20px\] {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 .mb-5 {
   margin-bottom: 1.25rem;
 }
@@ -633,6 +637,9 @@ video {
 .w-full {
   width: 100%;
 }
+.min-w-\[100px\] {
+  min-width: 100px;
+}
 .max-w-\[300px\] {
   max-width: 300px;
 }
@@ -653,6 +660,9 @@ video {
 }
 .flex-col {
   flex-direction: column;
+}
+.flex-wrap {
+  flex-wrap: wrap;
 }
 .justify-start {
   justify-content: flex-start;
