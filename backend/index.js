@@ -9,7 +9,7 @@ const port = 8800;
 app.use(express.json());
 app.use(cors());
 
-const db = mysql.createConnection({
+const pool = mysql.createPool({
 	host: process.env.DB_HOST,
 	user: process.env.DB_USER,
 	password: process.env.DB_USER_PASSWORD,
@@ -20,19 +20,25 @@ const db = mysql.createConnection({
 app.get("/", (req, res) => {
 	res.send({
 		status: 200,
-		message: "Welcome to Redcross Donation Form API!"
+		message: "Welcome to Redcross Donation Form API!",
 	});
 });
 
 app.get("/api/campaigns", (req, res) => {
 	const query = "SELECT * FROM donation_type WHERE status = 1";
 
-	db.query(query, (error, data) => {
-		if (error) {
-			return res.json(error);
-		}
+	pool.getConnection((error, connection) => {
+		if (error) throw error;
 
-		return res.json(data);
+		connection.query(query, (error, data) => {
+			if (error) {
+				return res.json(error);
+			}
+
+			return res.json(data);
+		});
+
+		connection.release();
 	});
 });
 
@@ -42,12 +48,18 @@ app.post("/api/recommended", (req, res) => {
 	} = req;
 	const query = `SELECT * FROM campaigndetail WHERE CampaignId = ${campaignId} and DonorType = ${donorType} and CurrencyType = ${currency}`;
 
-	db.query(query, (error, data) => {
-		if (error) {
-			return res.json(error);
-		}
+	pool.getConnection((error, connection) => {
+		if (error) throw error;
 
-		return res.json(data);
+		connection.query(query, (error, data) => {
+			if (error) {
+				return res.json(error);
+			}
+
+			return res.json(data);
+		});
+
+		connection.release();
 	});
 });
 
