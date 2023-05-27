@@ -43,7 +43,7 @@ const RedcrossCausesProvider = ({ children }: Props) => {
 	useEffect(() => {
 		const fetchCampaigns = async () => {
 			try {
-				const res = await axios.get("http://102.37.137.217/api/campaigns");
+				const res = await axios.get("http://localhost:8800/api/campaigns");
 				const { data } = res;
 
 				const formattedData = data.map(

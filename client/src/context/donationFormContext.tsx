@@ -261,7 +261,7 @@ const DonationFormProvider = ({ children }: Props) => {
 	useEffect(() => {
 		const fetchRecommended = async () => {
 			try {
-				const res = await axios.post("http://102.37.137.217/api/recommended", {
+				const res = await axios.post("http://localhost:8800/api/recommended", {
 					currency: selectedCurrency === "KES" ? 1 : 2,
 					donorType: donateAs === "individual" ? 1 : 2,
 					campaignId: selectedCauseId,
