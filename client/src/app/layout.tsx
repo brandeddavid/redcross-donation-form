@@ -12,11 +12,7 @@ export const metadata = {
 	description: "",
 };
 
-export default function RootLayout({
-	children,
-}: {
-	children: React.ReactNode;
-}) {
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<RedcrossCausesProvider>
 			<DonationFormProvider>
@@ -36,4 +32,6 @@ export default function RootLayout({
 			</DonationFormProvider>
 		</RedcrossCausesProvider>
 	);
-}
+};
+
+export default RootLayout;

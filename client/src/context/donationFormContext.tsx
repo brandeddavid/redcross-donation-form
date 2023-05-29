@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import axios from "axios";
 import { RedcrossCausesContext } from "./redcrossCausesContext";
+import { useRouter } from "next/navigation";
 
 type Props = {
 	children: JSX.Element;
@@ -31,6 +32,7 @@ type DonationFormDetails = {
 	county: string;
 	address: string;
 	recommended: number[] | string[];
+	isSubmitting: boolean;
 } | null;
 type DonationFormDetailsContext = {
 	donationFormDetails: DonationFormDetails | null;
@@ -50,7 +52,6 @@ type DonationFormDetailsContext = {
 	setCounty: (value: string) => void;
 	setAddress: (value: string) => void;
 	onSubmit: () => void;
-	isSubmitting: boolean;
 };
 
 const initialFormDetails = {
@@ -68,10 +69,11 @@ const initialFormDetails = {
 	lastName: "",
 	email: "",
 	phoneNumber: "",
-	country: "KE",
+	country: "Kenya",
 	county: "",
 	address: "",
 	recommended: [],
+	isSubmitting: false,
 };
 
 export const DonationFormContext = createContext<DonationFormDetailsContext>({
@@ -92,10 +94,11 @@ export const DonationFormContext = createContext<DonationFormDetailsContext>({
 	setCounty: () => {},
 	setAddress: () => {},
 	onSubmit: () => {},
-	isSubmitting: false,
 });
 
 const DonationFormProvider = ({ children }: Props) => {
+	const { push } = useRouter();
+
 	const [donationFormDetails, setDonationFormDetails] =
 		useState(initialFormDetails);
 	const { selectedCause }: any = useContext(RedcrossCausesContext);
@@ -254,12 +257,7 @@ const DonationFormProvider = ({ children }: Props) => {
 		}
 
 		return;
-	}, [
-		handleProcessingFee,
-		donationAmount,
-		setTotalDonationAmount,
-		processingFee,
-	]);
+	}, [donationAmount, processingFee]);
 
 	const { selectedCurrency, donateAs } = donationFormDetails;
 
@@ -273,9 +271,10 @@ const DonationFormProvider = ({ children }: Props) => {
 				});
 				const { data } = res;
 				let recommended: any = [];
-				data.forEach(({ Amount: amount }: never) => {
-					recommended.push(amount);
-				});
+				data &&
+					data.forEach(({ Amount: amount }: never) => {
+						recommended.push(amount);
+					});
 
 				if (recommended.length > 0) {
 					return setRecommended(recommended);
@@ -290,7 +289,16 @@ const DonationFormProvider = ({ children }: Props) => {
 		fetchRecommended();
 	}, [selectedCurrency, donateAs, selectedCauseId]);
 
+	const setIsSubmitting = (value: boolean) => {
+		setDonationFormDetails({
+			...donationFormDetails,
+			isSubmitting: value,
+		});
+	};
+
 	const onSubmit = async () => {
+		setIsSubmitting(true);
+
 		let headersList = {
 			Accept: "*/*",
 			"User-Agent": "Thunder Client (https://www.thunderclient.com)",
@@ -302,10 +310,16 @@ const DonationFormProvider = ({ children }: Props) => {
 			reference_id: "56456",
 			amount: donationAmount,
 			currency: "KES",
-			callback_url: "https://makamuevans.co.ke",
-			redirect_url: "https://ubawa.free.beeceptor.com",
-			express_mpesa: true,
+			callback_url: "http://localhost:3000",
+			redirect_url: "http://localhost:3000",
+			express_mpesa:
+				donationFormDetails.paymentOption === "Mpesa" ? true : false,
 			msisdn: donationFormDetails.phoneNumber,
+			first_name: donationFormDetails.firstName,
+			last_name: donationFormDetails.lastName,
+			address: donationFormDetails.address,
+			state: donationFormDetails.county,
+			country: donationFormDetails.country,
 		});
 
 		let reqOptions = {
@@ -317,7 +331,16 @@ const DonationFormProvider = ({ children }: Props) => {
 
 		try {
 			const response = await axios.request(reqOptions);
-			console.log(response.data);
+			const {
+				data: { status, url },
+			} = response;
+
+			console.log({ status, url });
+
+			if (status && donationFormDetails.paymentOption === "Mpesa") push("/");
+
+			if (status && donationFormDetails.paymentOption === "Card") push(url);
+			setIsSubmitting(false);
 		} catch (error) {
 			console.error(error);
 		}
@@ -343,7 +366,6 @@ const DonationFormProvider = ({ children }: Props) => {
 				setEmail,
 				setPhoneNumber,
 				onSubmit,
-				isSubmitting: false,
 			}}
 		>
 			{children}

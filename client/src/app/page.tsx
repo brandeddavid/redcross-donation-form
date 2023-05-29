@@ -11,7 +11,7 @@ import { theme } from "../theme/theme";
 import { RedcrossCausesContext } from "../context/redcrossCausesContext";
 import { DonationFormContext } from "../context/donationFormContext";
 
-export default function Home() {
+const Home = () => {
 	const defaultDescription = `Donate today to support humanitarian work around Kenya. In times
 								of crisis, we meet the urgent needs of women, men, young and the
 								old. Help enable a rapid response to disasters. Your
@@ -50,7 +50,8 @@ export default function Home() {
 					<div className="flex justify-end w-full">
 						<Image
 							className="z-10 opacity-50"
-							src={`/${selectedCause?.value || "maasai"}.jpg`}
+							src="/maasai.jpg"
+							// src={`/${selectedCause?.value || "maasai"}.jpg`}
 							alt=""
 							height={600}
 							width={400}
@@ -109,4 +110,6 @@ export default function Home() {
 			</main>
 		</ThemeProvider>
 	);
-}
+};
+
+export default Home;

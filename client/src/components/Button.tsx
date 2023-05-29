@@ -1,5 +1,5 @@
 import React from "react";
-import { Button as Btn, withStyles } from "@mui/material/";
+import { Button as Btn } from "@mui/material/";
 
 type Props = {
 	children: any;
@@ -7,6 +7,7 @@ type Props = {
 	variant?: "text" | "outlined" | "contained";
 	className?: string;
 	disabled?: boolean;
+	loading?: boolean;
 };
 
 const styles = () => ({
@@ -21,6 +22,7 @@ const Button = ({
 	variant = "outlined",
 	className = "",
 	disabled = false,
+	loading = false,
 }: Props) => {
 	return (
 		<Btn
@@ -36,7 +38,8 @@ const Button = ({
 			}}
 			disabled={disabled}
 		>
-			{children}
+			{loading && <span className="text-white">Donating...</span>}
+			{!loading && children}
 		</Btn>
 	);
 };

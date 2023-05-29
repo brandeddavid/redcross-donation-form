@@ -13,7 +13,11 @@ type Props = {
 	onChange: (value: SelectChangeEvent) => void;
 };
 
-function SelectDropdown({ dropDownOptions, selectedOption, onChange }: Props) {
+const SelectDropdown = ({
+	dropDownOptions,
+	selectedOption,
+	onChange,
+}: Props) => {
 	return (
 		<FormControl className="w-[300px] outline-[#ed1c24]">
 			<InputLabel id="demo-simple-select-label">Select a cause</InputLabel>
@@ -32,6 +36,6 @@ function SelectDropdown({ dropDownOptions, selectedOption, onChange }: Props) {
 			</Select>
 		</FormControl>
 	);
-}
+};
 
 export default SelectDropdown;

@@ -13,12 +13,12 @@ type Props = {
 	selectedOption: string | undefined;
 };
 
-function RadioButton({
+const RadioButton = ({
 	formLabel,
 	radioOptions,
 	onChange,
 	selectedOption,
-}: Props) {
+}: Props) => {
 	return (
 		<FormControl>
 			<FormLabel id="demo-row-radio-buttons-group-label">{formLabel}</FormLabel>
@@ -49,6 +49,6 @@ function RadioButton({
 			</RadioGroup>
 		</FormControl>
 	);
-}
+};
 
 export default RadioButton;
