@@ -35,7 +35,7 @@ const DonationFormPayment = ({}: Props) => {
 				</Tabs>
 			</div>
 			{donationFormDetails?.paymentOption === "Mpesa" && (
-				<div className="flex justify-center">
+				<div className="flex justify-center min-h-[250px]">
 					<div className="flex flex-col justify-center space-y-[40px] w-[300px]">
 						<TextField
 							label="Enter Mpesa Number"
