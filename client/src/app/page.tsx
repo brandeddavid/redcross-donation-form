@@ -9,6 +9,7 @@ import DonationForm from "../components/DonationForm";
 import { ThemeProvider } from "@mui/material";
 import { theme } from "../theme/theme";
 import { RedcrossCausesContext } from "../context/redcrossCausesContext";
+import { DonationFormContext } from "../context/donationFormContext";
 
 export default function Home() {
 	const defaultDescription = `Donate today to support humanitarian work around Kenya. In times
@@ -23,9 +24,17 @@ export default function Home() {
 	const onCauseSelect = (event: SelectChangeEvent) => {
 		onRedCrossCauseSelect(event.target.value);
 	};
+
+	const { onSubmit } = useContext(DonationFormContext);
+
 	const handleContinue = () => {
 		if (step >= 0 && step < 3) {
 			setStep(step + 1);
+		}
+
+		if (step === 3) {
+			console.log("final stage");
+			onSubmit();
 		}
 	};
 	const handleBack = () => {

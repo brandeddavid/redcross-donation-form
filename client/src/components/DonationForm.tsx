@@ -17,7 +17,7 @@ type Props = {
 const steps = ["Cause", "Amount", "Donate", "Pay"];
 
 function DonationForm({ step, onContinue, onBack }: Props) {
-	const { donationFormDetails } = useContext(DonationFormContext);
+	const { donationFormDetails, isSubmitting } = useContext(DonationFormContext);
 	const { selectedCause } = useContext(RedcrossCausesContext);
 
 	return (

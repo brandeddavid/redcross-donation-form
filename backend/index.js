@@ -2,19 +2,20 @@ import express from "express";
 import mysql from "mysql";
 import cors from "cors";
 import "dotenv/config";
+import bodyParser from "body-parser";
 
 const app = express();
 const port = 8800;
 
 app.use(express.json());
-app.use(express.bodyParser());
+app.use(bodyParser.json());
 
 const corsOptions = {
-  AccessControlAllowOrigin: '*',
-  origin: '*',
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE'
-}
-app.use(cors(corsOptions))
+	AccessControlAllowOrigin: "*",
+	origin: "*",
+	methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+};
+app.use(cors(corsOptions));
 
 const pool = mysql.createPool({
 	host: process.env.DB_HOST,
@@ -31,7 +32,7 @@ app.get("/", (req, res) => {
 	});
 });
 
-app.get("api/campaigns", (req, res) => {
+app.get("/api/campaigns", (req, res) => {
 	const query = "SELECT * FROM donation_type WHERE status = 1";
 
 	pool.getConnection((error, connection) => {
@@ -49,7 +50,7 @@ app.get("api/campaigns", (req, res) => {
 	});
 });
 
-app.post("api/recommended", (req, res) => {
+app.post("/api/recommended", (req, res) => {
 	const {
 		body: { currency, donorType, campaignId },
 	} = req;

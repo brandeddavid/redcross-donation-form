@@ -49,6 +49,8 @@ type DonationFormDetailsContext = {
 	setCountry: (value: string) => void;
 	setCounty: (value: string) => void;
 	setAddress: (value: string) => void;
+	onSubmit: () => void;
+	isSubmitting: boolean;
 };
 
 const initialFormDetails = {
@@ -89,6 +91,8 @@ export const DonationFormContext = createContext<DonationFormDetailsContext>({
 	setCountry: () => {},
 	setCounty: () => {},
 	setAddress: () => {},
+	onSubmit: () => {},
+	isSubmitting: false,
 });
 
 const DonationFormProvider = ({ children }: Props) => {
@@ -278,8 +282,6 @@ const DonationFormProvider = ({ children }: Props) => {
 				}
 
 				return setRecommended([]);
-
-				console.log(data, recommended);
 			} catch (error) {
 				console.error(error);
 			}
@@ -287,6 +289,39 @@ const DonationFormProvider = ({ children }: Props) => {
 
 		fetchRecommended();
 	}, [selectedCurrency, donateAs, selectedCauseId]);
+
+	const onSubmit = async () => {
+		let headersList = {
+			Accept: "*/*",
+			"User-Agent": "Thunder Client (https://www.thunderclient.com)",
+			"Content-Type": "application/json",
+			Authorization: "Bearer 2|xCkinFbNY92kH2dwZ2fHW6b0W2fVFfxouIatC5xG",
+		};
+
+		let bodyContent = JSON.stringify({
+			reference_id: "56456",
+			amount: donationAmount,
+			currency: "KES",
+			callback_url: "https://makamuevans.co.ke",
+			redirect_url: "https://ubawa.free.beeceptor.com",
+			express_mpesa: true,
+			msisdn: donationFormDetails.phoneNumber,
+		});
+
+		let reqOptions = {
+			url: "http://sandbox.finsprint.io/api/v1/request-checkout",
+			method: "POST",
+			headers: headersList,
+			data: bodyContent,
+		};
+
+		try {
+			const response = await axios.request(reqOptions);
+			console.log(response.data);
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
 	return (
 		<DonationFormContext.Provider
@@ -307,6 +342,8 @@ const DonationFormProvider = ({ children }: Props) => {
 				setCounty,
 				setEmail,
 				setPhoneNumber,
+				onSubmit,
+				isSubmitting: false,
 			}}
 		>
 			{children}
