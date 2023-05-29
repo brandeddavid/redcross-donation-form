@@ -103,6 +103,7 @@ const DonationFormProvider = ({ children }: Props) => {
 	};
 
 	const setSelectedCurrency = (option: string) => {
+		console.log("Hello", option);
 		setDonationFormDetails({
 			...donationFormDetails,
 			selectedCurrency: option,

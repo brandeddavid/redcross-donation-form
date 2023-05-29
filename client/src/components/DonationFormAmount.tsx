@@ -97,6 +97,7 @@ const DonationFormAmount = ({}: Props) => {
 									""
 								}`}
 								onClick={() => {
+									console.log({ currency });
 									setSelectedCurrency(currency);
 									setDonationAmount("");
 								}}
@@ -123,7 +124,7 @@ const DonationFormAmount = ({}: Props) => {
 					<div>
 						<p className="mb-[10px] text-gray-600">Select an amount</p>
 						<div className="flex flex-wrap space-x-2">
-							{donationFormDetails?.recommended.map((amount) => (
+							{[...donationFormDetails?.recommended, "Other"].map((amount) => (
 								<div key={amount} className="flex mb-[10px]">
 									<Button
 										className={`min-w-[100px] ${
@@ -138,7 +139,7 @@ const DonationFormAmount = ({}: Props) => {
 												setDonationAmount("");
 											} else {
 												setShowOtherAmountInput(false);
-												setDonationAmount(amount.toString());
+												setDonationAmount(amount);
 											}
 										}}
 									>
@@ -147,7 +148,7 @@ const DonationFormAmount = ({}: Props) => {
 												amount === "Other"
 													? ""
 													: donationFormDetails?.selectedCurrency
-											} `}</span>
+											} `}</span>{" "}
 											{amount}
 										</div>
 									</Button>
