@@ -41,7 +41,7 @@ type DonationFormDetailsContext = {
 	setDonationOption: (value: string) => void;
 	toggleHandleProcessingFee: () => void;
 	setDonateAnonymously: () => void;
-	setDonationAmount: (amount: string) => void;
+	setDonationAmount: (amount: string | number) => void;
 	setPaymentOption: (value: string) => void;
 	setFirstName: (value: string) => void;
 	setLastName: (value: string) => void;
@@ -138,7 +138,7 @@ const DonationFormProvider = ({ children }: Props) => {
 		});
 	};
 
-	const setDonationAmount = (amount: string) => {
+	const setDonationAmount = (amount: any) => {
 		setDonationFormDetails({
 			...donationFormDetails,
 			donationAmount: amount,
