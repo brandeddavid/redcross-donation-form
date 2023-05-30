@@ -170,21 +170,21 @@ const DonationFormPersonalDetails = ({}: Props) => {
 							>
 								{countryList.map(({ label, value }: CountryOption) => {
 									return (
-										<MenuItem key={value} value={value}>
+										<MenuItem key={value} value={label}>
 											{label}
 										</MenuItem>
 									);
 								})}
 							</Select>
 						</FormControl>
-						{donationFormDetails?.country === "KE" && (
+						{donationFormDetails?.country === "Kenya" && (
 							<FormControl variant="standard" className="flex-1">
 								<InputLabel id="demo-simple-select-standard-label">
-									County/Region/State
+									County
 								</InputLabel>
 								<Select
-									label="County/Region/State"
-									placeholder="Enter County/Region/State"
+									label="County"
+									placeholder="Enter County"
 									variant="standard"
 									value={donationFormDetails?.county}
 									onChange={(event) => {

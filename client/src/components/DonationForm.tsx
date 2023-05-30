@@ -16,7 +16,7 @@ type Props = {
 
 const steps = ["Cause", "Amount", "Donate", "Pay"];
 
-function DonationForm({ step, onContinue, onBack }: Props) {
+const DonationForm = ({ step, onContinue, onBack }: Props) => {
 	const { donationFormDetails } = useContext(DonationFormContext);
 	const { selectedCause } = useContext(RedcrossCausesContext);
 
@@ -75,6 +75,8 @@ function DonationForm({ step, onContinue, onBack }: Props) {
 							<Button
 								className="px-[10px] bg-[#ed1c24] text-white hover:bg-[#ed1c24]"
 								onClick={onContinue}
+								loading={donationFormDetails?.isSubmitting}
+								disabled={donationFormDetails?.isSubmitting}
 							>
 								{step !== 3
 									? "Continue"
@@ -90,6 +92,6 @@ function DonationForm({ step, onContinue, onBack }: Props) {
 			</div>
 		</div>
 	);
-}
+};
 
 export default DonationForm;
