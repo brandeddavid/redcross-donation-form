@@ -71,6 +71,40 @@ app.post("/api/recommended", (req, res) => {
 	});
 });
 
+app.post("/api/donate", (req, res) => {
+	const {
+		body: {
+			currency,
+			donorType,
+			campaignId,
+			firstName,
+			lastName,
+			companyName,
+			phoneNumber,
+			address,
+			county,
+			country,
+			amount,
+			paymentMethod,
+		},
+	} = req;
+	const query = `INSERT INTO donation (krc_reference, donor_type, first_name, last_name, company_name, phone, address, region, country, currency, amount, payment_method, donation_cause, payment_body, payment_reference, gateway_payment_method, updated_at) values ("test", "${donorType}", "${firstName}", "${lastName}", "${companyName}", "${phoneNumber}", "${address}", "${county}", "${country}", "${currency}", "${amount}", "${paymentMethod}", "${campaignId}", "test", "test","test", "2022-04-22")`;
+
+	pool.getConnection((error, connection) => {
+		if (error) throw error;
+
+		connection.query(query, (error, data) => {
+			if (error) {
+				return res.json(error);
+			}
+
+			return res.json({ donationId: data.insertId });
+		});
+
+		connection.release();
+	});
+});
+
 app.listen(port, () => {
 	console.log("Connected to the server on port:", port);
 });
