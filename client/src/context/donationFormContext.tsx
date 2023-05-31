@@ -358,8 +358,7 @@ const DonationFormProvider = ({ children }: Props) => {
 					if (status && donationFormDetails.paymentOption === "Mpesa")
 						push("/");
 
-					if (status && donationFormDetails.paymentOption === "Card")
-						console.log({ status, url });
+					if (status && donationFormDetails.paymentOption === "Card") push(url);
 					setIsSubmitting(false);
 				} catch (error) {
 					console.error(error);
