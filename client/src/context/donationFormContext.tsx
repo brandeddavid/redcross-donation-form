@@ -281,50 +281,96 @@ const DonationFormProvider = ({ children }: Props) => {
 	const onSubmit = async () => {
 		setIsSubmitting(true);
 
-		let headersList = {
-			Accept: "*/*",
-			"User-Agent": "Thunder Client (https://www.thunderclient.com)",
-			"Content-Type": "application/json",
-			Authorization: "Bearer 2|xCkinFbNY92kH2dwZ2fHW6b0W2fVFfxouIatC5xG",
-		};
-
-		let bodyContent = JSON.stringify({
-			reference_id: "56456",
-			amount: donationAmount,
-			currency: "KES",
-			callback_url: "http://localhost:3000",
-			redirect_url: "http://localhost:3000",
-			express_mpesa:
-				donationFormDetails.paymentOption === "Mpesa" ? true : false,
-			msisdn: donationFormDetails.phoneNumber,
-			first_name: donationFormDetails.firstName,
-			last_name: donationFormDetails.lastName,
-			address: donationFormDetails.address,
-			state: donationFormDetails.county,
-			country: donationFormDetails.country,
-		});
-
-		let reqOptions = {
-			url: "http://sandbox.finsprint.io/api/v1/request-checkout",
-			method: "POST",
-			headers: headersList,
-			data: bodyContent,
-		};
+		const {
+			selectedCurrency,
+			donateAs,
+			firstName,
+			lastName,
+			companyName,
+			phoneNumber,
+			address,
+			county,
+			country,
+			donationAmount,
+			paymentOption,
+			totalDonationAmount,
+			handleProcessingFee,
+			donateAnonymously,
+		} = donationFormDetails;
 
 		try {
-			const response = await axios.request(reqOptions);
+			const res = await axios.post("http://localhost:8800/api/donate", {
+				currency: selectedCurrency === "KES" ? 1 : 2,
+				donorType: donateAs === "individual" ? 1 : 2,
+				campaignId: selectedCauseId,
+				firstName: donateAnonymously ? "Anonymous" : firstName,
+				lastName: donateAnonymously ? "Anonymous" : lastName,
+				companyName: donateAnonymously ? "Anonymous" : companyName,
+				phoneNumber,
+				address,
+				county,
+				country,
+				amount: handleProcessingFee ? totalDonationAmount : donationAmount,
+				paymentMethod: paymentOption === "Mpesa" ? 1 : 2,
+			});
 			const {
-				data: { status, url },
-			} = response;
+				data: { donationId },
+			} = res;
+			console.log({ donationId });
 
-			console.log({ status, url });
+			if (donationId) {
+				let headersList = {
+					Accept: "*/*",
+					"User-Agent": "Thunder Client (https://www.thunderclient.com)",
+					"Content-Type": "application/json",
+					Authorization: "Bearer 2|xCkinFbNY92kH2dwZ2fHW6b0W2fVFfxouIatC5xG",
+				};
 
-			if (status && donationFormDetails.paymentOption === "Mpesa") push("/");
+				let bodyContent = JSON.stringify({
+					reference_id: donationId.toString(),
+					amount: donationAmount,
+					currency: "KES",
+					callback_url: "http://localhost:3000",
+					redirect_url: "http://localhost:3000",
+					express_mpesa:
+						donationFormDetails.paymentOption === "Mpesa" ? true : false,
+					msisdn: donationFormDetails.phoneNumber,
+					first_name: donationFormDetails.firstName,
+					last_name: donationFormDetails.lastName,
+					address: donationFormDetails.address,
+					state: donationFormDetails.county,
+					country: donationFormDetails.country,
+				});
 
-			if (status && donationFormDetails.paymentOption === "Card") push(url);
-			setIsSubmitting(false);
+				let reqOptions = {
+					url: "http://sandbox.finsprint.io/api/v1/request-checkout",
+					method: "POST",
+					headers: headersList,
+					data: bodyContent,
+				};
+
+				try {
+					const response = await axios.request(reqOptions);
+					const {
+						data: { status, url },
+					} = response;
+
+					if (status && donationFormDetails.paymentOption === "Mpesa")
+						push("/");
+
+					if (status && donationFormDetails.paymentOption === "Card")
+						console.log({ status, url });
+					setIsSubmitting(false);
+				} catch (error) {
+					console.error(error);
+					setIsSubmitting(false);
+				}
+			}
 		} catch (error) {
-			console.error(error);
+			console.log(error);
+			setIsSubmitting(false);
+		} finally {
+			setIsSubmitting(false);
 		}
 	};
 
