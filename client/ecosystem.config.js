@@ -17,7 +17,7 @@ module.exports = {
 			host: "18.202.244.58",
 			ref: "origin/main",
 			repo: "git@github.com:brandeddavid/redcross-donation-form.git",
-			path: "/home/ubuntu",
+			path: "/home/ubuntu/client",
 			"pre-deploy-local": "",
 			"post-deploy":
 				"source ~/.nvm/nvm.sh && npm install && npm run build && pm2 reload ecosystem.config.js --env production",
