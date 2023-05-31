@@ -139,9 +139,12 @@ const DonationFormProvider = ({ children }: Props) => {
 	};
 
 	const setDonationAmount = (amount: any) => {
+		const fee = 0.1 * Number(amount);
+
 		setDonationFormDetails({
 			...donationFormDetails,
 			donationAmount: amount,
+			processingFee: fee.toString(),
 		});
 	};
 
@@ -155,16 +158,6 @@ const DonationFormProvider = ({ children }: Props) => {
 	useEffect(() => {
 		setDonationFormDetails({ ...initialFormDetails });
 	}, []);
-
-	const setProcessingFee = useCallback(
-		(amount: string) => {
-			setDonationFormDetails({
-				...donationFormDetails,
-				processingFee: amount,
-			});
-		},
-		[donationFormDetails]
-	);
 
 	const setTotalDonationAmount = useCallback(
 		(amount: string) => {
@@ -237,17 +230,6 @@ const DonationFormProvider = ({ children }: Props) => {
 
 	const { donationAmount, handleProcessingFee, processingFee } =
 		donationFormDetails;
-
-	// TODO Check why this causes infinite refreshes
-
-	useEffect(() => {
-		if (donationAmount) {
-			const fee = 0.1 * Number(donationAmount);
-			return setProcessingFee(fee.toString());
-		}
-
-		return;
-	}, [donationAmount, setProcessingFee]);
 
 	useEffect(() => {
 		if (handleProcessingFee && donationAmount) {
