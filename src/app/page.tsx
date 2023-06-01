@@ -33,7 +33,6 @@ const Home = () => {
 		}
 
 		if (step === 3) {
-			console.log("final stage");
 			onSubmit();
 		}
 	};
