@@ -1,6 +1,7 @@
 "use client";
 import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
+import "dotenv/config";
 
 type Props = {
 	children: JSX.Element;
@@ -40,10 +41,14 @@ const RedcrossCausesProvider = ({ children }: Props) => {
 		return setSelectedCause(null);
 	};
 
+	console.log("Hello", process.env.API_HOST);
+
 	useEffect(() => {
 		const fetchCampaigns = async () => {
 			try {
-				const res = await axios.get("http://localhost:8800/api/campaigns");
+				const res = await axios.get(
+					`http://${process.env.API_HOST}:8800/api/campaigns`
+				);
 				const { data } = res;
 
 				const formattedData = data.map(

@@ -9,6 +9,7 @@ import React, {
 import axios from "axios";
 import { RedcrossCausesContext } from "./redcrossCausesContext";
 import { useRouter } from "next/navigation";
+import "dotenv/config";
 
 type Props = {
 	children: JSX.Element;
@@ -246,11 +247,14 @@ const DonationFormProvider = ({ children }: Props) => {
 	useEffect(() => {
 		const fetchRecommended = async () => {
 			try {
-				const res = await axios.post("http://localhost:8800/api/recommended", {
-					currency: selectedCurrency === "KES" ? 1 : 2,
-					donorType: donateAs === "individual" ? 1 : 2,
-					campaignId: selectedCauseId,
-				});
+				const res = await axios.post(
+					`http://${process.env.API_HOST}:8800/api/recommended`,
+					{
+						currency: selectedCurrency === "KES" ? 1 : 2,
+						donorType: donateAs === "individual" ? 1 : 2,
+						campaignId: selectedCauseId,
+					}
+				);
 				const { data } = res;
 				let recommended: any = [];
 				data &&
@@ -299,20 +303,23 @@ const DonationFormProvider = ({ children }: Props) => {
 		} = donationFormDetails;
 
 		try {
-			const res = await axios.post("http://localhost:8800/api/donate", {
-				currency: selectedCurrency === "KES" ? 1 : 2,
-				donorType: donateAs === "individual" ? 1 : 2,
-				campaignId: selectedCauseId,
-				firstName: donateAnonymously ? "Anonymous" : firstName,
-				lastName: donateAnonymously ? "Anonymous" : lastName,
-				companyName: donateAnonymously ? "Anonymous" : companyName,
-				phoneNumber,
-				address,
-				county,
-				country,
-				amount: handleProcessingFee ? totalDonationAmount : donationAmount,
-				paymentMethod: paymentOption === "Mpesa" ? 1 : 2,
-			});
+			const res = await axios.post(
+				`http://${process.env.API_HOST}:8800/api/donate`,
+				{
+					currency: selectedCurrency === "KES" ? 1 : 2,
+					donorType: donateAs === "individual" ? 1 : 2,
+					campaignId: selectedCauseId,
+					firstName: donateAnonymously ? "Anonymous" : firstName,
+					lastName: donateAnonymously ? "Anonymous" : lastName,
+					companyName: donateAnonymously ? "Anonymous" : companyName,
+					phoneNumber,
+					address,
+					county,
+					country,
+					amount: handleProcessingFee ? totalDonationAmount : donationAmount,
+					paymentMethod: paymentOption === "Mpesa" ? 1 : 2,
+				}
+			);
 			const {
 				data: { donationId },
 			} = res;

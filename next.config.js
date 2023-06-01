@@ -5,6 +5,9 @@ const nextConfig = {
 		loader: "akamai",
 		path: "/",
 	},
+	env: {
+		API_HOST: process.env.API_HOST,
+	},
 };
 
 process.on("unhandledRejection", (error) => {
