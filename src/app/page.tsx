@@ -49,7 +49,7 @@ const Home = () => {
 					<div className="flex justify-end w-full">
 						<Image
 							className="z-10 opacity-50"
-							src="/maasai.jpg"
+							src="https://www.redcross.or.ke/assets/img/don1.JPG"
 							// src={`/${selectedCause?.value || "maasai"}.jpg`}
 							alt=""
 							height={600}
