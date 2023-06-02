@@ -19,6 +19,19 @@ const steps = ["Cause", "Amount", "Donate", "Pay"];
 const DonationForm = ({ step, onContinue, onBack }: Props) => {
 	const { donationFormDetails } = useContext(DonationFormContext);
 	const { selectedCause } = useContext(RedcrossCausesContext);
+	const [disabled, setDisabled] = useState(false);
+
+	const { isSubmitting, donationAmount, donationOption }: any =
+		donationFormDetails;
+
+	useEffect(() => {
+		if (isSubmitting) return setDisabled(true);
+		console.log(step, !donationAmount, donationAmount);
+
+		if (step === 1) {
+			return setDisabled(!donationAmount || !donationOption);
+		}
+	}, [isSubmitting, donationAmount, step]);
 
 	return (
 		<div className="flex flex-col justify-between">
@@ -76,7 +89,7 @@ const DonationForm = ({ step, onContinue, onBack }: Props) => {
 								className="px-[10px] bg-[#ed1c24] text-white hover:bg-[#ed1c24]"
 								onClick={onContinue}
 								loading={donationFormDetails?.isSubmitting}
-								disabled={donationFormDetails?.isSubmitting}
+								disabled={disabled}
 							>
 								{step !== 3
 									? "Continue"
