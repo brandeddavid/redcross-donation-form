@@ -4,7 +4,7 @@ const nextConfig = {
 	images: {
 		loader: "akamai",
 		path: "/",
-		domains: ["www.redcross.or.ke"],
+		domains: ["brandeddavid.s3.eu-west-1.amazonaws.com"],
 	},
 	env: {
 		API_HOST: process.env.API_HOST,

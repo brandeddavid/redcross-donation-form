@@ -49,7 +49,7 @@ const Home = () => {
 					<div className="flex justify-end w-full">
 						<Image
 							className="z-10 opacity-50"
-							src="https://www.redcross.or.ke/assets/img/don1.JPG"
+							src="https://brandeddavid.s3.eu-west-1.amazonaws.com/public/maasai.jpg"
 							// src={`/${selectedCause?.value || "maasai"}.jpg`}
 							alt=""
 							height={600}
@@ -70,7 +70,7 @@ const Home = () => {
 
 				{step === 0 && (
 					<div className="flex flex-col md:justify-center flex-1 text-center space-y-[50px] bg-white">
-						<div className="bg-[#ed1c24] text-white p-[20px] md:p-[40px]">
+						<div className="bg-[#ed1c24] text-white p-[20px] md:p-[40px] min-h-[250px]">
 							<h1 className="text-5xl">{`Support ${
 								selectedCause?.label || "our Cause"
 							}`}</h1>
