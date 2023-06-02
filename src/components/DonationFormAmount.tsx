@@ -42,6 +42,8 @@ const DonationFormAmount = ({}: Props) => {
 		setDonationAmount,
 	} = useContext(DonationFormContext);
 
+	console.log({ donationFormDetails });
+
 	return (
 		<div className="py-[10px] md:py-[50px] md:px-5 flex flex-col space-y-[20px] md:space-y-[30px]">
 			<RadioButton
@@ -93,11 +95,11 @@ const DonationFormAmount = ({}: Props) => {
 								key={currency}
 								className={`${
 									(currency === donationFormDetails?.selectedCurrency &&
-										"bg-[#ed1c24] text-white hover:bg-[#ed1c24]") ||
+										"bg-[#ed1c24] text-white") ||
 									""
 								}`}
 								onClick={() => {
-									console.log({ currency });
+									console.log(currency, donationFormDetails?.selectedCurrency);
 									setSelectedCurrency(currency);
 									setDonationAmount("");
 								}}

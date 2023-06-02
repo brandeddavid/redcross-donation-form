@@ -111,7 +111,7 @@ const DonationFormProvider = ({ children }: Props) => {
 	};
 
 	const setSelectedCurrency = (option: string) => {
-		console.log("Hello", option);
+		console.log({ option });
 		setDonationFormDetails({
 			...donationFormDetails,
 			selectedCurrency: option,
@@ -160,15 +160,12 @@ const DonationFormProvider = ({ children }: Props) => {
 		setDonationFormDetails({ ...initialFormDetails });
 	}, []);
 
-	const setTotalDonationAmount = useCallback(
-		(amount: string) => {
-			setDonationFormDetails({
-				...donationFormDetails,
-				totalDonationAmount: amount,
-			});
-		},
-		[donationFormDetails]
-	);
+	const setTotalDonationAmount = (amount: string) => {
+		setDonationFormDetails({
+			...donationFormDetails,
+			totalDonationAmount: amount,
+		});
+	};
 
 	const setPaymentOption = (option: string) => {
 		setDonationFormDetails({
@@ -233,14 +230,12 @@ const DonationFormProvider = ({ children }: Props) => {
 		donationFormDetails;
 
 	useEffect(() => {
-		if (handleProcessingFee && donationAmount) {
+		if (handleProcessingFee) {
 			return setTotalDonationAmount(
 				(Number(donationAmount) + Number(processingFee)).toString()
 			);
 		}
-
-		return;
-	}, [donationAmount, processingFee]);
+	}, [donationAmount, handleProcessingFee, processingFee]);
 
 	const { selectedCurrency, donateAs } = donationFormDetails;
 
