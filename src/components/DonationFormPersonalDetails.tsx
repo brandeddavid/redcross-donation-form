@@ -11,6 +11,7 @@ import {
 	MenuItem,
 } from "@mui/material";
 import { DonationFormContext } from "../context/donationFormContext";
+import { RedcrossCausesContext } from "@/context/redcrossCausesContext";
 
 type Props = {};
 type CountryOption = {
@@ -32,48 +33,7 @@ const DonationFormPersonalDetails = ({}: Props) => {
 		setPhoneNumber,
 	} = useContext(DonationFormContext);
 
-	const countryList: CountryOption[] = [
-		{
-			value: "KE",
-			label: "Kenya",
-		},
-		{
-			value: "US",
-			label: "United States",
-		},
-		{
-			value: "CA",
-			label: "Canada",
-		},
-		{
-			value: "AU",
-			label: "Australia",
-		},
-		{
-			value: "BR",
-			label: "Brazil",
-		},
-		{
-			value: "IN",
-			label: "India",
-		},
-		{
-			value: "GB",
-			label: "United Kingdom",
-		},
-		{
-			value: "NZ",
-			label: "New Zealand",
-		},
-		{
-			value: "SG",
-			label: "Singapore",
-		},
-		{
-			value: "JP",
-			label: "Japan",
-		},
-	];
+	const { countries, counties } = useContext(RedcrossCausesContext);
 
 	return (
 		<div className="p-[30px] flex flex-col space-y-[40px]">
@@ -168,7 +128,7 @@ const DonationFormPersonalDetails = ({}: Props) => {
 									setCountry(event.target.value);
 								}}
 							>
-								{countryList.map(({ label, value }: CountryOption) => {
+								{countries.map(({ label, value }: CountryOption) => {
 									return (
 										<MenuItem key={value} value={label}>
 											{label}
@@ -191,7 +151,15 @@ const DonationFormPersonalDetails = ({}: Props) => {
 										setCounty(event.target.value);
 									}}
 									fullWidth
-								/>
+								>
+									{counties.map(({ label, value }: CountryOption) => {
+										return (
+											<MenuItem key={value} value={label}>
+												{label}
+											</MenuItem>
+										);
+									})}
+								</Select>
 							</FormControl>
 						)}
 					</div>

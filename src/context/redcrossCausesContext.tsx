@@ -19,16 +19,29 @@ type RedcrossCausesContext = {
 	redCrossCauses: RedCrossCauses;
 	selectedCause: RedCrossCause | null;
 	onRedCrossCauseSelect: (option: string) => void;
+	countries: Array<{
+		label: string;
+		value: string;
+	}>;
+	counties: Array<{
+		label: string;
+		value: string;
+	}>;
 };
 
 export const RedcrossCausesContext = createContext<RedcrossCausesContext>({
 	redCrossCauses: [],
 	selectedCause: null,
 	onRedCrossCauseSelect: () => {},
+	countries: [],
+	counties: [],
 });
 
 const RedcrossCausesProvider = ({ children }: Props) => {
 	const [redCrossCauses, setRedCrossCauses] = useState<RedCrossCauses>([]);
+	const [countries, setCountries] = useState([]);
+	const [counties, setCounties] = useState([]);
+
 	const [selectedCause, setSelectedCause] = useState<RedCrossCause | null>(
 		null
 	);
@@ -64,8 +77,6 @@ const RedcrossCausesProvider = ({ children }: Props) => {
 					}
 				);
 
-				console.log(formattedData.length);
-
 				return setRedCrossCauses(formattedData);
 			} catch (error) {
 				console.error(error);
@@ -75,9 +86,61 @@ const RedcrossCausesProvider = ({ children }: Props) => {
 		fetchCampaigns();
 	}, []);
 
+	useEffect(() => {
+		const fetchCountries = async () => {
+			try {
+				const res = await axios.get(
+					`http://${process.env.API_HOST}/api/countries`
+				);
+				const { data } = res;
+
+				const formattedCountries = data.map(({ name, iso_code_2 }: any) => ({
+					value: iso_code_2,
+					label: name,
+				}));
+
+				return setCountries(formattedCountries);
+			} catch (error) {
+				console.error(error);
+			}
+		};
+
+		fetchCountries();
+	}, []);
+
+	useEffect(() => {
+		const fetchCounties = async () => {
+			try {
+				const res = await axios.get(
+					`http://${process.env.API_HOST}/api/counties`
+				);
+				const { data } = res;
+
+				console.log(data);
+
+				const formattedCounties = data.map(({ name }: any) => ({
+					value: name,
+					label: name,
+				}));
+
+				return setCounties(formattedCounties);
+			} catch (error) {
+				console.error(error);
+			}
+		};
+
+		fetchCounties();
+	}, []);
+
 	return (
 		<RedcrossCausesContext.Provider
-			value={{ redCrossCauses, selectedCause, onRedCrossCauseSelect }}
+			value={{
+				redCrossCauses,
+				selectedCause,
+				onRedCrossCauseSelect,
+				countries,
+				counties,
+			}}
 		>
 			{children}
 		</RedcrossCausesContext.Provider>
