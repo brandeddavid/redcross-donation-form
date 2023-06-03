@@ -157,7 +157,7 @@ const DonationFormAmount = ({}: Props) => {
 								</div>
 							))}
 						</div>
-						<div className="mt-[20px]">
+						<div className="">
 							{showOtherAmountInput && (
 								<Input
 									placeholder="Enter amount"

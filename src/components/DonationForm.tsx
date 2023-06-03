@@ -31,7 +31,7 @@ const DonationForm = ({ step, onContinue, onBack }: Props) => {
 		if (step === 1) {
 			return setDisabled(!donationAmount || !donationOption);
 		}
-	}, [isSubmitting, donationAmount, step]);
+	}, [isSubmitting, donationAmount, step, donationOption]);
 
 	return (
 		<div className="flex flex-col justify-between">
@@ -50,7 +50,7 @@ const DonationForm = ({ step, onContinue, onBack }: Props) => {
 				<Divider />
 			</div>
 
-			<div className="">
+			<div className="md:min-h-[500px]">
 				{step === 1 && <DonationFormAmount />}
 				{step === 2 && <DonationFormPersonalDetails />}
 				{step === 3 && <DonationFormPayment />}
