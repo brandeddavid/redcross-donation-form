@@ -8,9 +8,10 @@ import {
 	FormGroup,
 	FormControlLabel,
 	Checkbox,
+	Button,
 } from "@mui/material";
 import RadioButton from "./RadioButton";
-import Button from "../components/Button";
+// import Button from "../components/Button";
 import { DonationFormContext } from "../context/donationFormContext";
 
 type Props = {};
@@ -41,7 +42,6 @@ const DonationFormAmount = ({}: Props) => {
 		toggleHandleProcessingFee,
 		setDonationAmount,
 	} = useContext(DonationFormContext);
-
 	console.log({ donationFormDetails });
 
 	return (
@@ -129,12 +129,24 @@ const DonationFormAmount = ({}: Props) => {
 							{[...donationFormDetails?.recommended, "Other"].map((amount) => (
 								<div key={amount} className="flex mb-[10px]">
 									<Button
-										className={`min-w-[100px] ${
-											(amount === donationFormDetails?.donationAmount &&
-												"bg-[#ed1c24] text-white hover:bg-[#ed1c24]") ||
-											""
-										}`}
+										// className={`min-w-[100px] ${
+										// 	(amount === donationFormDetails?.donationAmount &&
+										// 		"bg-[#ed1c24] text-white hover:bg-[#ed1c24]") ||
+										// 	""
+										// }`}
 										variant="outlined"
+										// sx={{
+										// 	background: "#ed1c24",
+										// 	"&:hover": {
+										// 		backgroundColor: "#ed1c24",
+										// 		color: "white",
+										// 	},
+										// 	"&.Mui-active": {
+										// 		backgroundColor: "#ed1c24",
+										// 		color: "white",
+										// 	},
+										// }}
+										startIcon=""
 										onClick={() => {
 											if (amount === "Other") {
 												setShowOtherAmountInput(true);

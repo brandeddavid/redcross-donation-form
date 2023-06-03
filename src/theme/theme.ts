@@ -9,17 +9,22 @@ const theme = createTheme({
 			main: "#f8f9fa",
 		},
 	},
-	// components: {
-	// 	MuiButton: {
-	// 		styleOverrides: {
-	// 			root: {
-	// 				"&hover": {
-	// 					bgcolor: "#ed1c24",
-	// 				},
-	// 			},
-	// 		},
-	// 	},
-	// },
+	components: {
+		MuiButton: {
+			styleOverrides: {
+				root: {
+					"&:hover": {
+						backgroundColor: "#ed1c24",
+						color: "white",
+					},
+					"&.Mui-active": {
+						backgroundColor: "#ed1c24",
+						color: "white",
+					},
+				},
+			},
+		},
+	},
 });
 
 export { theme };

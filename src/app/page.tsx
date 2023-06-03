@@ -49,8 +49,7 @@ const Home = () => {
 					<div className="flex justify-end w-full">
 						<Image
 							className="z-10 opacity-50"
-							src="https://brandeddavid.s3.eu-west-1.amazonaws.com/public/maasai.jpg"
-							// src={`/${selectedCause?.value || "maasai"}.jpg`}
+							src="/maasai.jpg"
 							alt=""
 							height={600}
 							width={400}

@@ -59,7 +59,7 @@ type DonationFormDetailsContext = {
 
 const initialFormDetails = {
 	donateAs: "individual",
-	donationOption: "",
+	donationOption: "donate-now",
 	selectedCurrency: "KES",
 	handleProcessingFee: false,
 	donateAnonymously: false,

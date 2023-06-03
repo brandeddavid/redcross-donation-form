@@ -1,7 +1,15 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
-import { Divider, StepLabel, Step, Stepper, CardActions } from "@mui/material";
-import Button from "./Button";
+import {
+	Divider,
+	StepLabel,
+	Step,
+	Stepper,
+	CardActions,
+	Button,
+	CircularProgress,
+} from "@mui/material";
+// import Button from "./Button";
 import DonationFormAmount from "./DonationFormAmount";
 import DonationFormPersonalDetails from "./DonationFormPersonalDetails";
 import DonationFormPayment from "./DonationFormPayment";
@@ -86,10 +94,19 @@ const DonationForm = ({ step, onContinue, onBack }: Props) => {
 
 						<div>
 							<Button
-								className="px-[10px] bg-[#ed1c24] text-white hover:bg-[#ed1c24]"
 								onClick={onContinue}
-								loading={donationFormDetails?.isSubmitting}
+								// loading={donationFormDetails?.isSubmitting}
+								startIcon={
+									donationFormDetails?.isSubmitting ? (
+										<CircularProgress size={20} />
+									) : null
+								}
+								sx={{
+									bgcolor: "black",
+								}}
 								disabled={disabled}
+								variant="outlined"
+								color="primary"
 							>
 								{step !== 3
 									? "Continue"
