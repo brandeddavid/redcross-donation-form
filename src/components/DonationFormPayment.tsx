@@ -14,6 +14,7 @@ const DonationFormPayment = ({}: Props) => {
 		setPaymentOption,
 		setDonationAmount,
 		setPhoneNumber,
+		setSubmissionComplete,
 	} = useContext(DonationFormContext);
 
 	return (
@@ -120,7 +121,7 @@ const DonationFormPayment = ({}: Props) => {
 					</div>
 				)}
 			</div>
-			<Modal open={true} onClose={() => {}}>
+			<Modal open={false} onClose={() => setSubmissionComplete(false)}>
 				<ModalContent />
 			</Modal>
 		</>

@@ -34,6 +34,7 @@ type DonationFormDetails = {
 	address: string;
 	recommended: number[] | string[];
 	isSubmitting: boolean;
+	submissionComplete: boolean;
 } | null;
 type DonationFormDetailsContext = {
 	donationFormDetails: DonationFormDetails | null;
@@ -53,6 +54,7 @@ type DonationFormDetailsContext = {
 	setCounty: (value: string) => void;
 	setAddress: (value: string) => void;
 	onSubmit: () => void;
+	setSubmissionComplete: (value: boolean) => void;
 };
 
 const initialFormDetails = {
@@ -75,6 +77,7 @@ const initialFormDetails = {
 	address: "",
 	recommended: [],
 	isSubmitting: false,
+	submissionComplete: false,
 };
 
 export const DonationFormContext = createContext<DonationFormDetailsContext>({
@@ -95,6 +98,7 @@ export const DonationFormContext = createContext<DonationFormDetailsContext>({
 	setCounty: () => {},
 	setAddress: () => {},
 	onSubmit: () => {},
+	setSubmissionComplete: () => {},
 });
 
 const DonationFormProvider = ({ children }: Props) => {
@@ -156,6 +160,12 @@ const DonationFormProvider = ({ children }: Props) => {
 		});
 	};
 
+	const setSubmissionComplete = (value: boolean) => {
+		setDonationFormDetails({
+			...donationFormDetails,
+			submissionComplete: value,
+		});
+	};
 	useEffect(() => {
 		setDonationFormDetails({ ...initialFormDetails });
 	}, []);
@@ -356,9 +366,10 @@ const DonationFormProvider = ({ children }: Props) => {
 					const {
 						data: { status, url },
 					} = response;
+					console.log(response);
 
 					if (status && donationFormDetails.paymentOption === "Mpesa")
-						push("/");
+						return setSubmissionComplete(true);
 
 					if (status && donationFormDetails.paymentOption === "Card") push(url);
 					setIsSubmitting(false);
@@ -395,6 +406,7 @@ const DonationFormProvider = ({ children }: Props) => {
 				setEmail,
 				setPhoneNumber,
 				onSubmit,
+				setSubmissionComplete,
 			}}
 		>
 			{children}

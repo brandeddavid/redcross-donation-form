@@ -8,7 +8,7 @@ const ModalContent = (props: Props) => {
 	return (
 		<Box
 			sx={{
-				width: 400,
+				width: 300,
 				position: "absolute" as "absolute",
 				top: "50%",
 				left: "50%",
