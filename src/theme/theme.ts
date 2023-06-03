@@ -17,7 +17,7 @@ const theme = createTheme({
 						backgroundColor: "#ed1c24",
 						color: "white",
 					},
-					"&.Mui-active": {
+					"&.active": {
 						backgroundColor: "#ed1c24",
 						color: "white",
 					},

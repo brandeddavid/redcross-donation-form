@@ -129,24 +129,15 @@ const DonationFormAmount = ({}: Props) => {
 							{[...donationFormDetails?.recommended, "Other"].map((amount) => (
 								<div key={amount} className="flex mb-[10px]">
 									<Button
-										// className={`min-w-[100px] ${
-										// 	(amount === donationFormDetails?.donationAmount &&
-										// 		"bg-[#ed1c24] text-white hover:bg-[#ed1c24]") ||
-										// 	""
-										// }`}
 										variant="outlined"
-										// sx={{
-										// 	background: "#ed1c24",
-										// 	"&:hover": {
-										// 		backgroundColor: "#ed1c24",
-										// 		color: "white",
-										// 	},
-										// 	"&.Mui-active": {
-										// 		backgroundColor: "#ed1c24",
-										// 		color: "white",
-										// 	},
-										// }}
-										startIcon=""
+										sx={{
+											backgroundColor:
+												amount === donationFormDetails?.donationAmount &&
+												"#ed1c24 !important",
+											color:
+												amount === donationFormDetails?.donationAmount &&
+												"white !important",
+										}}
 										onClick={() => {
 											if (amount === "Other") {
 												setShowOtherAmountInput(true);

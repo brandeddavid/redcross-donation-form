@@ -95,15 +95,11 @@ const DonationForm = ({ step, onContinue, onBack }: Props) => {
 						<div>
 							<Button
 								onClick={onContinue}
-								// loading={donationFormDetails?.isSubmitting}
 								startIcon={
 									donationFormDetails?.isSubmitting ? (
 										<CircularProgress size={20} />
 									) : null
 								}
-								sx={{
-									bgcolor: "black",
-								}}
 								disabled={disabled}
 								variant="outlined"
 								color="primary"
