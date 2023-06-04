@@ -333,17 +333,17 @@ const DonationFormProvider = ({ children }: Props) => {
 			if (donationId) {
 				let headersList = {
 					Accept: "*/*",
-					"User-Agent": "Thunder Client (https://www.thunderclient.com)",
+					// "User-Agent": "Thunder Client (https://www.thunderclient.com)",
 					"Content-Type": "application/json",
 					Authorization: "Bearer 2|xCkinFbNY92kH2dwZ2fHW6b0W2fVFfxouIatC5xG",
 				};
 
 				let bodyContent = JSON.stringify({
 					reference_id: donationId.toString(),
-					amount: donationAmount,
+					amount: handleProcessingFee ? totalDonationAmount : donationAmount,
 					currency: "KES",
-					callback_url: "http://localhost:3000",
-					redirect_url: "http://localhost:3000",
+					callback_url: "http://196.43.239.57/api/process-payment",
+					redirect_url: "http://196.43.239.57/form",
 					express_mpesa:
 						donationFormDetails.paymentOption === "Mpesa" ? true : false,
 					msisdn: donationFormDetails.phoneNumber,
