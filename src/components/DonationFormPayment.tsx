@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
-import { Tabs, Tab, TextField, Modal, Box } from "@mui/material";
-import Button from "./Button";
+import React, { useContext } from "react";
+import Image from "next/image";
+import { Tabs, Tab, TextField, Modal } from "@mui/material";
 import { DonationFormContext } from "../context/donationFormContext";
 import ModalContent from "./ModalContent";
 
@@ -20,7 +20,7 @@ const DonationFormPayment = ({}: Props) => {
 	return (
 		<>
 			<div className="space-y-[40px]">
-				<div className="max-w-[300px] md:max-w-none mt-[20px]">
+				<div className="flex justify-center max-w-[300px] md:max-w-none mt-[20px]">
 					<Tabs
 						value={donationFormDetails?.paymentOption}
 						variant="scrollable"
@@ -67,17 +67,16 @@ const DonationFormPayment = ({}: Props) => {
 					</div>
 				)}
 
-				{/* {donationFormDetails?.paymentOption === "Card" && (
-				<div className="flex flex-col justify-center space-y-[40px]">
-					<Button onClick={() => {}}>{`Donate ${
-						donationFormDetails?.selectedCurrency
-					} ${
-						donationFormDetails?.handleProcessingFee
-							? donationFormDetails?.totalDonationAmount
-							: donationFormDetails?.donationAmount
-					}`}</Button>
-				</div>
-			)} */}
+				{donationFormDetails?.paymentOption === "Card" && (
+					<div className="flex justify-center texr-center">
+						<Image
+							src="http://sandbox.finsprint.io/public-images/public/gateways/JBi9UKfRnZWtIT6kIH1dFtpmPhFKGmY6YQtOhpIj.png"
+							alt=""
+							height={300}
+							width={300}
+						/>
+					</div>
+				)}
 
 				{donationFormDetails?.paymentOption === "Airtel Money" && (
 					<div>

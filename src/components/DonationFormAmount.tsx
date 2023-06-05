@@ -44,7 +44,6 @@ const DonationFormAmount = ({}: Props) => {
 		toggleHandleProcessingFee,
 		setDonationAmount,
 	} = useContext(DonationFormContext);
-	console.log({ donationFormDetails });
 
 	return (
 		<div className="py-[10px] md:py-[50px] md:px-5 flex flex-col space-y-[20px] md:space-y-[30px]">

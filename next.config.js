@@ -2,7 +2,7 @@
 const nextConfig = {
 	reactStrictMode: true,
 	images: {
-		domains: ["www.redcross.or.ke"],
+		domains: ["www.redcross.or.ke", "sandbox.finsprint.io"],
 	},
 	env: {
 		API_HOST: process.env.API_HOST,
