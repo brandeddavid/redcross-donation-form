@@ -158,6 +158,7 @@ const DonationFormProvider = ({ children }: Props) => {
 		setDonationFormDetails({
 			...donationFormDetails,
 			submissionComplete: value,
+			isSubmitting: false,
 		});
 	};
 
@@ -253,7 +254,7 @@ const DonationFormProvider = ({ children }: Props) => {
 				);
 				const { data } = res;
 				let recommended: any = [];
-				data &&
+				data.length &&
 					data.forEach(({ Amount: amount }: never) => {
 						recommended.push(amount);
 					});
@@ -359,13 +360,15 @@ const DonationFormProvider = ({ children }: Props) => {
 					} = response;
 					console.log(response);
 
-					if (status && donationFormDetails.paymentOption === "Mpesa")
-						return setSubmissionComplete(true);
+					if (status && donationFormDetails?.paymentOption === "Mpesa")
+						setSubmissionComplete(true);
 
-					if (status && donationFormDetails.paymentOption === "Card") push(url);
+					if (status && donationFormDetails.paymentOption === "Card") return;
 					setIsSubmitting(false);
 				} catch (error) {
 					console.error(error);
+					setIsSubmitting(false);
+				} finally {
 					setIsSubmitting(false);
 				}
 			}

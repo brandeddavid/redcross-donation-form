@@ -9,7 +9,6 @@ import {
 	Button,
 	CircularProgress,
 } from "@mui/material";
-// import Button from "./Button";
 import DonationFormAmount from "./DonationFormAmount";
 import DonationFormPersonalDetails from "./DonationFormPersonalDetails";
 import DonationFormPayment from "./DonationFormPayment";
@@ -39,7 +38,11 @@ const DonationForm = ({ step, onContinue, onBack }: Props) => {
 		if (step === 1) {
 			return setDisabled(!donationAmount || !donationOption);
 		}
-	}, [isSubmitting, donationAmount, step, donationOption]);
+
+		if (step === 3) {
+			return setDisabled(isSubmitting);
+		}
+	}, [isSubmitting, donationAmount, step, donationOption, isSubmitting]);
 
 	return (
 		<div className="flex flex-col justify-between">
