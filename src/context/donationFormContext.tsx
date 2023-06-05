@@ -325,7 +325,6 @@ const DonationFormProvider = ({ children }: Props) => {
 			if (donationId) {
 				let headersList = {
 					Accept: "*/*",
-					// "User-Agent": "Thunder Client (https://www.thunderclient.com)",
 					"Content-Type": "application/json",
 					Authorization: "Bearer 2|xCkinFbNY92kH2dwZ2fHW6b0W2fVFfxouIatC5xG",
 				};
@@ -356,14 +355,62 @@ const DonationFormProvider = ({ children }: Props) => {
 				try {
 					const response = await axios.request(reqOptions);
 					const {
-						data: { status, url },
+						data: {
+							status,
+							url,
+							trace_id,
+							reference_id,
+							token,
+							merchantCode,
+							extraData,
+						},
 					} = response;
-					console.log(response);
+					console.log({ response, status, url });
 
 					if (status && donationFormDetails?.paymentOption === "Mpesa")
 						setSubmissionComplete(true);
 
-					if (status && donationFormDetails.paymentOption === "Card") return;
+					if (status && donationFormDetails.paymentOption === "Card") {
+						console.log("Card Payment");
+
+						let headersList = {
+							"Content-Type": "multipart/form-data",
+						};
+
+						let bodyContent = JSON.stringify({
+							trace_id,
+							reference_id,
+							token,
+							merchantCode,
+							orderReference: 130,
+							currency: donationFormDetails.selectedCurrency,
+							orderAmount: 400,
+							productType: "type",
+							productDescription: "description",
+							customerFirstName: donationFormDetails.firstName,
+							customerLastName: donationFormDetails.lastName,
+							customerPostalCodeZip: donationFormDetails.address,
+							customerAddress: donationFormDetails.address,
+							customerEmail: donationFormDetails.email,
+							customerPhone: donationFormDetails.phoneNumber,
+							extraData,
+							callbackUrl: "http://196.43.239.57/api/process-payment",
+							countryCode: "KE",
+						});
+
+						let reqOptions = {
+							url: "https://v3-uat.jengapgw.io/processPayment",
+							method: "POST",
+							headers: headersList,
+							data: bodyContent,
+						};
+
+						try {
+							return await axios.request(reqOptions);
+						} catch (error) {
+							console.error(error);
+						}
+					}
 					setIsSubmitting(false);
 				} catch (error) {
 					console.error(error);

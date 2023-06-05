@@ -61,7 +61,7 @@ const DonationForm = ({ step, onContinue, onBack }: Props) => {
 				<Divider />
 			</div>
 
-			<div className="md:min-h-[500px]">
+			<div className="">
 				{step === 1 && <DonationFormAmount />}
 				{step === 2 && <DonationFormPersonalDetails />}
 				{step === 3 && <DonationFormPayment />}
