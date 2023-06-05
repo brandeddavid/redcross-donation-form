@@ -45,14 +45,13 @@ const Home = () => {
 	return (
 		<ThemeProvider theme={theme}>
 			<main className="flex w-full bg-[#f8f9fa]">
-				<div className="relative flex-col justify-center flex-1 hidden md:flex max-h-[650px] bg-[#f8f9fa] overflow-hidden">
+				<div className="relative flex-col justify-center flex-1 hidden md:flex h-[650px] bg-[#f8f9fa] overflow-hidden">
 					<div className="flex justify-end w-full">
 						<Image
 							className="z-10 opacity-50"
-							src="/maasai.jpg"
+							src="https://www.redcross.or.ke/assets/img/don1.JPG"
 							alt=""
-							height={600}
-							width={400}
+							fill
 						/>
 					</div>
 					{selectedCause && step > 0 && (

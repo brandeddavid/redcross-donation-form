@@ -1,11 +1,5 @@
 "use client";
-import React, {
-	createContext,
-	useContext,
-	useCallback,
-	useEffect,
-	useState,
-} from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { RedcrossCausesContext } from "./redcrossCausesContext";
 import { useRouter } from "next/navigation";
@@ -115,10 +109,10 @@ const DonationFormProvider = ({ children }: Props) => {
 	};
 
 	const setSelectedCurrency = (option: string) => {
-		console.log({ option });
 		setDonationFormDetails({
 			...donationFormDetails,
 			selectedCurrency: option,
+			donationAmount: "",
 		});
 	};
 
@@ -166,9 +160,6 @@ const DonationFormProvider = ({ children }: Props) => {
 			submissionComplete: value,
 		});
 	};
-	useEffect(() => {
-		setDonationFormDetails({ ...initialFormDetails });
-	}, []);
 
 	const setTotalDonationAmount = (amount: string) => {
 		setDonationFormDetails({

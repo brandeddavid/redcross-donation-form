@@ -1,10 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	reactStrictMode: true,
-	// images: {
-	// 	loader: "akamai",
-	// 	path: "/",
-	// },
+	images: {
+		domains: ["www.redcross.or.ke"],
+	},
 	env: {
 		API_HOST: process.env.API_HOST,
 	},

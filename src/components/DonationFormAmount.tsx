@@ -11,7 +11,6 @@ import {
 	Button,
 } from "@mui/material";
 import RadioButton from "./RadioButton";
-// import Button from "../components/Button";
 import { DonationFormContext } from "../context/donationFormContext";
 
 type Props = {};
@@ -21,7 +20,10 @@ type LabelProps = {
 };
 
 const tabs = ["ONE TIME", "MONTHLY"];
-const acceptedCurrency = ["KES", "USD"];
+const acceptedCurrency = [
+	{ label: "KES", value: "KES" },
+	{ label: "USD", value: "USD" },
+];
 
 const Label = ({ processingFee, currency }: LabelProps) => (
 	<div className="text-sm text-gray-500">
@@ -89,22 +91,25 @@ const DonationFormAmount = ({}: Props) => {
 					<p className="flex text-sm text-gray-500 mb-[10px]">
 						Toggle currency
 					</p>
-					<ButtonGroup variant="outlined" aria-label="button group">
-						{acceptedCurrency.map((currency) => (
+					<ButtonGroup variant="outlined">
+						{acceptedCurrency.map(({ label, value }) => (
 							<Button
-								key={currency}
-								className={`${
-									(currency === donationFormDetails?.selectedCurrency &&
-										"bg-[#ed1c24] text-white") ||
-									""
-								}`}
+								key={value}
+								sx={{
+									backgroundColor:
+										(value === donationFormDetails?.selectedCurrency &&
+											"#ed1c24 !important") ||
+										"",
+									color:
+										(value === donationFormDetails?.selectedCurrency &&
+											"white !important") ||
+										"",
+								}}
 								onClick={() => {
-									console.log(currency, donationFormDetails?.selectedCurrency);
-									setSelectedCurrency(currency);
-									setDonationAmount("");
+									setSelectedCurrency(value);
 								}}
 							>
-								{currency}
+								{label}
 							</Button>
 						))}
 					</ButtonGroup>
@@ -132,11 +137,13 @@ const DonationFormAmount = ({}: Props) => {
 										variant="outlined"
 										sx={{
 											backgroundColor:
-												amount === donationFormDetails?.donationAmount &&
-												"#ed1c24 !important",
+												(amount === donationFormDetails?.donationAmount &&
+													"#ed1c24 !important") ||
+												"",
 											color:
-												amount === donationFormDetails?.donationAmount &&
-												"white !important",
+												(amount === donationFormDetails?.donationAmount &&
+													"white !important") ||
+												"",
 										}}
 										onClick={() => {
 											if (amount === "Other") {
