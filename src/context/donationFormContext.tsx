@@ -309,7 +309,7 @@ const DonationFormProvider = ({ children }: Props) => {
 				setCardToken,
 			}}
 		>
-			<>{children}</>
+			{children}
 		</DonationFormContext.Provider>
 	);
 };

@@ -1,20 +1,17 @@
 import React, { useContext, useEffect } from "react";
-import axios from "axios";
 import { DonationFormContext } from "../context/donationFormContext";
 
-type Props = {};
-
-const InvisibleForm = (props: Props) => {
+const InvisibleForm = () => {
 	const { donationFormDetails } = useContext(DonationFormContext);
 
-	const { traceId, token, merchantCode, orderReference }: any =
+	const { traceId, token, merchantCode, referenceId }: any =
 		donationFormDetails;
 
 	useEffect(() => {
-		if (traceId) {
+		if (traceId && token && merchantCode && referenceId) {
 			document.getElementById("button")?.click();
 		}
-	}, [traceId]);
+	}, [traceId, token, merchantCode, referenceId]);
 
 	return (
 		<form
@@ -51,7 +48,7 @@ const InvisibleForm = (props: Props) => {
 			<input
 				type="hidden"
 				id="orderReference"
-				value={orderReference}
+				value={referenceId}
 				name="orderReference"
 			/>
 			<input
