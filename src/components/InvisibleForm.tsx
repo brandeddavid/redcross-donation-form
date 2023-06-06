@@ -7,10 +7,14 @@ type Props = {};
 const InvisibleForm = (props: Props) => {
 	const { donationFormDetails } = useContext(DonationFormContext);
 
+	const { traceId, token, merchantCode, orderReference }: any =
+		donationFormDetails;
+
 	useEffect(() => {
-		console.log({ donationFormDetails });
-		// document.getElementById("button")?.click();
-	}, []);
+		if (traceId) {
+			document.getElementById("button")?.click();
+		}
+	}, [traceId]);
 
 	return (
 		<form
@@ -21,16 +25,16 @@ const InvisibleForm = (props: Props) => {
 			<input
 				type="hidden"
 				id="token"
-				value="eyJhbGciOiJSUzUxMiJ9.eyJ0b2tlblR5cGUiOiJNRVJDSEFOVCIsImVudiI6IlVBVCIsImV4cCI6MTY4NjAzODIwNywiaWF0IjoxNjg2MDM3MzA3LCJhY2NvdW50IjoiNjBGMzI0NTUyNjkyRjMyNEJGN0Y4QzNCNUZEMThENkRGNUZEN0Q1NDNCQ0E5RjAxOTYzRTYxRTFDQ0ZEODY5NTM3MTYzQjgyNzMxMUFDNEY2NTdCMjAzMDg0MjRGRDJGQ3J3RHFrV2g5VmhKdmpkRklVbHVjOTRLSUFtdTZ2eE9xZ3FJMWdPbjYwbStuR1BwL0M1d0VLSmVQMmZlcjJxRkpJdjVRdFVBWDNoT1R6VEhPL3VuVkk3dlpIR1ErNndVMTZudUlJbk1lN1IvcE8wczF6TFNFNGVCczRDNXZIMjBJcTVnZENCbEViYmZKMzdGWnBtTld5NkRqZENOY3loVjROOVVNaDNOL201K1VHYmtaSi95MkhRLzZGL0ZFNlhVc21QSVlXbTlDdys0SjAyVE42WjNNNEJZWE9TRFBNUGZQb0dteWM4WUNXSG0xQjZvZndwaU9vZkpVY3VEaER0SEVxZ2JJdUZybTVWOUd2YkZHOXl5RWlvNStKcXNNdy9mWGgveTMzT0hMTmJoNDFJOUNPeGVCQm5FNTd2Q3hYRTMwVU1TbnVNMmZENlpwN2xUbjBzR3hlcXczNXFZM05jRTJYblovYWF1MW5xa0ZKUG1WM29uNEQ1Z2thQTB6MHgvNE1WR2FNTUY0Ukt0Q1lWNFBpamg0clh1cXZsRUUzU1FwcXo2NzMwSmkvd21yVXFFSjVjcW5HRTd2OUZVWXdlZCJ9.HmIVBRxrAnOCb_bvWfZ-JqQZ7Y4DqUGvbXIbiraFNYG4EG_k2v8Q3Ws3YMuOgve2Zagh8onOqwtnNzJZqkWFQuFcDpKntN3etxqo7J5VAJPiJaiy8tJShyvXa6H6zZFyICpwr0XwYaZtcN7kHAJs3sog5IiT_su1AB0_LcEGDjHnF10zZonFhMK7bR0zWa6FdKqn3uxK7vsgH2qAR1JwE6Z2U---ifPuHwCTbjwq9_XX1E1y02Ow1sWn7tfmpy8hUiyRezvtPkiZGPGGrmR_hSLJUGVvS5v3YLkhxn0aHOBjpkOTg3Ku3qV9uUZMrS7BRlnfPKIw4KZqRtks4kxboQ"
-				v-model="token"
+				value={token}
+				v-model={token}
 				name="token"
 			/>
 			<input
 				type="hidden"
 				id="merchantCode"
-				v-model="5462493591"
+				v-model={merchantCode}
 				name="merchantCode"
-				value="5462493591"
+				value={merchantCode}
 			/>
 			<input
 				type="hidden"
@@ -47,7 +51,7 @@ const InvisibleForm = (props: Props) => {
 			<input
 				type="hidden"
 				id="orderReference"
-				value={185}
+				value={orderReference}
 				name="orderReference"
 			/>
 			<input

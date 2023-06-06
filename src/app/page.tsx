@@ -11,8 +11,10 @@ import { theme } from "../theme/theme";
 import { RedcrossCausesContext } from "../context/redcrossCausesContext";
 import { DonationFormContext } from "../context/donationFormContext";
 import InvisibleForm from "../components/InvisibleForm";
+import onSubmit from "../api/submitForm";
 
 const Home = () => {
+	const [step, setStep] = useState(0);
 	const defaultDescription = `Donate today to support humanitarian work around Kenya. In times
 								of crisis, we meet the urgent needs of women, men, young and the
 								old. Help enable a rapid response to disasters. Your
@@ -20,21 +22,39 @@ const Home = () => {
 	const { redCrossCauses, selectedCause, onRedCrossCauseSelect } = useContext(
 		RedcrossCausesContext
 	);
-	const [step, setStep] = useState(0);
+	const {
+		setIsSubmitting,
+		donationFormDetails,
+		setSubmissionComplete,
+		setCardToken,
+	} = useContext(DonationFormContext);
+	const selectedCauseId = selectedCause?.id || "";
 
 	const onCauseSelect = (event: SelectChangeEvent) => {
 		onRedCrossCauseSelect(event.target.value);
 	};
 
-	const { onSubmit } = useContext(DonationFormContext);
-
-	const handleContinue = () => {
+	const handleContinue = async () => {
 		if (step >= 0 && step < 3) {
 			setStep(step + 1);
 		}
 
 		if (step === 3) {
-			onSubmit();
+			const response = await onSubmit({
+				setIsSubmitting,
+				donationFormDetails,
+				selectedCauseId,
+			});
+			console.log({ response });
+
+			if (donationFormDetails?.paymentOption === "Mpesa") {
+				setSubmissionComplete(true);
+			}
+
+			if (donationFormDetails?.paymentOption === "Card") {
+				console.log("Card payment");
+				setCardToken(response);
+			}
 		}
 	};
 	const handleBack = () => {
