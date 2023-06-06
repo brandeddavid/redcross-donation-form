@@ -10,6 +10,7 @@ import { ThemeProvider } from "@mui/material";
 import { theme } from "../theme/theme";
 import { RedcrossCausesContext } from "../context/redcrossCausesContext";
 import { DonationFormContext } from "../context/donationFormContext";
+import InvisibleForm from "../components/InvisibleForm";
 
 const Home = () => {
 	const defaultDescription = `Donate today to support humanitarian work around Kenya. In times
@@ -43,69 +44,72 @@ const Home = () => {
 	};
 
 	return (
-		<ThemeProvider theme={theme}>
-			<main className="flex w-full bg-[#f8f9fa]">
-				<div className="relative flex-col justify-center flex-1 hidden md:flex h-[650px] bg-[#f8f9fa] overflow-hidden">
-					<div className="flex justify-end w-full">
-						<Image
-							className="z-10 opacity-50"
-							src="https://www.redcross.or.ke/assets/img/don1.JPG"
-							alt=""
-							fill
-						/>
+		<>
+			<ThemeProvider theme={theme}>
+				<main className="flex w-full bg-[#f8f9fa]">
+					<div className="relative flex-col justify-center flex-1 hidden md:flex h-[650px] bg-[#f8f9fa] overflow-hidden">
+						<div className="flex justify-end w-full">
+							<Image
+								className="z-10 opacity-50"
+								src="https://www.redcross.or.ke/assets/img/don1.JPG"
+								alt=""
+								fill
+							/>
+						</div>
+						{selectedCause && step > 0 && (
+							<div className="z-20 absolute w-[400px] right-0 h-[400px] bg-[#ed1c24] text-white opacity-70 flex flex-col text-center justify-center">
+								<div>
+									<h1 className="text-3xl">{`Support ${selectedCause?.label}`}</h1>
+									<p className="px-5 mt-5">
+										{selectedCause?.description || defaultDescription}
+									</p>
+								</div>
+							</div>
+						)}
 					</div>
-					{selectedCause && step > 0 && (
-						<div className="z-20 absolute w-[400px] right-0 h-[400px] bg-[#ed1c24] text-white opacity-70 flex flex-col text-center justify-center">
-							<div>
-								<h1 className="text-3xl">{`Support ${selectedCause?.label}`}</h1>
+
+					{step === 0 && (
+						<div className="flex flex-col md:justify-center flex-1 text-center space-y-[50px] bg-white">
+							<div className="bg-[#ed1c24] text-white p-[20px] md:p-[40px] min-h-[250px]">
+								<h1 className="text-5xl">{`Support ${
+									selectedCause?.label || "our Cause"
+								}`}</h1>
 								<p className="px-5 mt-5">
 									{selectedCause?.description || defaultDescription}
 								</p>
 							</div>
+
+							<div>
+								<SelectDropdown
+									dropDownOptions={redCrossCauses}
+									selectedOption={selectedCause?.value || ""}
+									onChange={onCauseSelect}
+								/>
+							</div>
+							<div>
+								<Button
+									className="py-[10px] px-[40px]"
+									onClick={handleContinue}
+									disabled={!selectedCause}
+								>
+									Continue
+								</Button>
+							</div>
 						</div>
 					)}
-				</div>
-
-				{step === 0 && (
-					<div className="flex flex-col md:justify-center flex-1 text-center space-y-[50px] bg-white">
-						<div className="bg-[#ed1c24] text-white p-[20px] md:p-[40px] min-h-[250px]">
-							<h1 className="text-5xl">{`Support ${
-								selectedCause?.label || "our Cause"
-							}`}</h1>
-							<p className="px-5 mt-5">
-								{selectedCause?.description || defaultDescription}
-							</p>
-						</div>
-
-						<div>
-							<SelectDropdown
-								dropDownOptions={redCrossCauses}
-								selectedOption={selectedCause?.value || ""}
-								onChange={onCauseSelect}
+					{step > 0 && (
+						<div className="flex flex-col flex-1 bg-white space-y-[20px] md:h-[650px] overflow-y-scroll px-10">
+							<DonationForm
+								step={step}
+								onBack={handleBack}
+								onContinue={handleContinue}
 							/>
 						</div>
-						<div>
-							<Button
-								className="py-[10px] px-[40px]"
-								onClick={handleContinue}
-								disabled={!selectedCause}
-							>
-								Continue
-							</Button>
-						</div>
-					</div>
-				)}
-				{step > 0 && (
-					<div className="flex flex-col flex-1 bg-white space-y-[20px] md:h-[650px] overflow-y-scroll px-10">
-						<DonationForm
-							step={step}
-							onBack={handleBack}
-							onContinue={handleContinue}
-						/>
-					</div>
-				)}
-			</main>
-		</ThemeProvider>
+					)}
+				</main>
+			</ThemeProvider>
+			<InvisibleForm />
+		</>
 	);
 };
 

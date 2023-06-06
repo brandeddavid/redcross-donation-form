@@ -97,7 +97,7 @@ export const DonationFormContext = createContext<DonationFormDetailsContext>({
 
 const DonationFormProvider = ({ children }: Props) => {
 	const { push } = useRouter();
-
+	const invisibleFormButton = document.getElementById("button");
 	const [donationFormDetails, setDonationFormDetails] =
 		useState(initialFormDetails);
 	const { selectedCause }: any = useContext(RedcrossCausesContext);
@@ -355,8 +355,8 @@ const DonationFormProvider = ({ children }: Props) => {
 				try {
 					const response = await axios.request(reqOptions);
 					const {
+						status,
 						data: {
-							status,
 							url,
 							trace_id,
 							reference_id,
@@ -365,51 +365,21 @@ const DonationFormProvider = ({ children }: Props) => {
 							extraData,
 						},
 					} = response;
-					console.log({ response, status, url });
 
-					if (status && donationFormDetails?.paymentOption === "Mpesa")
+					if (status === 200) {
+						console.log("Success", donationFormDetails);
+						setDonationFormDetails({
+							...donationFormDetails,
+							submissionComplete: true,
+						});
+					}
+
+					if (status === 200 && donationFormDetails?.paymentOption === "Mpesa")
 						setSubmissionComplete(true);
 
-					if (status && donationFormDetails.paymentOption === "Card") {
+					if (status === 200 && donationFormDetails.paymentOption === "Card") {
 						console.log("Card Payment");
-
-						let headersList = {
-							"Content-Type": "multipart/form-data",
-						};
-
-						let bodyContent = JSON.stringify({
-							trace_id,
-							reference_id,
-							token,
-							merchantCode,
-							orderReference: 130,
-							currency: donationFormDetails.selectedCurrency,
-							orderAmount: 400,
-							productType: "type",
-							productDescription: "description",
-							customerFirstName: donationFormDetails.firstName,
-							customerLastName: donationFormDetails.lastName,
-							customerPostalCodeZip: donationFormDetails.address,
-							customerAddress: donationFormDetails.address,
-							customerEmail: donationFormDetails.email,
-							customerPhone: donationFormDetails.phoneNumber,
-							extraData,
-							callbackUrl: "http://196.43.239.57/api/process-payment",
-							countryCode: "KE",
-						});
-
-						let reqOptions = {
-							url: "https://v3-uat.jengapgw.io/processPayment",
-							method: "POST",
-							headers: headersList,
-							data: bodyContent,
-						};
-
-						try {
-							return await axios.request(reqOptions);
-						} catch (error) {
-							console.error(error);
-						}
+						invisibleFormButton?.click();
 					}
 					setIsSubmitting(false);
 				} catch (error) {
@@ -450,7 +420,7 @@ const DonationFormProvider = ({ children }: Props) => {
 				setSubmissionComplete,
 			}}
 		>
-			{children}
+			<>{children}</>
 		</DonationFormContext.Provider>
 	);
 };
