@@ -47,8 +47,9 @@ type DonationFormDetailsContext = {
 	setCountry: (value: string) => void;
 	setCounty: (value: string) => void;
 	setAddress: (value: string) => void;
-	onSubmit: () => void;
 	setSubmissionComplete: (value: boolean) => void;
+	setIsSubmitting: (value: boolean) => void;
+	setCardToken: (value: any) => void;
 };
 
 const initialFormDetails = {
@@ -91,13 +92,12 @@ export const DonationFormContext = createContext<DonationFormDetailsContext>({
 	setCountry: () => {},
 	setCounty: () => {},
 	setAddress: () => {},
-	onSubmit: () => {},
 	setSubmissionComplete: () => {},
+	setIsSubmitting: () => {},
+	setCardToken: () => {},
 });
 
 const DonationFormProvider = ({ children }: Props) => {
-	const { push } = useRouter();
-
 	const [donationFormDetails, setDonationFormDetails] =
 		useState(initialFormDetails);
 	const { selectedCause }: any = useContext(RedcrossCausesContext);
@@ -227,6 +227,12 @@ const DonationFormProvider = ({ children }: Props) => {
 			address: value,
 		});
 	};
+	const setCardToken = (value: any) => {
+		setDonationFormDetails({
+			...donationFormDetails,
+			...value,
+		});
+	};
 
 	const { donationAmount, handleProcessingFee, processingFee } =
 		donationFormDetails;
@@ -279,154 +285,6 @@ const DonationFormProvider = ({ children }: Props) => {
 		});
 	};
 
-	const onSubmit = async () => {
-		setIsSubmitting(true);
-
-		const {
-			selectedCurrency,
-			donateAs,
-			firstName,
-			lastName,
-			companyName,
-			phoneNumber,
-			address,
-			county,
-			country,
-			donationAmount,
-			paymentOption,
-			totalDonationAmount,
-			handleProcessingFee,
-			donateAnonymously,
-		} = donationFormDetails;
-
-		try {
-			const res = await axios.post(
-				`http://${process.env.API_HOST}/api/donate`,
-				{
-					currency: selectedCurrency === "KES" ? 1 : 2,
-					donorType: donateAs === "individual" ? 1 : 2,
-					campaignId: selectedCauseId,
-					firstName: donateAnonymously ? "Anonymous" : firstName,
-					lastName: donateAnonymously ? "Anonymous" : lastName,
-					companyName: donateAnonymously ? "Anonymous" : companyName,
-					phoneNumber,
-					address,
-					county,
-					country,
-					amount: handleProcessingFee ? totalDonationAmount : donationAmount,
-					paymentMethod: paymentOption === "Mpesa" ? 1 : 2,
-				}
-			);
-			const {
-				data: { donationId },
-			} = res;
-			console.log({ donationId });
-
-			if (donationId) {
-				let headersList = {
-					Accept: "*/*",
-					"Content-Type": "application/json",
-					Authorization: "Bearer 2|xCkinFbNY92kH2dwZ2fHW6b0W2fVFfxouIatC5xG",
-				};
-
-				let bodyContent = JSON.stringify({
-					reference_id: donationId.toString(),
-					amount: handleProcessingFee ? totalDonationAmount : donationAmount,
-					currency: "KES",
-					callback_url: "http://196.43.239.57/api/process-payment",
-					redirect_url: "http://196.43.239.57/form",
-					express_mpesa:
-						donationFormDetails.paymentOption === "Mpesa" ? true : false,
-					msisdn: donationFormDetails.phoneNumber,
-					first_name: donationFormDetails.firstName,
-					last_name: donationFormDetails.lastName,
-					address: donationFormDetails.address,
-					state: donationFormDetails.county,
-					country: donationFormDetails.country,
-				});
-
-				let reqOptions = {
-					url: "http://sandbox.finsprint.io/api/v1/request-checkout",
-					method: "POST",
-					headers: headersList,
-					data: bodyContent,
-				};
-
-				try {
-					const response = await axios.request(reqOptions);
-					const {
-						data: {
-							status,
-							url,
-							trace_id,
-							reference_id,
-							token,
-							merchantCode,
-							extraData,
-						},
-					} = response;
-					console.log({ response, status, url });
-
-					if (status && donationFormDetails?.paymentOption === "Mpesa")
-						setSubmissionComplete(true);
-
-					if (status && donationFormDetails.paymentOption === "Card") {
-						console.log("Card Payment");
-
-						let headersList = {
-							"Content-Type": "multipart/form-data",
-						};
-
-						let bodyContent = JSON.stringify({
-							trace_id,
-							reference_id,
-							token,
-							merchantCode,
-							orderReference: 130,
-							currency: donationFormDetails.selectedCurrency,
-							orderAmount: 400,
-							productType: "type",
-							productDescription: "description",
-							customerFirstName: donationFormDetails.firstName,
-							customerLastName: donationFormDetails.lastName,
-							customerPostalCodeZip: donationFormDetails.address,
-							customerAddress: donationFormDetails.address,
-							customerEmail: donationFormDetails.email,
-							customerPhone: donationFormDetails.phoneNumber,
-							extraData,
-							callbackUrl: "http://196.43.239.57/api/process-payment",
-							countryCode: "KE",
-						});
-
-						let reqOptions = {
-							url: "https://v3-uat.jengapgw.io/processPayment",
-							method: "POST",
-							headers: headersList,
-							data: bodyContent,
-						};
-
-						try {
-							return await axios.request(reqOptions);
-						} catch (error) {
-							console.error(error);
-						}
-					}
-					setIsSubmitting(false);
-				} catch (error) {
-					console.error(error);
-					setIsSubmitting(false);
-				} finally {
-					setIsSubmitting(false);
-				}
-			}
-		} catch (error) {
-			console.log(error);
-			setIsSubmitting(false);
-		} finally {
-			setIsSubmitting(false);
-		}
-	};
-
 	return (
 		<DonationFormContext.Provider
 			value={{
@@ -446,11 +304,12 @@ const DonationFormProvider = ({ children }: Props) => {
 				setCounty,
 				setEmail,
 				setPhoneNumber,
-				onSubmit,
 				setSubmissionComplete,
+				setIsSubmitting,
+				setCardToken,
 			}}
 		>
-			{children}
+			<>{children}</>
 		</DonationFormContext.Provider>
 	);
 };
