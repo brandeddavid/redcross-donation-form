@@ -63,6 +63,10 @@ const Home = () => {
 		}
 	};
 
+	const imageLoader = () => {
+		return "https://brandeddavid.s3.eu-west-1.amazonaws.com/public/maasai.jpg";
+	};
+
 	return (
 		<>
 			<ThemeProvider theme={theme}>
@@ -71,9 +75,10 @@ const Home = () => {
 						<div className="flex justify-end w-full">
 							<Image
 								className="z-10 opacity-50"
-								src="https://www.redcross.or.ke/assets/img/don1.JPG"
+								src="https://brandeddavid.s3.eu-west-1.amazonaws.com/public/maasai.jpg"
 								alt=""
 								fill
+								loader={imageLoader}
 							/>
 						</div>
 						{selectedCause && step > 0 && (

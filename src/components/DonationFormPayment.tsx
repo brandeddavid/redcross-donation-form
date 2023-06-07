@@ -17,6 +17,10 @@ const DonationFormPayment = ({}: Props) => {
 		setSubmissionComplete,
 	} = useContext(DonationFormContext);
 
+	const imageLoader = () => {
+		return "http://sandbox.finsprint.io/public-images/public/gateways/JBi9UKfRnZWtIT6kIH1dFtpmPhFKGmY6YQtOhpIj.png";
+	};
+
 	return (
 		<>
 			<div className="space-y-[40px]">
@@ -74,6 +78,7 @@ const DonationFormPayment = ({}: Props) => {
 							alt=""
 							height={300}
 							width={300}
+							loader={imageLoader}
 						/>
 					</div>
 				)}
