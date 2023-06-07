@@ -105,6 +105,12 @@ const InvisibleForm = () => {
 				value="http://196.43.239.57/api/process-payment"
 				name="callbackUrl"
 			/>
+			<input
+				type="hidden"
+				id="redirectUrl"
+				value="http://196.43.239.57/form"
+				name="redirectUrl"
+			/>
 			<input type="hidden" id="countryCode" value="KE" name="countryCode" />
 			<input className="hidden" type="submit" id="button" />
 		</form>

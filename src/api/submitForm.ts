@@ -1,7 +1,5 @@
 import React, { useContext } from "react";
 import axios from "axios";
-import { DonationFormContext } from "../context/donationFormContext";
-import { RedcrossCausesContext } from "../context/redcrossCausesContext";
 
 const onSubmit = async ({
 	setIsSubmitting,
@@ -35,10 +33,10 @@ const onSubmit = async ({
 			firstName: donateAnonymously ? "Anonymous" : firstName,
 			lastName: donateAnonymously ? "Anonymous" : lastName,
 			companyName: donateAnonymously ? "Anonymous" : companyName,
-			phoneNumber,
-			address,
-			county,
-			country,
+			phoneNumber: donateAnonymously ? "Anonymous" : phoneNumber,
+			address: donateAnonymously ? "Anonymous" : address,
+			county: donateAnonymously ? "Anonymous" : county,
+			country: donateAnonymously ? "Anonymous" : country,
 			amount: handleProcessingFee ? totalDonationAmount : donationAmount,
 			paymentMethod: paymentOption === "Mpesa" ? 1 : 2,
 		});

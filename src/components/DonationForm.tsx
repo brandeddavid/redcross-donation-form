@@ -49,11 +49,8 @@ const DonationForm = ({ step, onContinue, onBack }: Props) => {
 
 		if (step === 2) {
 			return setDisabled(
-				(!donateAnonymously && !firstName) ||
-					!lastName ||
-					!email ||
-					!phoneNumber ||
-					!address
+				!donateAnonymously &&
+					(!firstName || !lastName || !email || !phoneNumber || !address)
 			);
 		}
 
@@ -71,6 +68,7 @@ const DonationForm = ({ step, onContinue, onBack }: Props) => {
 		email,
 		phoneNumber,
 		address,
+		donateAnonymously,
 	]);
 
 	return (
