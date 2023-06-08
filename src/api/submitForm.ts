@@ -1,4 +1,3 @@
-import React, { useContext } from "react";
 import axios from "axios";
 
 const onSubmit = async ({
@@ -43,7 +42,6 @@ const onSubmit = async ({
 		const {
 			data: { donationId },
 		} = res;
-		console.log({ donationId });
 
 		if (donationId) {
 			let headersList = {
