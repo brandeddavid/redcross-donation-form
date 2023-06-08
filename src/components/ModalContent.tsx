@@ -6,17 +6,7 @@ type Props = {};
 
 const ModalContent = (props: Props) => {
 	return (
-		<Box
-			sx={{
-				width: 300,
-				position: "absolute" as "absolute",
-				top: "50%",
-				left: "50%",
-				transform: "translate(-50%, -50%)",
-				bgcolor: "background.paper",
-				boxShadow: 50,
-			}}
-		>
+		<Box>
 			<div className="h-[200px] bg-[#ed1c24] flex flex-col justify-center text-center">
 				<div>
 					<CheckCircleOutlineIcon fontSize="large" sx={{ fill: "white" }} />
