@@ -23,6 +23,7 @@ const onSubmit = async ({
 		totalDonationAmount,
 		handleProcessingFee,
 		donateAnonymously,
+		donationOption,
 	}: any = donationFormDetails;
 
 	try {
@@ -43,9 +44,9 @@ const onSubmit = async ({
 		const {
 			data: { donationId },
 		} = res;
-		console.log({ donationId });
+		console.log({ donationId, donationOption });
 
-		if (donationId) {
+		if (donationId && donationOption === "donate-now") {
 			let headersList = {
 				Accept: "*/*",
 				"Content-Type": "application/json",
@@ -66,6 +67,7 @@ const onSubmit = async ({
 				address: donationFormDetails?.address,
 				state: donationFormDetails?.county,
 				country: donationFormDetails?.country,
+				email: donationFormDetails?.email,
 			});
 
 			let reqOptions = {
@@ -98,6 +100,66 @@ const onSubmit = async ({
 				setIsSubmitting(false);
 			} finally {
 				setIsSubmitting(false);
+			}
+
+			if (donationId && donationOption === "make-pledge") {
+				console.log("pledge");
+
+				let headersList = {
+					Accept: "*/*",
+					"Content-Type": "application/json",
+					Authorization: "Bearer 2|xCkinFbNY92kH2dwZ2fHW6b0W2fVFfxouIatC5xG",
+				};
+
+				let bodyContent = JSON.stringify({
+					reference_id: donationId.toString(),
+					amount: handleProcessingFee ? totalDonationAmount : donationAmount,
+					currency: "KES",
+					callback_url: "http://196.43.239.57/api/process-payment",
+					redirect_url: "http://196.43.239.57/form",
+					phone: donationFormDetails?.phoneNumber,
+					name: donationFormDetails?.firstName,
+					email: donationFormDetails?.email,
+				});
+
+				let reqOptions = {
+					url: "http://sandbox.finsprint.io/api/v1/invoices/create",
+					method: "POST",
+					headers: headersList,
+					data: bodyContent,
+				};
+
+				try {
+					const response = await axios.request(reqOptions);
+					const {
+						status,
+						data: {
+							url,
+							trace_id,
+							reference_id,
+							token,
+							merchantCode,
+							extraData,
+						},
+					} = response;
+
+					if (status === 200) {
+						return {
+							url,
+							traceId: trace_id,
+							referenceId: reference_id,
+							token,
+							merchantCode,
+							extraData,
+						};
+					}
+					setIsSubmitting(false);
+				} catch (error) {
+					console.error(error);
+					setIsSubmitting(false);
+				} finally {
+					setIsSubmitting(false);
+				}
 			}
 		}
 	} catch (error) {
