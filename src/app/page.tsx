@@ -1,7 +1,7 @@
 "use client";
-import React from "react";
+import React, { useContext, useState } from "react";
 import Image from "next/image";
-import { useContext, useState } from "react";
+import { useRouter } from "next/navigation";
 import Button from "../components/Button";
 import SelectDropdown from "../components/SelectDropdown";
 import { SelectChangeEvent } from "@mui/material/Select";
@@ -14,6 +14,7 @@ import InvisibleForm from "../components/InvisibleForm";
 import onSubmit from "../api/submitForm";
 
 const Home = () => {
+	const { push } = useRouter();
 	const [step, setStep] = useState(0);
 	const defaultDescription = `Donate today to support humanitarian work around Kenya. In times
 								of crisis, we meet the urgent needs of women, men, young and the
@@ -40,20 +41,27 @@ const Home = () => {
 		}
 
 		if (step === 3) {
-			const response = await onSubmit({
-				setIsSubmitting,
-				donationFormDetails,
-				selectedCauseId,
-			});
-			console.log({ response });
+			try {
+				const response = await onSubmit({
+					setIsSubmitting,
+					donationFormDetails,
+					selectedCauseId,
+				});
+				console.log({ response });
 
-			if (donationFormDetails?.paymentOption === "Mpesa") {
-				setSubmissionComplete(true);
-			}
+				const { referenceId }: any = response;
 
-			if (donationFormDetails?.paymentOption === "Card") {
-				console.log("Card payment");
-				setCardToken(response);
+				if (donationFormDetails?.paymentOption === "Mpesa") {
+					setSubmissionComplete(true);
+					push(`/status?id=${referenceId}`);
+				}
+
+				if (donationFormDetails?.paymentOption === "Card") {
+					console.log("Card payment");
+					setCardToken(response);
+				}
+			} catch (error) {
+				console.error(error);
 			}
 		}
 	};

@@ -125,9 +125,6 @@ const DonationFormPayment = ({}: Props) => {
 					</div>
 				)}
 			</div>
-			<Modal open={false} onClose={() => setSubmissionComplete(false)}>
-				<ModalContent />
-			</Modal>
 		</>
 	);
 };
