@@ -1,7 +1,7 @@
 "use client";
 import React, { useContext, useState } from "react";
 import Image from "next/image";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Button from "../components/Button";
 import SelectDropdown from "../components/SelectDropdown";
 import { SelectChangeEvent } from "@mui/material/Select";
