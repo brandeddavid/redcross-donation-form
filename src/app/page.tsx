@@ -2,6 +2,7 @@
 import React, { useContext, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 import Button from "../components/Button";
 import SelectDropdown from "../components/SelectDropdown";
 import { SelectChangeEvent } from "@mui/material/Select";
@@ -90,14 +91,20 @@ const Home = () => {
 							/>
 						</div>
 						{selectedCause && step > 0 && (
-							<div className="z-20 absolute w-[400px] right-0 h-[400px] bg-[#ed1c24] text-white opacity-70 flex flex-col text-center justify-center">
+							<motion.div
+								initial={{ x: -100, opacity: 0 }}
+								transition={{ duration: 0.5 }}
+								whileInView={{ opacity: 1, x: 0 }}
+								viewport={{ once: true }}
+								className="z-20 absolute w-[400px] right-0 h-[400px] bg-[#ed1c24] text-white opacity-70 flex flex-col text-center justify-center"
+							>
 								<div>
 									<h1 className="text-3xl">{`Support ${selectedCause?.label}`}</h1>
 									<p className="px-5 mt-5">
 										{selectedCause?.description || defaultDescription}
 									</p>
 								</div>
-							</div>
+							</motion.div>
 						)}
 					</div>
 
@@ -131,13 +138,19 @@ const Home = () => {
 						</div>
 					)}
 					{step > 0 && (
-						<div className="flex flex-col flex-1 bg-white space-y-[20px] md:h-[650px] overflow-y-scroll px-10">
+						<motion.div
+							initial={{ x: 100, opacity: 0 }}
+							transition={{ duration: 0.5 }}
+							whileInView={{ opacity: 1, x: 0 }}
+							viewport={{ once: true }}
+							className="flex flex-col flex-1 bg-white space-y-[20px] md:h-[650px] overflow-y-scroll px-10"
+						>
 							<DonationForm
 								step={step}
 								onBack={handleBack}
 								onContinue={handleContinue}
 							/>
-						</div>
+						</motion.div>
 					)}
 				</main>
 			</ThemeProvider>

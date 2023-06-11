@@ -16,8 +16,6 @@ const page = (props: Props) => {
 		} catch (error) {
 			console.error(error);
 		}
-
-		return;
 	}, [donationId]);
 
 	console.log({ donation, donationId });

@@ -72,6 +72,7 @@ const NavBar = (props: Props) => {
 					</ul>
 				</div>
 			</div>
+			<div>Hello</div>
 		</nav>
 	);
 };
