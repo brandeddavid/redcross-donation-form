@@ -22,13 +22,13 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 		<RedcrossCausesProvider>
 			<DonationFormProvider>
 				<html lang="en">
-					<body className={`${inter.className} relative flex flex-col`}>
+					<body className={`${inter.className} flex flex-col`}>
 						<div className="fixed top-0 left-0 right-0 z-50 bg-white">
 							<header>
 								<NavBar />
 							</header>
 						</div>
-						<div className="absolute top-[175px] w-full">
+						<div className="absolute top-[175px] w-full z-10">
 							<div className="">{children}</div>
 							<div className="w-full h-[500px] relative">
 								<Image

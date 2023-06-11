@@ -73,7 +73,7 @@ const DonationForm = ({ step, onContinue, onBack }: Props) => {
 
 	return (
 		<div className="flex flex-col justify-between">
-			<div className="sticky top-0 z-50 bg-white">
+			<div className="sticky top-0 z-30 bg-white">
 				<Stepper
 					activeStep={step}
 					alternativeLabel

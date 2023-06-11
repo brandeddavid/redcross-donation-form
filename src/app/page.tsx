@@ -96,7 +96,7 @@ const Home = () => {
 								transition={{ duration: 0.5 }}
 								whileInView={{ opacity: 0.7, x: 0 }}
 								viewport={{ once: true }}
-								className="z-20 absolute w-[400px] right-0 h-[400px] bg-[#ed1c24] text-white opacity-70 flex flex-col text-center justify-center"
+								className="z-50 absolute w-[400px] right-0 h-[400px] bg-[#ed1c24] text-white opacity-70 flex flex-col text-center justify-center"
 							>
 								<div>
 									<h1 className="text-3xl">{`Support ${selectedCause?.label}`}</h1>

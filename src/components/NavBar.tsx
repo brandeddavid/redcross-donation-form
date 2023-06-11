@@ -18,7 +18,7 @@ const NavBar = (props: Props) => {
 	};
 
 	return (
-		<nav className="relative w-full">
+		<nav className="relative w-full z-50">
 			<div className="flex justify-between w-full py-5 border border-b-1 md:justify-evenly">
 				<div>
 					<Link href="/">
