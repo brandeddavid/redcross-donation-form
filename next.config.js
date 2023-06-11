@@ -18,6 +18,7 @@ const nextConfig = {
 	},
 	env: {
 		API_HOST: process.env.API_HOST,
+		HOME: process.env.HOME || "/form",
 	},
 };
 

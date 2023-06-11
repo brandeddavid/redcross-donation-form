@@ -27,7 +27,7 @@ const onSubmit = async ({
 	try {
 		const res = await axios.post(`http://${process.env.API_HOST}/api/donate`, {
 			currency: selectedCurrency === "KES" ? 1 : 2,
-			donorType: donateAs === "individual" ? 1 : 2,
+			donorType: donateAs === "private" ? 1 : 2,
 			campaignId: selectedCauseId,
 			firstName: donateAnonymously ? "Anonymous" : firstName,
 			lastName: donateAnonymously ? "Anonymous" : lastName,

@@ -46,12 +46,12 @@ const DonationFormAmount = ({}: Props) => {
 	} = useContext(DonationFormContext);
 
 	return (
-		<div className="py-[10px] md:py-[50px] md:px-5 flex flex-col space-y-[20px] md:space-y-[30px]">
+		<div className="py-[10px] md:pb-[50px] md:px-5 flex flex-col space-y-[20px]">
 			<RadioButton
 				formLabel="Select donate as"
 				radioOptions={[
-					{ label: "Individual", value: "individual" },
-					{ label: "Company", value: "company" },
+					{ label: "Private", value: "private" },
+					{ label: "Organisation", value: "organisation" },
 				]}
 				onChange={(value) => setDonateAs(value)}
 				selectedOption={donationFormDetails?.donateAs}

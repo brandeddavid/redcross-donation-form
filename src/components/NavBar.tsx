@@ -12,16 +12,21 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 type Props = {};
 
 const NavBar = (props: Props) => {
+	const imageLoader = () => {
+		return "https://www.redcross.or.ke/assets/img/redcross-logo.svg";
+	};
+
 	return (
-		<nav className="relative w-full p-5 border border-b-1">
-			<div className="flex justify-between w-full md:justify-evenly">
+		<nav className="relative z-50 w-full">
+			<div className="flex justify-between w-full py-5 border border-b-1 md:justify-evenly">
 				<div>
 					<Link href="/">
 						<Image
 							src="https://www.redcross.or.ke/assets/img/redcross-logo.svg"
 							height={100}
 							width={100}
-							alt=""
+							alt="redcross-logo"
+							loader={imageLoader}
 						/>
 					</Link>
 				</div>
@@ -72,7 +77,44 @@ const NavBar = (props: Props) => {
 					</ul>
 				</div>
 			</div>
-			<div>Hello</div>
+			<div className="hidden py-5 text-sm font-bold text-gray-500 uppercase md:flex">
+				<ul className="flex justify-between w-full text-left md:justify-evenly">
+					<li className="navigationBorder">
+						<Link href="/">Home</Link>
+					</li>
+					<li className="navigationBorder">
+						<Link href="/">Get Involved</Link>
+					</li>
+					<li className="navigationBorder">
+						<Link href="/">What we do</Link>
+					</li>
+					<li className="navigationBorder">
+						<Link href="/">Who we are</Link>
+					</li>
+					<li className="navigationBorder">
+						<Link href="/">What's new</Link>
+					</li>
+					<li className="navigationBorder">
+						<Link href="/">Reach out blog</Link>
+					</li>
+					<li className="navigationBorder">
+						<Link href="/">Global fund</Link>
+					</li>
+					<li>
+						<Link href="/">
+							<span className="p-2 bg-[#ed1c24] text-white">Donate now</span>
+						</Link>
+					</li>
+					<li className="navigationBorder">
+						<Link href="/">Covid 19</Link>
+					</li>
+					<li>
+						<Link href="/">
+							<span className="p-2 bg-[#ed1c24] text-white">Drought</span>
+						</Link>
+					</li>
+				</ul>
+			</div>
 		</nav>
 	);
 };
