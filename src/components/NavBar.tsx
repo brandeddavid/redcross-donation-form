@@ -18,7 +18,7 @@ const NavBar = (props: Props) => {
 	};
 
 	return (
-		<nav className="relative w-full z-50">
+		<nav className="relative z-50 w-full">
 			<div className="flex justify-between w-full py-5 border border-b-1 md:justify-evenly">
 				<div>
 					<Link href="/">
@@ -103,7 +103,7 @@ const NavBar = (props: Props) => {
 					</li>
 					<li>
 						<Link href="/">
-							<Button variant="outlined">Donate now</Button>
+							<span className="p-2 bg-[#ed1c24] text-white">Donate now</span>
 						</Link>
 					</li>
 					<li className="navigationBorder">
@@ -111,7 +111,7 @@ const NavBar = (props: Props) => {
 					</li>
 					<li>
 						<Link href="/">
-							<Button variant="outlined">Drought</Button>
+							<span className="p-2 bg-[#ed1c24] text-white">Drought</span>
 						</Link>
 					</li>
 				</ul>
