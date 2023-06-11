@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import {
 	Checkbox,
 	FormGroup,
@@ -10,6 +10,7 @@ import {
 	FormControl,
 	MenuItem,
 } from "@mui/material";
+import { motion } from "framer-motion";
 import { DonationFormContext } from "../context/donationFormContext";
 import { RedcrossCausesContext } from "@/context/redcrossCausesContext";
 
@@ -36,7 +37,13 @@ const DonationFormPersonalDetails = ({}: Props) => {
 	const { countries, counties } = useContext(RedcrossCausesContext);
 
 	return (
-		<div className="p-[30px] flex flex-col space-y-[40px]">
+		<motion.div
+			initial={{ y: 100, opacity: 0 }}
+			transition={{ duration: 0.5 }}
+			whileInView={{ opacity: 1, y: 0 }}
+			viewport={{ once: true }}
+			className="p-[30px] flex flex-col space-y-[40px]"
+		>
 			<div>
 				<FormGroup>
 					<FormControlLabel
@@ -177,7 +184,7 @@ const DonationFormPersonalDetails = ({}: Props) => {
 					</div>
 				</FormGroup>
 			)}
-		</div>
+		</motion.div>
 	);
 };
 

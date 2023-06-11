@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Image from "next/image";
 import { Tabs, Tab, TextField, Modal } from "@mui/material";
 import { DonationFormContext } from "../context/donationFormContext";
-import ModalContent from "./ModalContent";
+import { motion } from "framer-motion";
 
 type Props = {};
 
@@ -14,7 +14,6 @@ const DonationFormPayment = ({}: Props) => {
 		setPaymentOption,
 		setDonationAmount,
 		setPhoneNumber,
-		setSubmissionComplete,
 	} = useContext(DonationFormContext);
 
 	const imageLoader = () => {
@@ -23,7 +22,13 @@ const DonationFormPayment = ({}: Props) => {
 
 	return (
 		<>
-			<div className="space-y-[40px]">
+			<motion.div
+				initial={{ y: 100, opacity: 0 }}
+				transition={{ duration: 0.5 }}
+				whileInView={{ opacity: 1, y: 0 }}
+				viewport={{ once: true }}
+				className="space-y-[40px]"
+			>
 				<div className="flex justify-center max-w-[300px] md:max-w-none mt-[20px]">
 					<Tabs
 						value={donationFormDetails?.paymentOption}
@@ -124,7 +129,7 @@ const DonationFormPayment = ({}: Props) => {
 						</div>
 					</div>
 				)}
-			</div>
+			</motion.div>
 		</>
 	);
 };
