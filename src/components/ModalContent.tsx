@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Box, Button } from "@mui/material";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
@@ -61,15 +61,16 @@ const ModalContent = ({ status }: Props) => {
 	}: any = useContext(DonationFormContext);
 	const isMpesaPending = Number(status) === 0 && paymentOption === "Mpesa";
 	const donationStatus = getDonationStatus(Number(status), isMpesaPending);
+	const donationId = useSearchParams().get("id");
 
 	console.log({ paymentOption, status });
 
 	const onSubmit = () => {
 		if (isMpesaPending) {
-			router.refresh();
+			return router.prefetch(`/status?id=${donationId}`);
 		}
 
-		router.push("/");
+		return router.push("/");
 	};
 
 	return (

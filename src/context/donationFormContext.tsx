@@ -53,7 +53,7 @@ type DonationFormDetailsContext = {
 };
 
 const initialFormDetails = {
-	donateAs: "individual",
+	donateAs: "private",
 	donationOption: "donate-now",
 	selectedCurrency: "KES",
 	handleProcessingFee: false,
