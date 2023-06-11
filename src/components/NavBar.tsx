@@ -13,6 +13,10 @@ import { Button } from "@mui/material";
 type Props = {};
 
 const NavBar = (props: Props) => {
+	const imageLoader = () => {
+		return "https://www.redcross.or.ke/assets/img/redcross-logo.svg";
+	};
+
 	return (
 		<nav className="relative w-full">
 			<div className="flex justify-between w-full py-5 border border-b-1 md:justify-evenly">
@@ -22,7 +26,8 @@ const NavBar = (props: Props) => {
 							src="https://www.redcross.or.ke/assets/img/redcross-logo.svg"
 							height={100}
 							width={100}
-							alt=""
+							alt="redcross-logo"
+							loader={imageLoader}
 						/>
 					</Link>
 				</div>

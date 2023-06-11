@@ -94,7 +94,7 @@ const Home = () => {
 							<motion.div
 								initial={{ x: -100, opacity: 0 }}
 								transition={{ duration: 0.5 }}
-								whileInView={{ opacity: 1, x: 0 }}
+								whileInView={{ opacity: 0.7, x: 0 }}
 								viewport={{ once: true }}
 								className="z-20 absolute w-[400px] right-0 h-[400px] bg-[#ed1c24] text-white opacity-70 flex flex-col text-center justify-center"
 							>

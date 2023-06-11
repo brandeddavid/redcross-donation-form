@@ -1,5 +1,6 @@
 import "./globals.css";
 import React from "react";
+import Image from "next/image";
 import { Inter } from "next/font/google";
 import RedcrossCausesProvider from "../context/redcrossCausesContext";
 import DonationFormProvider from "../context/donationFormContext";
@@ -13,19 +14,33 @@ export const metadata = {
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
+	const imageLoader = () => {
+		return "https://www.redcross.or.ke/assets/img/Large.jpg";
+	};
+
 	return (
 		<RedcrossCausesProvider>
 			<DonationFormProvider>
 				<html lang="en">
-					<body className={`${inter.className} relative`}>
+					<body className={`${inter.className} relative flex flex-col`}>
 						<div className="fixed top-0 left-0 right-0 z-50 bg-white">
 							<header>
 								<NavBar />
 							</header>
 						</div>
-
-						<div className="absolute top-[100px] md:top-[175px] left-0 right-0 z-10">
-							{children}
+						<div className="absolute top-[175px] w-full">
+							<div className="">{children}</div>
+							<div className="w-full h-[500px] relative">
+								<Image
+									src="https://www.redcross.or.ke/assets/img/Large.jpg"
+									alt=""
+									fill
+									style={{
+										opacity: 0.7,
+									}}
+									// loader={imageLoader}
+								/>
+							</div>
 						</div>
 					</body>
 				</html>
