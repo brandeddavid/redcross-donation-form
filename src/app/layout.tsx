@@ -38,7 +38,6 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 									style={{
 										opacity: 0.7,
 									}}
-									// loader={imageLoader}
 								/>
 							</div>
 						</div>
