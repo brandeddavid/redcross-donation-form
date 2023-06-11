@@ -17,14 +17,14 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 		<RedcrossCausesProvider>
 			<DonationFormProvider>
 				<html lang="en">
-					<body className={`${inter.className}`}>
-						<div className="h-[100px] bg-white fixed top-0 left-0 right-0 z-50">
+					<body className={`${inter.className} relative`}>
+						<div className="fixed top-0 left-0 right-0 z-50 bg-white">
 							<header>
 								<NavBar />
 							</header>
 						</div>
 
-						<div className="absolute top-[100px] left-0 right-0 z-10">
+						<div className="absolute top-[100px] md:top-[175px] left-0 right-0 z-10">
 							{children}
 						</div>
 					</body>

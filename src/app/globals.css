@@ -25,3 +25,9 @@ body {
 		)
 		rgb(var(--background-start-rgb));
 }
+
+@layer components {
+	.navigationBorder {
+		@apply hover:border-0 hover:border-b-[5px] border-[#ed1c24];
+	}
+}

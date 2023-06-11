@@ -8,13 +8,14 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import YouTubeIcon from "@mui/icons-material/YouTube";
+import { Button } from "@mui/material";
 
 type Props = {};
 
 const NavBar = (props: Props) => {
 	return (
-		<nav className="relative w-full p-5 border border-b-1">
-			<div className="flex justify-between w-full md:justify-evenly">
+		<nav className="relative w-full">
+			<div className="flex justify-between w-full py-5 border border-b-1 md:justify-evenly">
 				<div>
 					<Link href="/">
 						<Image
@@ -72,7 +73,44 @@ const NavBar = (props: Props) => {
 					</ul>
 				</div>
 			</div>
-			<div>Hello</div>
+			<div className="hidden py-5 text-sm font-bold text-gray-500 uppercase md:flex">
+				<ul className="flex justify-between w-full text-left md:justify-evenly">
+					<li className="navigationBorder">
+						<Link href="/">Home</Link>
+					</li>
+					<li className="navigationBorder">
+						<Link href="/">Get Involved</Link>
+					</li>
+					<li className="navigationBorder">
+						<Link href="/">What we do</Link>
+					</li>
+					<li className="navigationBorder">
+						<Link href="/">Who we are</Link>
+					</li>
+					<li className="navigationBorder">
+						<Link href="/">What's new</Link>
+					</li>
+					<li className="navigationBorder">
+						<Link href="/">Reach out blog</Link>
+					</li>
+					<li className="navigationBorder">
+						<Link href="/">Global fund</Link>
+					</li>
+					<li>
+						<Link href="/">
+							<Button variant="outlined">Donate now</Button>
+						</Link>
+					</li>
+					<li className="navigationBorder">
+						<Link href="/">Covid 19</Link>
+					</li>
+					<li>
+						<Link href="/">
+							<Button variant="outlined">Drought</Button>
+						</Link>
+					</li>
+				</ul>
+			</div>
 		</nav>
 	);
 };
