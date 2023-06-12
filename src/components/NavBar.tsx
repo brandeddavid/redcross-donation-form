@@ -90,7 +90,9 @@ const NavBar = (props: Props) => {
 			<div className="hidden py-5 text-sm font-bold text-gray-500 uppercase md:flex">
 				<ul className="flex justify-between w-full text-center md:justify-evenly">
 					<li className="navigationBorder">
-						<Link href="/form">Home</Link>
+						<Link className="p-2" href="/form">
+							Home
+						</Link>
 					</li>
 					<li className="navigationBorder">
 						<Link href="/form">Get Involved</Link>
@@ -110,7 +112,7 @@ const NavBar = (props: Props) => {
 					<li className="navigationBorder">
 						<Link href="/form">Global fund</Link>
 					</li>
-					<li>
+					<li className="navigationBorder">
 						<Link href="/form">
 							<span className="p-2 bg-[#ed1c24] text-white">Donate now</span>
 						</Link>
@@ -118,7 +120,7 @@ const NavBar = (props: Props) => {
 					<li className="navigationBorder">
 						<Link href="/form">Covid 19</Link>
 					</li>
-					<li>
+					<li className="navigationBorder">
 						<Link href="/form">
 							<span className="p-2 bg-[#ed1c24] text-white">Drought</span>
 						</Link>
