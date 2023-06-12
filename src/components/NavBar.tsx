@@ -18,8 +18,8 @@ const NavBar = (props: Props) => {
 
 	return (
 		<nav className="relative z-50 w-full">
-			<div className="flex justify-between w-full py-5 border border-b-1 md:justify-evenly">
-				<div>
+			<div className="flex justify-center w-full py-4 border md:justify-between border-b-1 px-[60px] align-center flex-nowrap">
+				<div className="flex">
 					<Link href="/form">
 						<Image
 							src="https://www.redcross.or.ke/assets/img/redcross-logo.svg"
@@ -27,26 +27,36 @@ const NavBar = (props: Props) => {
 							width={100}
 							alt="redcross-logo"
 							loader={imageLoader}
+							style={{
+								marginRight: "16px",
+								paddingTop: "5px",
+								paddingBottom: "5px",
+							}}
 						/>
 					</Link>
+					<div className="hidden md:flex-col md:justify-center md:flex">
+						<ul className="hidden text-lg md:flex">
+							<li className="mx-[8px]">
+								<Link
+									className="p-[8px]"
+									href="tel:+254703037000"
+									target="_blank"
+								>
+									TEL: <strong>0703 037 000</strong>
+								</Link>
+							</li>
+							<li className="mx-[8px]">
+								<Link href="tel:+2541999" target="_blank">
+									TOLL FREE HOTLINE: <strong>1199</strong>
+								</Link>
+							</li>
+						</ul>
+					</div>
 				</div>
 				<div className="absolute right-[30px] md:hidden">
 					<MenuIcon fontSize="large" sx={{ fill: "gray" }} />
 				</div>
-				<div className="hidden md:flex-col md:justify-center md:flex">
-					<ul className="hidden text-lg md:flex">
-						<li className="mx-[8px]">
-							<Link href="/form">
-								TEL: <strong>0703 037 000</strong>
-							</Link>
-						</li>
-						<li className="mx-[8px]">
-							<Link href="/form">
-								TOLL FREE HOTLINE: <strong>1199</strong>
-							</Link>
-						</li>
-					</ul>
-				</div>
+
 				<div className="flex flex-col justify-center">
 					<ul className="hidden md:flex">
 						<li className="mx-[8px]">
@@ -78,7 +88,7 @@ const NavBar = (props: Props) => {
 				</div>
 			</div>
 			<div className="hidden py-5 text-sm font-bold text-gray-500 uppercase md:flex">
-				<ul className="flex justify-between w-full text-left md:justify-evenly">
+				<ul className="flex justify-between w-full text-center md:justify-evenly">
 					<li className="navigationBorder">
 						<Link href="/form">Home</Link>
 					</li>
