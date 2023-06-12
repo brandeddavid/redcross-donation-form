@@ -105,12 +105,12 @@ const InvisibleForm = () => {
 				value={callbackUrl}
 				name="callbackUrl"
 			/>
-			<input
+			{/* <input
 				type="hidden"
 				id="redirectUrl"
 				value={`http://196.43.239.57/status?id=${referenceId}`}
 				name="redirectUrl"
-			/>
+			/> */}
 			<input type="hidden" id="countryCode" value="KE" name="countryCode" />
 			<input className="hidden" type="submit" id="button" />
 		</form>
