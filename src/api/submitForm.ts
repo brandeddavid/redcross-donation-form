@@ -40,7 +40,7 @@ const onSubmit = async ({
 			country: donateAnonymously ? "Anonymous" : country,
 			email: donateAnonymously ? "Anonymous" : email,
 			amount: handleProcessingFee ? totalDonationAmount : donationAmount,
-			paymentMethod: paymentOption === "Mpesa" ? 1 : 2,
+			paymentMethod: donationOption === "donate-now" ? 1 : 2,
 		});
 		const {
 			data: { donationId },

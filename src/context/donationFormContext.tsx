@@ -254,7 +254,7 @@ const DonationFormProvider = ({ children }: Props) => {
 					`http://${process.env.API_HOST}/api/recommended`,
 					{
 						currency: selectedCurrency === "KES" ? 1 : 2,
-						donorType: donateAs === "individual" ? 1 : 2,
+						donorType: donateAs === "private" ? 1 : 2,
 						campaignId: selectedCauseId,
 					}
 				);
