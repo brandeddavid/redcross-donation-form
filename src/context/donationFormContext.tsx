@@ -2,7 +2,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { RedcrossCausesContext } from "./redcrossCausesContext";
-import { useRouter } from "next/navigation";
 import "dotenv/config";
 
 type Props = {
