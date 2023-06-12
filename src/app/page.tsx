@@ -48,8 +48,6 @@ const Home = () => {
 					donationFormDetails,
 					selectedCauseId,
 				});
-				console.log({ response });
-
 				const { referenceId }: any = response;
 
 				if (donationFormDetails?.paymentOption === "Mpesa") {
@@ -58,7 +56,6 @@ const Home = () => {
 				}
 
 				if (donationFormDetails?.paymentOption === "Card") {
-					console.log("Card payment");
 					if (donationFormDetails?.donationOption === "donate-now") {
 						setCardToken(response);
 					} else {

@@ -138,7 +138,7 @@ const DonationFormProvider = ({ children }: Props) => {
 	};
 
 	const setDonationAmount = (amount: any) => {
-		const fee = 0.03 * Number(amount);
+		const fee = (0.03 * Number(amount)).toFixed(2);
 
 		setDonationFormDetails({
 			...donationFormDetails,

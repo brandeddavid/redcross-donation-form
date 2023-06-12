@@ -4,7 +4,7 @@ import { DonationFormContext } from "../context/donationFormContext";
 const InvisibleForm = () => {
 	const { donationFormDetails } = useContext(DonationFormContext);
 
-	const { traceId, token, merchantCode, referenceId }: any =
+	const { traceId, token, merchantCode, referenceId, callbackUrl }: any =
 		donationFormDetails;
 
 	useEffect(() => {
@@ -102,13 +102,13 @@ const InvisibleForm = () => {
 			<input
 				type="hidden"
 				id="callbackUrl"
-				value="http://196.43.239.57/api/process-payment"
+				value={callbackUrl}
 				name="callbackUrl"
 			/>
 			<input
 				type="hidden"
 				id="redirectUrl"
-				value="http://196.43.239.57/form"
+				value={`http://196.43.239.57/status?id=${referenceId}`}
 				name="redirectUrl"
 			/>
 			<input type="hidden" id="countryCode" value="KE" name="countryCode" />

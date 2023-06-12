@@ -47,7 +47,6 @@ const onSubmit = async ({
 		} = res;
 
 		if (donationId) {
-			console.log({ donationOption });
 			let headersList = {
 				Accept: "*/*",
 				"Content-Type": "application/json",
@@ -65,7 +64,6 @@ const onSubmit = async ({
 				state: donationFormDetails?.county,
 				country: donationFormDetails?.country,
 			};
-
 			let bodyContentDonateNow = JSON.stringify({
 				...bodyContentShared,
 				first_name: donationFormDetails?.firstName,
@@ -73,13 +71,11 @@ const onSubmit = async ({
 				express_mpesa:
 					donationFormDetails?.paymentOption === "Mpesa" ? true : false,
 			});
-
 			let bodyContentPledge = JSON.stringify({
 				...bodyContentShared,
 				notification_channels: "email",
 				name: `${donationFormDetails?.firstName} ${donationFormDetails?.lastName}`,
 			});
-
 			let reqOptions = {
 				url:
 					donationOption === "donate-now"
@@ -97,8 +93,18 @@ const onSubmit = async ({
 				const response = await axios.request(reqOptions);
 				const {
 					status,
-					data: { url, trace_id, reference_id, token, merchantCode, extraData },
+					data: {
+						url,
+						trace_id,
+						reference_id,
+						token,
+						merchantCode,
+						extraData,
+						callbackUrl,
+					},
 				} = response;
+
+				console.log({ response });
 
 				if (status === 200) {
 					return {
@@ -108,6 +114,7 @@ const onSubmit = async ({
 						token,
 						merchantCode,
 						extraData,
+						callbackUrl,
 					};
 				}
 				setIsSubmitting(false);
