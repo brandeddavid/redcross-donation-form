@@ -22,6 +22,8 @@ const onSubmit = async ({
 		totalDonationAmount,
 		handleProcessingFee,
 		donateAnonymously,
+		email,
+		donationOption,
 	}: any = donationFormDetails;
 
 	try {
@@ -36,6 +38,7 @@ const onSubmit = async ({
 			address: donateAnonymously ? "Anonymous" : address,
 			county: donateAnonymously ? "Anonymous" : county,
 			country: donateAnonymously ? "Anonymous" : country,
+			email: donateAnonymously ? "Anonymous" : email,
 			amount: handleProcessingFee ? totalDonationAmount : donationAmount,
 			paymentMethod: paymentOption === "Mpesa" ? 1 : 2,
 		});
@@ -44,33 +47,50 @@ const onSubmit = async ({
 		} = res;
 
 		if (donationId) {
+			console.log({ donationOption });
 			let headersList = {
 				Accept: "*/*",
 				"Content-Type": "application/json",
 				Authorization: "Bearer 2|xCkinFbNY92kH2dwZ2fHW6b0W2fVFfxouIatC5xG",
 			};
-
-			let bodyContent = JSON.stringify({
+			let bodyContentShared = {
 				reference_id: donationId.toString(),
 				amount: handleProcessingFee ? totalDonationAmount : donationAmount,
 				currency: "KES",
 				callback_url: "http://196.43.239.57/api/process-payment",
-				redirect_url: "http://196.43.239.57/form",
-				express_mpesa:
-					donationFormDetails?.paymentOption === "Mpesa" ? true : false,
+				redirect_url: `http://196.43.239.57/status?id=${donationId}`,
 				msisdn: donationFormDetails?.phoneNumber,
-				first_name: donationFormDetails?.firstName,
-				last_name: donationFormDetails?.lastName,
+				email: donationFormDetails?.email,
 				address: donationFormDetails?.address,
 				state: donationFormDetails?.county,
 				country: donationFormDetails?.country,
+			};
+
+			let bodyContentDonateNow = JSON.stringify({
+				...bodyContentShared,
+				first_name: donationFormDetails?.firstName,
+				last_name: donationFormDetails?.lastName,
+				express_mpesa:
+					donationFormDetails?.paymentOption === "Mpesa" ? true : false,
+			});
+
+			let bodyContentPledge = JSON.stringify({
+				...bodyContentShared,
+				notification_channels: "email",
+				name: `${donationFormDetails?.firstName} ${donationFormDetails?.lastName}`,
 			});
 
 			let reqOptions = {
-				url: "http://sandbox.finsprint.io/api/v1/request-checkout",
+				url:
+					donationOption === "donate-now"
+						? "http://sandbox.finsprint.io/api/v1/request-checkout"
+						: "http://sandbox.finsprint.io/api/v1/invoices/create",
 				method: "POST",
 				headers: headersList,
-				data: bodyContent,
+				data:
+					donationOption === "donate-now"
+						? bodyContentDonateNow
+						: bodyContentPledge,
 			};
 
 			try {
