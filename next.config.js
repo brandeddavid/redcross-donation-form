@@ -2,6 +2,9 @@
 const nextConfig = {
 	reactStrictMode: true,
 	images: {
+		unoptimized: true,
+		loader: "imgix",
+		path: "http://196.43.239.57_next/image",
 		domains: [
 			"www.redcross.or.ke",
 			"sandbox.finsprint.io",
