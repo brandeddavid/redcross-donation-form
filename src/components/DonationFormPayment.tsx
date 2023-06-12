@@ -6,7 +6,13 @@ import { motion } from "framer-motion";
 
 type Props = {};
 
-const paymentOptions = ["Mpesa", "Card", "Airtel Money", "TKash"];
+const getPaymentOptions = (currency: string | undefined) => {
+	if (currency === "USD") {
+		return ["Card"];
+	} else {
+		return ["Mpesa", "Card", "Airtel Money", "TKash"];
+	}
+};
 
 const DonationFormPayment = ({}: Props) => {
 	const {
@@ -15,6 +21,10 @@ const DonationFormPayment = ({}: Props) => {
 		setDonationAmount,
 		setPhoneNumber,
 	} = useContext(DonationFormContext);
+
+	const paymentOptions = getPaymentOptions(
+		donationFormDetails?.selectedCurrency
+	);
 
 	const imageLoader = () => {
 		return "http://sandbox.finsprint.io/public-images/public/gateways/JBi9UKfRnZWtIT6kIH1dFtpmPhFKGmY6YQtOhpIj.png";
@@ -77,14 +87,16 @@ const DonationFormPayment = ({}: Props) => {
 				)}
 
 				{donationFormDetails?.paymentOption === "Card" && (
-					<div className="flex justify-center texr-center">
-						<Image
-							src="http://sandbox.finsprint.io/public-images/public/gateways/JBi9UKfRnZWtIT6kIH1dFtpmPhFKGmY6YQtOhpIj.png"
-							alt=""
-							height={300}
-							width={300}
-							loader={imageLoader}
-						/>
+					<div className="flex justify-center texr-center pb-[50px]">
+						<div>
+							<Image
+								src="http://sandbox.finsprint.io/public-images/public/gateways/JBi9UKfRnZWtIT6kIH1dFtpmPhFKGmY6YQtOhpIj.png"
+								alt=""
+								height={300}
+								width={300}
+								loader={imageLoader}
+							/>
+						</div>
 					</div>
 				)}
 

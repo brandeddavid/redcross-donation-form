@@ -113,6 +113,8 @@ const DonationFormProvider = ({ children }: Props) => {
 			...donationFormDetails,
 			selectedCurrency: option,
 			donationAmount: "",
+			paymentOption:
+				option === "USD" ? "Card" : donationFormDetails.paymentOption,
 		});
 	};
 
