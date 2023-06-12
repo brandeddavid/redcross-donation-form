@@ -38,6 +38,8 @@ const DonationForm = ({ step, onContinue, onBack }: Props) => {
 		phoneNumber,
 		address,
 		donateAnonymously,
+		country,
+		county,
 	}: any = donationFormDetails;
 
 	useEffect(() => {
@@ -50,7 +52,11 @@ const DonationForm = ({ step, onContinue, onBack }: Props) => {
 		if (step === 2) {
 			return setDisabled(
 				!donateAnonymously &&
-					(!firstName || !lastName || !email || !phoneNumber)
+					(!firstName ||
+						!lastName ||
+						!email ||
+						!phoneNumber ||
+						(country === "Kenya" && !county))
 			);
 		}
 
@@ -69,7 +75,15 @@ const DonationForm = ({ step, onContinue, onBack }: Props) => {
 		phoneNumber,
 		address,
 		donateAnonymously,
+		country,
+		county,
 	]);
+
+	const showButtons =
+		step < 3 ||
+		(step === 3 &&
+			(donationFormDetails?.paymentOption === "Mpesa" ||
+				donationFormDetails?.paymentOption === "Card"));
 
 	return (
 		<div className="flex flex-col justify-between">
@@ -111,39 +125,41 @@ const DonationForm = ({ step, onContinue, onBack }: Props) => {
 							</p>
 						)}
 					</div>
-					<div className="flex flex-row justify-between w-full">
-						<div>
-							<Button
-								className="px-[10px] justify-start"
-								variant="outlined"
-								onClick={onBack}
-							>
-								Back
-							</Button>
-						</div>
+					{showButtons && (
+						<div className="flex flex-row justify-between w-full">
+							<div>
+								<Button
+									className="px-[10px] justify-start"
+									variant="outlined"
+									onClick={onBack}
+								>
+									Back
+								</Button>
+							</div>
 
-						<div>
-							<Button
-								onClick={onContinue}
-								startIcon={
-									donationFormDetails?.isSubmitting ? (
-										<CircularProgress size={20} />
-									) : null
-								}
-								disabled={disabled}
-								variant="outlined"
-								color="primary"
-							>
-								{step !== 3
-									? "Continue"
-									: `Donate ${donationFormDetails?.selectedCurrency} ${
-											donationFormDetails?.handleProcessingFee
-												? donationFormDetails?.totalDonationAmount
-												: donationFormDetails?.donationAmount
-									  }`}
-							</Button>
+							<div>
+								<Button
+									onClick={onContinue}
+									startIcon={
+										donationFormDetails?.isSubmitting ? (
+											<CircularProgress size={20} />
+										) : null
+									}
+									disabled={disabled}
+									variant="outlined"
+									color="primary"
+								>
+									{step !== 3
+										? "Continue"
+										: `Donate ${donationFormDetails?.selectedCurrency} ${
+												donationFormDetails?.handleProcessingFee
+													? donationFormDetails?.totalDonationAmount
+													: donationFormDetails?.donationAmount
+										  }`}
+								</Button>
+							</div>
 						</div>
-					</div>
+					)}
 				</CardActions>
 			</div>
 		</div>

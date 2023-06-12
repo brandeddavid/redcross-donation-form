@@ -35,6 +35,9 @@ const DonationFormPersonalDetails = ({}: Props) => {
 	} = useContext(DonationFormContext);
 
 	const { countries, counties } = useContext(RedcrossCausesContext);
+	const showDonateAnonymously =
+		donationFormDetails?.donateAs === "private" &&
+		donationFormDetails?.donationOption === "donate-now";
 
 	return (
 		<motion.div
@@ -44,22 +47,25 @@ const DonationFormPersonalDetails = ({}: Props) => {
 			viewport={{ once: true }}
 			className="p-[30px] flex flex-col space-y-[40px]"
 		>
-			<div>
-				<FormGroup>
-					<FormControlLabel
-						control={
-							<Checkbox
-								checked={donationFormDetails?.donateAnonymously}
-								onClick={setDonateAnonymously}
-							/>
-						}
-						label="Donate anonymously"
-					/>
-				</FormGroup>
-			</div>
+			{showDonateAnonymously && (
+				<div>
+					<FormGroup>
+						<FormControlLabel
+							control={
+								<Checkbox
+									checked={donationFormDetails?.donateAnonymously}
+									onClick={setDonateAnonymously}
+								/>
+							}
+							label="Donate anonymously"
+						/>
+					</FormGroup>
+				</div>
+			)}
+
 			{!donationFormDetails?.donateAnonymously && (
 				<FormGroup className="space-y-[40px]">
-					{donationFormDetails?.donateAs === "company" && (
+					{donationFormDetails?.donateAs === "organisation" && (
 						<div className="flex">
 							<TextField
 								label="Company name"
