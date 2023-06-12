@@ -4,8 +4,14 @@ import { DonationFormContext } from "../context/donationFormContext";
 const InvisibleForm = () => {
 	const { donationFormDetails } = useContext(DonationFormContext);
 
-	const { traceId, token, merchantCode, referenceId, callbackUrl }: any =
-		donationFormDetails;
+	const {
+		traceId,
+		token,
+		merchantCode,
+		referenceId,
+		callbackUrl,
+		extraData,
+	}: any = donationFormDetails;
 
 	useEffect(() => {
 		if (traceId && token && merchantCode && referenceId) {
@@ -98,7 +104,7 @@ const InvisibleForm = () => {
 				id="customerPhone"
 				value={donationFormDetails?.phoneNumber}
 			/>
-			<input type="hidden" id="extraData" value="1mxrr1ilh4" name="extraData" />
+			<input type="hidden" id="extraData" value={extraData} name="extraData" />
 			<input
 				type="hidden"
 				id="callbackUrl"
