@@ -59,7 +59,11 @@ const Home = () => {
 
 				if (donationFormDetails?.paymentOption === "Card") {
 					console.log("Card payment");
-					setCardToken(response);
+					if (donationFormDetails?.donationOption === "donate-now") {
+						setCardToken(response);
+					} else {
+						push(`/status?id=${referenceId}`);
+					}
 				}
 			} catch (error) {
 				console.error(error);

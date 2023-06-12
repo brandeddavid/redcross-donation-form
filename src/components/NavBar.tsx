@@ -20,7 +20,7 @@ const NavBar = (props: Props) => {
 		<nav className="relative z-50 w-full">
 			<div className="flex justify-between w-full py-5 border border-b-1 md:justify-evenly">
 				<div>
-					<Link href="/">
+					<Link href="/form">
 						<Image
 							src="https://www.redcross.or.ke/assets/img/redcross-logo.svg"
 							height={100}
@@ -36,12 +36,12 @@ const NavBar = (props: Props) => {
 				<div className="hidden md:flex-col md:justify-center md:flex">
 					<ul className="hidden text-lg md:flex">
 						<li className="mx-[8px]">
-							<Link href="/">
+							<Link href="/form">
 								TEL: <strong>0703 037 000</strong>
 							</Link>
 						</li>
 						<li className="mx-[8px]">
-							<Link href="/">
+							<Link href="/form">
 								TOLL FREE HOTLINE: <strong>1199</strong>
 							</Link>
 						</li>
@@ -50,27 +50,27 @@ const NavBar = (props: Props) => {
 				<div className="flex flex-col justify-center">
 					<ul className="hidden md:flex">
 						<li className="mx-[8px]">
-							<Link href="/">
+							<Link href="/form">
 								<MailIcon fontSize="small" sx={{ fill: "#ed1c24" }} />
 							</Link>
 						</li>
 						<li className="mx-[8px]">
-							<Link href="/">
+							<Link href="/form">
 								<FacebookIcon fontSize="small" sx={{ fill: "#ed1c24" }} />
 							</Link>
 						</li>
 						<li className="mx-[8px]">
-							<Link href="/">
+							<Link href="/form">
 								<InstagramIcon fontSize="small" sx={{ fill: "#ed1c24" }} />
 							</Link>
 						</li>
 						<li className="mx-[8px]">
-							<Link href="/">
+							<Link href="/form">
 								<TwitterIcon fontSize="small" sx={{ fill: "#ed1c24" }} />
 							</Link>
 						</li>
 						<li className="mx-[8px]">
-							<Link href="/">
+							<Link href="/form">
 								<YouTubeIcon fontSize="small" sx={{ fill: "#ed1c24" }} />
 							</Link>
 						</li>
@@ -80,36 +80,36 @@ const NavBar = (props: Props) => {
 			<div className="hidden py-5 text-sm font-bold text-gray-500 uppercase md:flex">
 				<ul className="flex justify-between w-full text-left md:justify-evenly">
 					<li className="navigationBorder">
-						<Link href="/">Home</Link>
+						<Link href="/form">Home</Link>
 					</li>
 					<li className="navigationBorder">
-						<Link href="/">Get Involved</Link>
+						<Link href="/form">Get Involved</Link>
 					</li>
 					<li className="navigationBorder">
-						<Link href="/">What we do</Link>
+						<Link href="/form">What we do</Link>
 					</li>
 					<li className="navigationBorder">
-						<Link href="/">Who we are</Link>
+						<Link href="/form">Who we are</Link>
 					</li>
 					<li className="navigationBorder">
-						<Link href="/">What's new</Link>
+						<Link href="/form">What's new</Link>
 					</li>
 					<li className="navigationBorder">
-						<Link href="/">Reach out blog</Link>
+						<Link href="/form">Reach out blog</Link>
 					</li>
 					<li className="navigationBorder">
-						<Link href="/">Global fund</Link>
+						<Link href="/form">Global fund</Link>
 					</li>
 					<li>
-						<Link href="/">
+						<Link href="/form">
 							<span className="p-2 bg-[#ed1c24] text-white">Donate now</span>
 						</Link>
 					</li>
 					<li className="navigationBorder">
-						<Link href="/">Covid 19</Link>
+						<Link href="/form">Covid 19</Link>
 					</li>
 					<li>
-						<Link href="/">
+						<Link href="/form">
 							<span className="p-2 bg-[#ed1c24] text-white">Drought</span>
 						</Link>
 					</li>

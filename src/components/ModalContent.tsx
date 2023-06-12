@@ -10,18 +10,29 @@ type Props = {
 	status: string | number;
 };
 
-const MpesaMessage = () => {
+const Message = ({ type }: any) => {
 	return (
 		<div className="p-5 bg-green-200">
-			Complete payment by entering pin on your phone then press the verify
-			button
+			{type === "mpesa" && (
+				<span>
+					Complete payment by entering pin on your phone then press the verify
+					button.
+				</span>
+			)}
+			{type === "pledge" && (
+				<span>
+					Invoice has been sent to your email address. Check your email to
+					complete payment.
+				</span>
+			)}
 		</div>
 	);
 };
 
 const getDonationStatus = (
 	status: string | number,
-	isMpesaPending: boolean
+	isMpesaPending: boolean,
+	isPledge: boolean
 ) => {
 	if (status === -1) {
 		return {
@@ -42,7 +53,15 @@ const getDonationStatus = (
 	if (isMpesaPending) {
 		return {
 			status: "PENDING",
-			message: <MpesaMessage />,
+			message: <Message type="mpesa" />,
+			icon: <PendingOutlinedIcon fontSize="large" sx={{ fill: "white" }} />,
+		};
+	}
+
+	if (isPledge) {
+		return {
+			status: "PENDING",
+			message: <Message type="pledge" />,
 			icon: <PendingOutlinedIcon fontSize="large" sx={{ fill: "white" }} />,
 		};
 	}
@@ -57,13 +76,16 @@ const getDonationStatus = (
 const ModalContent = ({ status }: Props) => {
 	const router = useRouter();
 	const {
-		donationFormDetails: { paymentOption },
+		donationFormDetails: { paymentOption, donationOption },
 	}: any = useContext(DonationFormContext);
 	const isMpesaPending = Number(status) === 0 && paymentOption === "Mpesa";
-	const donationStatus = getDonationStatus(Number(status), isMpesaPending);
+	const isPledge = Number(status) === 0 && donationOption === "make-pledge";
+	const donationStatus = getDonationStatus(
+		Number(status),
+		isMpesaPending,
+		isPledge
+	);
 	const donationId = useSearchParams().get("id");
-
-	console.log({ paymentOption, status });
 
 	const onSubmit = () => {
 		if (isMpesaPending) {

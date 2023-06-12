@@ -50,7 +50,7 @@ const DonationForm = ({ step, onContinue, onBack }: Props) => {
 		if (step === 2) {
 			return setDisabled(
 				!donateAnonymously &&
-					(!firstName || !lastName || !email || !phoneNumber || !address)
+					(!firstName || !lastName || !email || !phoneNumber)
 			);
 		}
 
