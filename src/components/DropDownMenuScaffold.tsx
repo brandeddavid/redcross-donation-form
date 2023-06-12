@@ -1,9 +1,11 @@
 import React from "react";
 import { Box } from "@mui/material";
 
-type Props = {};
+type Props = {
+	children: JSX.Element;
+};
 
-const DropDownMenuScaffold = (props: Props) => {
+const DropDownMenuScaffold = ({ children }: Props) => {
 	return (
 		<Box
 			sx={{
@@ -13,10 +15,9 @@ const DropDownMenuScaffold = (props: Props) => {
 				"z-index": 1000,
 				marginLeft: "100px",
 				marginRight: "100px",
-				height: "300px",
 			}}
 		>
-			DropDownMenuScaffold
+			{children}
 		</Box>
 	);
 };

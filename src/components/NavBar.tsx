@@ -10,11 +10,13 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DropDownMenuScaffold from "./DropDownMenuScaffold";
+import GetInvolvedMenu from "./GetInvolvedMenu";
 
 type Props = {};
 
 const NavBar = (props: Props) => {
 	const [showDropdown, toggleShowDropdown] = useState(false);
+	const [activeDropdown, setActiveDropdown] = useState("");
 	const imageLoader = () => {
 		return "https://www.redcross.or.ke/assets/img/redcross-logo.svg";
 	};
@@ -101,7 +103,10 @@ const NavBar = (props: Props) => {
 						<li className="navigationBorder">
 							<a
 								className="p-2"
-								onClick={() => toggleShowDropdown(!showDropdown)}
+								onClick={() => {
+									toggleShowDropdown(!showDropdown);
+									setActiveDropdown("get-involved");
+								}}
 							>
 								Get Involved
 								<ExpandMoreIcon
@@ -177,7 +182,11 @@ const NavBar = (props: Props) => {
 					</ul>
 				</div>
 			</nav>
-			{showDropdown && <DropDownMenuScaffold />}
+			{showDropdown && (
+				<DropDownMenuScaffold>
+					<GetInvolvedMenu />
+				</DropDownMenuScaffold>
+			)}
 		</>
 	);
 };
