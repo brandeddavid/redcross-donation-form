@@ -27,6 +27,7 @@ const page = (props: Props) => {
 			<ModalContent
 				status={donation?.payment_status}
 				fetchDonation={fetchDonation}
+				paymentBody={donation?.payment_body}
 			/>
 		</div>
 	);

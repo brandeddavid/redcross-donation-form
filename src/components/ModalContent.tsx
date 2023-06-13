@@ -10,23 +10,35 @@ import { RedcrossCausesContext } from "../context/redcrossCausesContext";
 type Props = {
 	status: string | number;
 	fetchDonation: () => void;
+	paymentBody: string;
 };
 
-const Message = ({ type }: any) => {
-	return (
-		<div className="p-5 bg-green-200">
-			{type === "mpesa" && (
+const Message = ({ type, paymentBody }: any) => {
+	if (type === "mpesa") {
+		return (
+			<div className="p-5 bg-[#ed1c24] text-white">
 				<span>
 					Complete payment by entering pin on your phone then press the verify
 					button.
 				</span>
-			)}
-			{type === "pledge" && (
+			</div>
+		);
+	}
+
+	if (type === "pledge") {
+		return (
+			<div className="p-5 bg-[#ed1c24] text-white">
 				<span>
 					Invoice has been sent to your email address. Check your email to
 					complete payment.
 				</span>
-			)}
+			</div>
+		);
+	}
+
+	return (
+		<div className="p-5 bg-[#ed1c24] text-white">
+			<span>{paymentBody}</span>
 		</div>
 	);
 };
@@ -34,12 +46,15 @@ const Message = ({ type }: any) => {
 const getDonationStatus = (
 	status: string | number,
 	isMpesaPending: boolean,
-	isPledge: boolean
+	isPledge: boolean,
+	paymentBody: string
 ) => {
 	if (status === -1) {
 		return {
 			status: "ERRORED",
-			message: "Your donation has errored",
+			message: (
+				<Message paymentBody={paymentBody || "Your donation has errored"} />
+			),
 			icon: <ErrorOutlineIcon fontSize="large" sx={{ fill: "white" }} />,
 		};
 	}
@@ -47,7 +62,13 @@ const getDonationStatus = (
 	if (status === 1) {
 		return {
 			status: "SUCCESSFUL",
-			message: "Your donation has been successfully processed",
+			message: (
+				<Message
+					paymentBody={
+						paymentBody || "Your donation has been successfully processed"
+					}
+				/>
+			),
 			icon: <CheckCircleOutlineIcon fontSize="large" sx={{ fill: "white" }} />,
 		};
 	}
@@ -83,7 +104,7 @@ const getDonationStatus = (
 	};
 };
 
-const ModalContent = ({ status, fetchDonation }: Props) => {
+const ModalContent = ({ status, fetchDonation, paymentBody }: Props) => {
 	const router = useRouter();
 	const [isMpesaPending, setIsMpesaPending] = useState(false);
 	const [isPledge, setIsPledge] = useState(false);
@@ -104,7 +125,8 @@ const ModalContent = ({ status, fetchDonation }: Props) => {
 	const donationStatus = getDonationStatus(
 		Number(status),
 		isMpesaPending,
-		isPledge
+		isPledge,
+		paymentBody
 	);
 
 	const onSubmit = () => {
@@ -118,12 +140,12 @@ const ModalContent = ({ status, fetchDonation }: Props) => {
 	};
 
 	return (
-		<Box className="w-[500px]">
+		<Box className="w-[500px] my-5">
 			<div className="h-[200px] bg-[#ed1c24] flex flex-col justify-center text-center">
 				<div>{donationStatus.icon}</div>
 				<div className="text-white">{donationStatus.status}</div>
 			</div>
-			<div className="p-[50px] space-y-[40px] flex flex-col justify-center text-center">
+			<div className="p-[50px] space-y-[40px] flex flex-col justify-center text-center border">
 				<div className="text-xl">{donationStatus.message}</div>
 				<div>
 					<Button
