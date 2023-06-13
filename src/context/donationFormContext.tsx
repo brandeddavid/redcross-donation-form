@@ -49,6 +49,7 @@ type DonationFormDetailsContext = {
 	setSubmissionComplete: (value: boolean) => void;
 	setIsSubmitting: (value: boolean) => void;
 	setCardToken: (value: any) => void;
+	resetDonationForm: () => void;
 };
 
 const initialFormDetails = {
@@ -94,6 +95,7 @@ export const DonationFormContext = createContext<DonationFormDetailsContext>({
 	setSubmissionComplete: () => {},
 	setIsSubmitting: () => {},
 	setCardToken: () => {},
+	resetDonationForm: () => {},
 });
 
 const DonationFormProvider = ({ children }: Props) => {
@@ -102,6 +104,10 @@ const DonationFormProvider = ({ children }: Props) => {
 	const { selectedCause }: any = useContext(RedcrossCausesContext);
 
 	const selectedCauseId = selectedCause?.id || "";
+
+	const resetDonationForm = () => {
+		setDonationFormDetails({ ...donationFormDetails, ...initialFormDetails });
+	};
 
 	const setDonateAs = (option: string) => {
 		setDonationFormDetails({ ...donationFormDetails, donateAs: option });
@@ -308,6 +314,7 @@ const DonationFormProvider = ({ children }: Props) => {
 				setSubmissionComplete,
 				setIsSubmitting,
 				setCardToken,
+				resetDonationForm,
 			}}
 		>
 			{children}

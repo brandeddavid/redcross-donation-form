@@ -27,6 +27,7 @@ type RedcrossCausesContext = {
 		label: string;
 		value: string;
 	}>;
+	setSelectedCause: (option: RedCrossCause | null) => void;
 };
 
 export const RedcrossCausesContext = createContext<RedcrossCausesContext>({
@@ -35,6 +36,7 @@ export const RedcrossCausesContext = createContext<RedcrossCausesContext>({
 	onRedCrossCauseSelect: () => {},
 	countries: [],
 	counties: [],
+	setSelectedCause: () => {},
 });
 
 const RedcrossCausesProvider = ({ children }: Props) => {
@@ -53,8 +55,6 @@ const RedcrossCausesProvider = ({ children }: Props) => {
 
 		return setSelectedCause(null);
 	};
-
-	console.log("Hello", process.env.API_HOST);
 
 	useEffect(() => {
 		const fetchCampaigns = async () => {
@@ -140,6 +140,7 @@ const RedcrossCausesProvider = ({ children }: Props) => {
 				onRedCrossCauseSelect,
 				countries,
 				counties,
+				setSelectedCause,
 			}}
 		>
 			{children}

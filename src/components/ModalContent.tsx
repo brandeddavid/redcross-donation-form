@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Box, Button } from "@mui/material";
+import { Box, Button, CircularProgress } from "@mui/material";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
 import { DonationFormContext } from "../context/donationFormContext";
+import { RedcrossCausesContext } from "../context/redcrossCausesContext";
 
 type Props = {
 	status: string | number;
@@ -67,20 +68,30 @@ const getDonationStatus = (
 		};
 	}
 
+	if (!isMpesaPending && status === 0) {
+		return {
+			status: "PENDING",
+			message: "Your donation is pending",
+			icon: <PendingOutlinedIcon fontSize="large" sx={{ fill: "white" }} />,
+		};
+	}
+
 	return {
-		status: "PENDING",
-		message: "Your donation is pending",
+		status: "SENDING",
+		message: <CircularProgress size="large" />,
 		icon: <PendingOutlinedIcon fontSize="large" sx={{ fill: "white" }} />,
 	};
 };
 
 const ModalContent = ({ status, fetchDonation }: Props) => {
+	const router = useRouter();
 	const [isMpesaPending, setIsMpesaPending] = useState(false);
 	const [isPledge, setIsPledge] = useState(false);
 	const {
 		donationFormDetails: { paymentOption, donationOption },
+		resetDonationForm,
 	}: any = useContext(DonationFormContext);
-	const router = useRouter();
+	const { setSelectedCause }: any = useContext(RedcrossCausesContext);
 
 	useEffect(() => {
 		setIsMpesaPending(Number(status) === 0 && paymentOption === "Mpesa");
@@ -95,13 +106,14 @@ const ModalContent = ({ status, fetchDonation }: Props) => {
 		isMpesaPending,
 		isPledge
 	);
-	const donationId = useSearchParams().get("id");
 
 	const onSubmit = () => {
 		if (isMpesaPending) {
 			return fetchDonation();
 		}
 
+		resetDonationForm();
+		setSelectedCause(null);
 		return router.push("/");
 	};
 
