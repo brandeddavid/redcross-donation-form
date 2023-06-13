@@ -12,6 +12,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DropDownMenuScaffold from "./DropDownMenuScaffold";
 import GetInvolvedMenu from "./GetInvolvedMenu";
 import WhatWeDoMenu from "./WhatWeDoMenu";
+import WhoWeAre from "./WhoWeAre";
 
 type Props = {};
 
@@ -133,7 +134,10 @@ const NavBar = (props: Props) => {
 						</li>
 						<li className="navigationBorder">
 							<a
-								onClick={() => toggleShowDropdown(!showDropdown)}
+								onClick={() => {
+									toggleShowDropdown(!showDropdown);
+									setActiveDropdown("who-we-are");
+								}}
 								className="p-2"
 							>
 								Who we are
@@ -191,6 +195,7 @@ const NavBar = (props: Props) => {
 					<>
 						{activeDropdown === "get-involved" && <GetInvolvedMenu />}
 						{activeDropdown === "what-we-do" && <WhatWeDoMenu />}
+						{activeDropdown === "who-we-are" && <WhoWeAre />}
 					</>
 				</DropDownMenuScaffold>
 			)}
