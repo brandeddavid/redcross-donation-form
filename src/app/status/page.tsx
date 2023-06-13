@@ -9,10 +9,12 @@ type Props = {};
 const page = (props: Props) => {
 	const donationId = useSearchParams().get("id");
 	const [donation, setDonation] = useState<any>({});
+	const fetchDonation = () =>
+		getDonation({ donationId }).then((res) => setDonation(res[0]));
 
 	useEffect(() => {
 		try {
-			getDonation({ donationId }).then((res) => setDonation(res[0]));
+			fetchDonation();
 		} catch (error) {
 			console.error(error);
 		}
@@ -22,7 +24,10 @@ const page = (props: Props) => {
 
 	return (
 		<div className="flex justify-center">
-			<ModalContent status={donation?.payment_status} />
+			<ModalContent
+				status={donation?.payment_status}
+				fetchDonation={fetchDonation}
+			/>
 		</div>
 	);
 };

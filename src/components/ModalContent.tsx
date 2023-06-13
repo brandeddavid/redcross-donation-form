@@ -8,6 +8,7 @@ import { DonationFormContext } from "../context/donationFormContext";
 
 type Props = {
 	status: string | number;
+	fetchDonation: () => void;
 };
 
 const Message = ({ type }: any) => {
@@ -73,7 +74,7 @@ const getDonationStatus = (
 	};
 };
 
-const ModalContent = ({ status }: Props) => {
+const ModalContent = ({ status, fetchDonation }: Props) => {
 	const [isMpesaPending, setIsMpesaPending] = useState(false);
 	const [isPledge, setIsPledge] = useState(false);
 	const {
@@ -98,7 +99,7 @@ const ModalContent = ({ status }: Props) => {
 
 	const onSubmit = () => {
 		if (isMpesaPending) {
-			return (window.location.href = `/status?id=${donationId}`);
+			return fetchDonation();
 		}
 
 		return router.push("/");
