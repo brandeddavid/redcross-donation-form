@@ -11,6 +11,9 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DropDownMenuScaffold from "./DropDownMenuScaffold";
 import GetInvolvedMenu from "./GetInvolvedMenu";
+import WhatWeDoMenu from "./WhatWeDoMenu";
+import WhoWeAre from "./WhoWeAre";
+import WhatsNew from "./WhatsNew";
 
 type Props = {};
 
@@ -24,8 +27,8 @@ const NavBar = (props: Props) => {
 	return (
 		<>
 			<nav className="relative z-50 w-full">
-				<div className="flex justify-center w-full py-4 border md:justify-between border-b-1 px-[60px] align-center flex-nowrap">
-					<div className="flex">
+				<div className="flex justify-center w-full p-4 border md:justify-between border-b-1 align-center flex-nowrap">
+					<div className="flex justify-center text-center flex-nowrap">
 						<Link href="/form">
 							<Image
 								src="https://www.redcross.or.ke/assets/img/redcross-logo.svg"
@@ -93,7 +96,7 @@ const NavBar = (props: Props) => {
 						</ul>
 					</div>
 				</div>
-				<div className="hidden py-5 text-xs font-bold text-[rgba(0,0,0,0.5)] uppercase md:flex">
+				<div className="hidden pt-4 text-xs font-bold text-[rgba(0,0,0,0.5)] uppercase md:flex">
 					<ul className="flex justify-between w-full text-center md:justify-evenly">
 						<li className="navigationBorder">
 							<Link className="p-2" href="https://www.redcross.or.ke/">
@@ -117,7 +120,10 @@ const NavBar = (props: Props) => {
 						</li>
 						<li className="navigationBorder">
 							<a
-								onClick={() => toggleShowDropdown(!showDropdown)}
+								onClick={() => {
+									toggleShowDropdown(!showDropdown);
+									setActiveDropdown("what-we-do");
+								}}
 								className="p-2"
 							>
 								What we do
@@ -129,7 +135,10 @@ const NavBar = (props: Props) => {
 						</li>
 						<li className="navigationBorder">
 							<a
-								onClick={() => toggleShowDropdown(!showDropdown)}
+								onClick={() => {
+									toggleShowDropdown(!showDropdown);
+									setActiveDropdown("who-we-are");
+								}}
 								className="p-2"
 							>
 								Who we are
@@ -141,7 +150,10 @@ const NavBar = (props: Props) => {
 						</li>
 						<li className="navigationBorder">
 							<a
-								onClick={() => toggleShowDropdown(!showDropdown)}
+								onClick={() => {
+									toggleShowDropdown(!showDropdown);
+									setActiveDropdown("whats-new");
+								}}
 								className="p-2"
 							>
 								What's new
@@ -184,7 +196,12 @@ const NavBar = (props: Props) => {
 			</nav>
 			{showDropdown && (
 				<DropDownMenuScaffold>
-					<GetInvolvedMenu />
+					<>
+						{activeDropdown === "get-involved" && <GetInvolvedMenu />}
+						{activeDropdown === "what-we-do" && <WhatWeDoMenu />}
+						{activeDropdown === "who-we-are" && <WhoWeAre />}{" "}
+						{activeDropdown === "whats-new" && <WhatsNew />}
+					</>
 				</DropDownMenuScaffold>
 			)}
 		</>
