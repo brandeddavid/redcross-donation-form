@@ -13,6 +13,7 @@ import DropDownMenuScaffold from "./DropDownMenuScaffold";
 import GetInvolvedMenu from "./GetInvolvedMenu";
 import WhatWeDoMenu from "./WhatWeDoMenu";
 import WhoWeAre from "./WhoWeAre";
+import WhatsNew from "./WhatsNew";
 
 type Props = {};
 
@@ -149,7 +150,10 @@ const NavBar = (props: Props) => {
 						</li>
 						<li className="navigationBorder">
 							<a
-								onClick={() => toggleShowDropdown(!showDropdown)}
+								onClick={() => {
+									toggleShowDropdown(!showDropdown);
+									setActiveDropdown("whats-new");
+								}}
 								className="p-2"
 							>
 								What's new
@@ -195,7 +199,8 @@ const NavBar = (props: Props) => {
 					<>
 						{activeDropdown === "get-involved" && <GetInvolvedMenu />}
 						{activeDropdown === "what-we-do" && <WhatWeDoMenu />}
-						{activeDropdown === "who-we-are" && <WhoWeAre />}
+						{activeDropdown === "who-we-are" && <WhoWeAre />}{" "}
+						{activeDropdown === "whats-new" && <WhatsNew />}
 					</>
 				</DropDownMenuScaffold>
 			)}

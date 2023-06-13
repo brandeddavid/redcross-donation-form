@@ -11,13 +11,13 @@ const WhoWeAre = (props: Props) => {
 					<li className="dropdownMenuItem w-[300px]">
 						<Link href="https://www.redcross.or.ke/aboutus">About us</Link>
 					</li>
-					<li className="dropdownMenuItem">
+					<li className="dropdownMenuItem w-[300px]">
 						<Link href="https://www.redcross.or.ke/governance">Governance</Link>
 					</li>
-					<li className="dropdownMenuItem">
+					<li className="dropdownMenuItem w-[300px]">
 						<Link href="https://www.redcross.or.ke/Team">Management Team</Link>
 					</li>
-					<li className="dropdownMenuItem">
+					<li className="dropdownMenuItem w-[300px]">
 						<Link href="https://www.redcross.or.ke/Partners">Our Partners</Link>
 					</li>
 				</ul>
