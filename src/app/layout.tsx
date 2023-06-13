@@ -30,7 +30,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 						</div>
 						<div className="absolute top-[175px] w-full z-10">
 							<div className="">{children}</div>
-							<div className="w-full h-[500px] relative">
+							<div className="hidden md:block w-full h-[500px] relative">
 								<Image
 									src="https://www.redcross.or.ke/assets/img/Large.jpg"
 									alt=""

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Box, Button } from "@mui/material";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
@@ -74,12 +74,21 @@ const getDonationStatus = (
 };
 
 const ModalContent = ({ status }: Props) => {
-	const router = useRouter();
+	const [isMpesaPending, setIsMpesaPending] = useState(false);
+	const [isPledge, setIsPledge] = useState(false);
 	const {
 		donationFormDetails: { paymentOption, donationOption },
 	}: any = useContext(DonationFormContext);
-	const isMpesaPending = Number(status) === 0 && paymentOption === "Mpesa";
-	const isPledge = Number(status) === 0 && donationOption === "make-pledge";
+	const router = useRouter();
+
+	useEffect(() => {
+		setIsMpesaPending(Number(status) === 0 && paymentOption === "Mpesa");
+	}, [status, paymentOption]);
+
+	useEffect(() => {
+		setIsPledge(Number(status) === 0 && donationOption === "make-pledge");
+	}, [status, donationOption]);
+
 	const donationStatus = getDonationStatus(
 		Number(status),
 		isMpesaPending,
@@ -89,7 +98,7 @@ const ModalContent = ({ status }: Props) => {
 
 	const onSubmit = () => {
 		if (isMpesaPending) {
-			return router.prefetch(`/status?id=${donationId}`);
+			return (window.location.href = `/status?id=${donationId}`);
 		}
 
 		return router.push("/");
@@ -106,7 +115,15 @@ const ModalContent = ({ status }: Props) => {
 				<div>
 					<Button
 						className="bg-[#ed1c24] text-white"
-						sx={{ width: "200px", backgroundColor: "#ed1c24" }}
+						sx={{
+							width: "200px",
+							backgroundColor: "#ed1c24",
+							color: "white",
+							"&:hover": {
+								backgroundColor: "#ed1c24",
+								color: "white",
+							},
+						}}
 						color="primary"
 						onClick={onSubmit}
 					>
