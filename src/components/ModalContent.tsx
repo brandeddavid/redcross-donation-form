@@ -53,7 +53,7 @@ const getDonationStatus = (
 		return {
 			status: "ERRORED",
 			message: (
-				<Message paymentBody={paymentBody || "Your donation has errored"} />
+				<Message paymentBody="Error occurred while processing your donation, please retry" />
 			),
 			icon: <ErrorOutlineIcon fontSize="large" sx={{ fill: "white" }} />,
 		};
@@ -63,11 +63,7 @@ const getDonationStatus = (
 		return {
 			status: "SUCCESSFUL",
 			message: (
-				<Message
-					paymentBody={
-						paymentBody || "Your donation has been successfully processed"
-					}
-				/>
+				<Message paymentBody="Your donation has been successfully processed" />
 			),
 			icon: <CheckCircleOutlineIcon fontSize="large" sx={{ fill: "white" }} />,
 		};
