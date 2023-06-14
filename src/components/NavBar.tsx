@@ -27,7 +27,7 @@ const NavBar = (props: Props) => {
 	return (
 		<>
 			<nav className="relative z-50 w-full">
-				<div className="flex justify-center w-full p-4 border md:justify-between border-b-1 align-center flex-nowrap">
+				<div className="flex justify-start w-full px-4 py-4 md:px-[60px] border md:justify-between border-b-1 align-center flex-nowrap lg:justify-evenly">
 					<div className="flex justify-center text-center flex-nowrap">
 						<Link href="/form">
 							<Image
@@ -96,8 +96,8 @@ const NavBar = (props: Props) => {
 						</ul>
 					</div>
 				</div>
-				<div className="hidden pt-4 text-xs font-bold text-[rgba(0,0,0,0.5)] uppercase md:flex">
-					<ul className="flex justify-between w-full text-center md:justify-evenly">
+				<div className="hidden pt-4 text-xs font-bold text-[rgba(0,0,0,0.5)] uppercase md:flex px-[60px]">
+					<ul className="flex justify-between w-full text-center lg:justify-center">
 						<li className="navigationBorder">
 							<Link className="p-2" href="https://www.redcross.or.ke/">
 								Home
