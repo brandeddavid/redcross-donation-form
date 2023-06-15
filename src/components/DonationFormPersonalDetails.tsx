@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import {
 	Checkbox,
 	FormGroup,
@@ -21,7 +21,6 @@ type CountryOption = {
 };
 
 const DonationFormPersonalDetails = ({}: Props) => {
-	const [emailError, setEmailError] = useState("");
 	const {
 		donationFormDetails,
 		setDonateAnonymously,
@@ -33,6 +32,7 @@ const DonationFormPersonalDetails = ({}: Props) => {
 		setCounty,
 		setEmail,
 		setPhoneNumber,
+		setEmailError,
 	} = useContext(DonationFormContext);
 	const { countries, counties } = useContext(RedcrossCausesContext);
 
@@ -43,10 +43,11 @@ const DonationFormPersonalDetails = ({}: Props) => {
 	const validateEmail = () => {
 		const validEmailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-		if (donationFormDetails?.email.match(validEmailRegex))
-			return setEmailError("");
-
-		return setEmailError("Please enter a valid email address");
+		if (donationFormDetails?.email.match(validEmailRegex)) {
+			setEmailError("");
+		} else {
+			setEmailError("Please enter a valid email address");
+		}
 	};
 
 	return (
@@ -126,9 +127,9 @@ const DonationFormPersonalDetails = ({}: Props) => {
 								onBlur={validateEmail}
 							/>
 						</div>
-						{emailError && (
+						{donationFormDetails?.emailError && (
 							<div className="mt-[5px] text-[#ed1c24] text-xs">
-								{emailError}
+								{donationFormDetails?.emailError}
 							</div>
 						)}
 					</div>

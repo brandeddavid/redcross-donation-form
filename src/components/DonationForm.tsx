@@ -56,7 +56,7 @@ const DonationForm = ({ step, onContinue, onBack }: Props) => {
 					(!firstName ||
 						!lastName ||
 						!email ||
-						// (email && emailError) ||
+						(email && emailError !== "") ||
 						!phoneNumber ||
 						(country === "Kenya" && !county))
 			);
