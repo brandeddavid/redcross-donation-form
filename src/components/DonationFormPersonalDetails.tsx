@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
 	Checkbox,
 	FormGroup,
@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { motion } from "framer-motion";
 import { DonationFormContext } from "../context/donationFormContext";
-import { RedcrossCausesContext } from "@/context/redcrossCausesContext";
+import { RedcrossCausesContext } from "../context/redcrossCausesContext";
 
 type Props = {};
 type CountryOption = {
@@ -21,6 +21,7 @@ type CountryOption = {
 };
 
 const DonationFormPersonalDetails = ({}: Props) => {
+	const [emailError, setEmailError] = useState("");
 	const {
 		donationFormDetails,
 		setDonateAnonymously,
@@ -33,11 +34,20 @@ const DonationFormPersonalDetails = ({}: Props) => {
 		setEmail,
 		setPhoneNumber,
 	} = useContext(DonationFormContext);
-
 	const { countries, counties } = useContext(RedcrossCausesContext);
+
 	const showDonateAnonymously =
 		donationFormDetails?.donateAs === "private" &&
 		donationFormDetails?.donationOption === "donate-now";
+
+	const validateEmail = () => {
+		const validEmailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+		if (donationFormDetails?.email.match(validEmailRegex))
+			return setEmailError("");
+
+		return setEmailError("Please enter a valid email address");
+	};
 
 	return (
 		<motion.div
@@ -101,18 +111,26 @@ const DonationFormPersonalDetails = ({}: Props) => {
 							}}
 						/>
 					</div>
-					<div className="flex">
-						<TextField
-							label="Email"
-							placeholder="Enter email"
-							variant="standard"
-							fullWidth
-							type="email"
-							value={donationFormDetails?.email}
-							onChange={(event) => {
-								setEmail(event.target.value);
-							}}
-						/>
+					<div className="flex flex-col">
+						<div>
+							<TextField
+								label="Email"
+								placeholder="Enter email"
+								variant="standard"
+								fullWidth
+								type="email"
+								value={donationFormDetails?.email}
+								onChange={(event) => {
+									setEmail(event.target.value);
+								}}
+								onBlur={validateEmail}
+							/>
+						</div>
+						{emailError && (
+							<div className="mt-[5px] text-[#ed1c24] text-xs">
+								{emailError}
+							</div>
+						)}
 					</div>
 					<div className="flex">
 						<TextField
