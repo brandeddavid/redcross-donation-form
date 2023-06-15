@@ -28,6 +28,7 @@ type DonationFormDetails = {
 	recommended: number[] | string[];
 	isSubmitting: boolean;
 	submissionComplete: boolean;
+	emailError: string;
 } | null;
 type DonationFormDetailsContext = {
 	donationFormDetails: DonationFormDetails | null;
@@ -50,6 +51,7 @@ type DonationFormDetailsContext = {
 	setIsSubmitting: (value: boolean) => void;
 	setCardToken: (value: any) => void;
 	resetDonationForm: () => void;
+	setEmailError: (value: string) => void;
 };
 
 const initialFormDetails = {
@@ -73,6 +75,7 @@ const initialFormDetails = {
 	recommended: [],
 	isSubmitting: false,
 	submissionComplete: false,
+	emailError: "",
 };
 
 export const DonationFormContext = createContext<DonationFormDetailsContext>({
@@ -96,6 +99,7 @@ export const DonationFormContext = createContext<DonationFormDetailsContext>({
 	setIsSubmitting: () => {},
 	setCardToken: () => {},
 	resetDonationForm: () => {},
+	setEmailError: () => {},
 });
 
 const DonationFormProvider = ({ children }: Props) => {
@@ -111,6 +115,10 @@ const DonationFormProvider = ({ children }: Props) => {
 
 	const setDonateAs = (option: string) => {
 		setDonationFormDetails({ ...donationFormDetails, donateAs: option });
+	};
+
+	const setEmailError = (option: string) => {
+		setDonationFormDetails({ ...donationFormDetails, emailError: option });
 	};
 
 	const setSelectedCurrency = (option: string) => {
@@ -316,6 +324,7 @@ const DonationFormProvider = ({ children }: Props) => {
 				setIsSubmitting,
 				setCardToken,
 				resetDonationForm,
+				setEmailError,
 			}}
 		>
 			{children}

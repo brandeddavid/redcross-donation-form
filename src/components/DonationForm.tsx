@@ -40,6 +40,7 @@ const DonationForm = ({ step, onContinue, onBack }: Props) => {
 		donateAnonymously,
 		country,
 		county,
+		emailError,
 	}: any = donationFormDetails;
 
 	useEffect(() => {
@@ -55,6 +56,7 @@ const DonationForm = ({ step, onContinue, onBack }: Props) => {
 					(!firstName ||
 						!lastName ||
 						!email ||
+						// (email && emailError) ||
 						!phoneNumber ||
 						(country === "Kenya" && !county))
 			);
@@ -77,6 +79,7 @@ const DonationForm = ({ step, onContinue, onBack }: Props) => {
 		donateAnonymously,
 		country,
 		county,
+		emailError,
 	]);
 
 	const showButtons =
