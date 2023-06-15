@@ -120,6 +120,7 @@ const DonationFormPersonalDetails = ({}: Props) => {
 							placeholder="Enter phone"
 							variant="standard"
 							fullWidth
+							type="number"
 							value={donationFormDetails?.phoneNumber}
 							onChange={(event) => {
 								setPhoneNumber(event.target.value);
