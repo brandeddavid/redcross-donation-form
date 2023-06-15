@@ -37,11 +37,17 @@ const Home = () => {
 	};
 
 	const handleContinue = async () => {
-		if (step >= 0 && step < 3) {
+		if (
+			(step >= 0 && step < 2) ||
+			(step === 2 && donationFormDetails?.donationOption === "donate-now")
+		) {
 			setStep(step + 1);
 		}
 
-		if (step === 3) {
+		if (
+			step === 3 ||
+			(step === 2 && donationFormDetails?.donationOption === "make-pledge")
+		) {
 			try {
 				const response = await onSubmit({
 					setIsSubmitting,
@@ -50,7 +56,10 @@ const Home = () => {
 				});
 				const { referenceId }: any = response;
 
-				if (donationFormDetails?.paymentOption === "Mpesa") {
+				if (
+					donationFormDetails?.paymentOption === "Mpesa" ||
+					donationFormDetails?.donationOption === "make-pledge"
+				) {
 					setSubmissionComplete(true);
 					push(`/status?id=${referenceId}`);
 				}

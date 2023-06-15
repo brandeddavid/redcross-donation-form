@@ -149,13 +149,23 @@ const DonationForm = ({ step, onContinue, onBack }: Props) => {
 									variant="outlined"
 									color="primary"
 								>
-									{step !== 3
-										? "Continue"
-										: `Donate ${donationFormDetails?.selectedCurrency} ${
-												donationFormDetails?.handleProcessingFee
-													? donationFormDetails?.totalDonationAmount
-													: donationFormDetails?.donationAmount
-										  }`}
+									{(step < 2 ||
+										(step === 2 &&
+											donationFormDetails?.donationOption === "donate-now")) &&
+										"Continue"}
+									{step === 2 &&
+										donationFormDetails?.donationOption === "make-pledge" &&
+										`Make ${donationFormDetails?.selectedCurrency} ${
+											donationFormDetails?.handleProcessingFee
+												? donationFormDetails?.totalDonationAmount
+												: donationFormDetails?.donationAmount
+										} pledge`}
+									{step === 3 &&
+										`Donate ${donationFormDetails?.selectedCurrency} ${
+											donationFormDetails?.handleProcessingFee
+												? donationFormDetails?.totalDonationAmount
+												: donationFormDetails?.donationAmount
+										}`}
 								</Button>
 							</div>
 						</div>

@@ -127,6 +127,7 @@ const DonationFormProvider = ({ children }: Props) => {
 		setDonationFormDetails({
 			...donationFormDetails,
 			donationOption: option,
+			paymentOption: option === "donate-now" ? "Mpesa" : "",
 		});
 	};
 

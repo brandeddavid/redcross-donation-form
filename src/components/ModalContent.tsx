@@ -46,8 +46,7 @@ const Message = ({ type, paymentBody }: any) => {
 const getDonationStatus = (
 	status: string | number,
 	isMpesaPending: boolean,
-	isPledge: boolean,
-	paymentBody: string
+	isPledge: boolean
 ) => {
 	if (status === -1) {
 		return {
@@ -121,8 +120,7 @@ const ModalContent = ({ status, fetchDonation, paymentBody }: Props) => {
 	const donationStatus = getDonationStatus(
 		Number(status),
 		isMpesaPending,
-		isPledge,
-		paymentBody
+		isPledge
 	);
 
 	const onSubmit = () => {
