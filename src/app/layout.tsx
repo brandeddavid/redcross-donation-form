@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import RedcrossCausesProvider from "../context/redcrossCausesContext";
 import DonationFormProvider from "../context/donationFormContext";
 import NavBar from "../components/NavBar";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,6 +40,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 										opacity: 0.7,
 									}}
 								/>
+							</div>
+							<div className="hidden w-full py-12 md:block">
+								<Footer />
 							</div>
 						</div>
 					</body>
