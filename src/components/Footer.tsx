@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { DateTime } from "luxon";
 import Link from "next/link";
@@ -64,7 +65,10 @@ const Footer = () => {
 						</ul>
 					</div>
 					<div>
-						<div>Sign up for our latest news and updates</div>
+						<div className="mb-2">Newsletter</div>
+						<div className="text-[#6c757d]">
+							Sign up for our latest news and updates
+						</div>
 						<div></div>
 					</div>
 				</div>

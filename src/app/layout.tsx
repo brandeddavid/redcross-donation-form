@@ -41,7 +41,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 									}}
 								/>
 							</div>
-							<div className="hidden w-full md:block">
+							<div className="hidden w-full py-12 md:block">
 								<Footer />
 							</div>
 						</div>
