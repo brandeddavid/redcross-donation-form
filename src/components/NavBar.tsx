@@ -27,7 +27,7 @@ const NavBar = (props: Props) => {
 	return (
 		<>
 			<nav className="relative z-50 w-full">
-				<div className="flex justify-center w-full px-4 py-4 md:px-[60px] md:justify-between border-b-1 align-center flex-nowrap lg:justify-evenly">
+				<div className="flex justify-center w-full p-4 md:px-[60px] md:justify-between border-b-1 align-center flex-nowrap lg:justify-evenly">
 					<div className="flex justify-center text-center flex-nowrap">
 						<Link href="/form">
 							<Image

@@ -36,9 +36,6 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 									src="https://www.redcross.or.ke/assets/img/Large.jpg"
 									alt=""
 									fill
-									style={{
-										opacity: 0.7,
-									}}
 								/>
 							</div>
 							<div className="hidden w-full py-12 md:block">

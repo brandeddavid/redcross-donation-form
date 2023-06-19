@@ -93,7 +93,7 @@ const Home = () => {
 					<div className="relative flex-col justify-center flex-1 hidden md:flex h-[650px] bg-[#f8f9fa] overflow-hidden">
 						<div className="flex justify-end w-full">
 							<Image
-								className="z-10 opacity-50"
+								className="z-10"
 								src="https://brandeddavid.s3.eu-west-1.amazonaws.com/public/redcross.jpg"
 								alt=""
 								fill
@@ -104,12 +104,12 @@ const Home = () => {
 							<motion.div
 								initial={{ x: -100, opacity: 0 }}
 								transition={{ duration: 0.5 }}
-								whileInView={{ opacity: 0.7, x: 0 }}
+								whileInView={{ opacity: 1, x: 0 }}
 								viewport={{ once: true }}
-								className="z-50 absolute w-[400px] right-0 h-[400px] bg-[#ed1c24] text-white opacity-70 flex flex-col text-center justify-center"
+								className="z-50 absolute w-full right-0 h-[250px] bg-[#ed1c24] text-white flex flex-col text-center justify-center"
 							>
 								<div>
-									<h1 className="text-3xl">{`Support ${selectedCause?.label}`}</h1>
+									<h1 className="text-5xl font-bold">{`Support ${selectedCause?.label}`}</h1>
 									<p className="px-5 mt-5">
 										{selectedCause?.description || defaultDescription}
 									</p>
@@ -120,8 +120,8 @@ const Home = () => {
 
 					{step === 0 && (
 						<div className="flex flex-col md:justify-center flex-1 text-center space-y-[50px] bg-white">
-							<div className="bg-[#ed1c24] text-white p-[20px] md:p-[40px] min-h-[250px]">
-								<h1 className="text-5xl">{`Support ${
+							<div className="bg-[#ed1c24] text-white p-[20px] md:py-[40px] md:px-[20px] min-h-[250px]">
+								<h1 className="text-5xl font-bold">{`Support ${
 									selectedCause?.label || "our Cause"
 								}`}</h1>
 								<p className="px-5 mt-5">

@@ -8,7 +8,7 @@ const Footer = () => {
 	const month = DateTime.now().toFormat("MMMM yyyy");
 
 	return (
-		<div className="flex flex-col px-[15px] mx-[25px] py-[48px]">
+		<footer className="flex flex-col px-[15px] mx-[25px] py-[48px] md:px-[60px]">
 			<div className="flex">
 				<div className="px-[15px] mb-[24px] max-w-[80px]">
 					<Image
@@ -26,13 +26,17 @@ const Footer = () => {
 						<div className="mb-2">About us</div>
 						<ul className="text-[#6c757d]">
 							<li className="hover:underline">
-								<Link href="">About KRCS</Link>
+								<Link href="https://www.redcross.or.ke/aboutus">
+									About KRCS
+								</Link>
 							</li>
 							<li className="hover:underline">
-								<Link href="">Careers</Link>
+								<Link href="https://www.redcross.or.ke/careers">Careers</Link>
 							</li>
 							<li className="hover:underline">
-								<Link href="">Contact us</Link>
+								<Link href="https://www.redcross.or.ke/contactus">
+									Contact us
+								</Link>
 							</li>
 						</ul>
 					</div>
@@ -100,7 +104,7 @@ const Footer = () => {
 					</ul>
 				</div>
 			</div>
-		</div>
+		</footer>
 	);
 };
 
