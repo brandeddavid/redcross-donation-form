@@ -94,10 +94,14 @@ const RedcrossCausesProvider = ({ children }: Props) => {
 				);
 				const { data } = res;
 
-				const formattedCountries = data.map(({ name, iso_code_2 }: any) => ({
-					value: iso_code_2,
-					label: name,
-				}));
+				const formattedCountries = data.map(
+					({ nicename, iso3, id, phonecode }: any) => ({
+						id,
+						value: iso3,
+						label: nicename,
+						phoneCode: phonecode,
+					})
+				);
 
 				return setCountries(formattedCountries);
 			} catch (error) {
@@ -115,8 +119,6 @@ const RedcrossCausesProvider = ({ children }: Props) => {
 					`http://${process.env.API_HOST}/api/counties`
 				);
 				const { data } = res;
-
-				console.log(data);
 
 				const formattedCounties = data.map(({ name }: any) => ({
 					value: name,

@@ -16,6 +16,7 @@ import { RedcrossCausesContext } from "../context/redcrossCausesContext";
 
 type Props = {};
 type CountryOption = {
+	id?: number;
 	label: string;
 	value: string;
 };
@@ -33,7 +34,7 @@ const DonationFormPersonalDetails = ({}: Props) => {
 		setEmail,
 		setPhoneNumber,
 		setEmailError,
-	} = useContext(DonationFormContext);
+	}: any = useContext(DonationFormContext);
 	const { countries, counties } = useContext(RedcrossCausesContext);
 
 	const showDonateAnonymously =
@@ -133,19 +134,7 @@ const DonationFormPersonalDetails = ({}: Props) => {
 							</div>
 						)}
 					</div>
-					<div className="flex">
-						<TextField
-							label="Phone"
-							placeholder="Enter phone"
-							variant="standard"
-							fullWidth
-							type="number"
-							value={donationFormDetails?.phoneNumber}
-							onChange={(event) => {
-								setPhoneNumber(event.target.value);
-							}}
-						/>
-					</div>
+
 					<div className="flex justify-between space-x-5">
 						<FormControl variant="standard" className="flex-1 ">
 							<InputLabel id="demo-simple-select-standard-label">
@@ -157,13 +146,14 @@ const DonationFormPersonalDetails = ({}: Props) => {
 								variant="standard"
 								fullWidth
 								value={donationFormDetails?.country}
-								onChange={(event) => {
+								onChange={(event, data) => {
+									console.log({ event, data });
 									setCountry(event.target.value);
 								}}
 							>
-								{countries.map(({ label, value }: CountryOption) => {
+								{countries.map(({ label, id }: CountryOption) => {
 									return (
-										<MenuItem key={value} value={label}>
+										<MenuItem key={id} value={label}>
 											{label}
 										</MenuItem>
 									);
@@ -196,6 +186,21 @@ const DonationFormPersonalDetails = ({}: Props) => {
 							</FormControl>
 						)}
 					</div>
+
+					<div className="flex">
+						<TextField
+							label="Phone"
+							placeholder="Enter phone"
+							variant="standard"
+							fullWidth
+							type="number"
+							value={donationFormDetails?.phoneNumber}
+							onChange={(event) => {
+								setPhoneNumber(event.target.value);
+							}}
+						/>
+					</div>
+
 					<div className="flex mb-[40px]">
 						<TextField
 							label="Physical address"
