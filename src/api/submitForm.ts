@@ -18,7 +18,6 @@ const onSubmit = async ({
 		county,
 		country,
 		donationAmount,
-		paymentOption,
 		totalDonationAmount,
 		handleProcessingFee,
 		donateAnonymously,
