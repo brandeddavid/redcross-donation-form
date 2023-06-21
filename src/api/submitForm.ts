@@ -55,7 +55,7 @@ const onSubmit = async ({
 			let bodyContentShared = {
 				reference_id: donationId.toString(),
 				amount: handleProcessingFee ? totalDonationAmount : donationAmount,
-				currency: "KES",
+				currency: donationFormDetails?.selectedCurrency,
 				callback_url: "http://196.43.239.57/api/process-payment",
 				redirect_url: `http://196.43.239.57/status?id=${donationId}`,
 				msisdn: donationFormDetails?.phoneNumber,
@@ -103,8 +103,6 @@ const onSubmit = async ({
 						callbackUrl,
 					},
 				} = response;
-
-				console.log({ response });
 
 				if (status === 200) {
 					return {

@@ -20,8 +20,6 @@ const page = (props: Props) => {
 		}
 	}, [donationId]);
 
-	console.log({ donation, donationId });
-
 	return (
 		<div className="flex justify-center">
 			<ModalContent

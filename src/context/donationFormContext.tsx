@@ -21,7 +21,7 @@ type DonationFormDetails = {
 	firstName: string;
 	lastName: string;
 	email: string;
-	phoneNumber: string;
+	phoneNumber: string | number;
 	country: string;
 	county: string;
 	address: string;
@@ -68,7 +68,7 @@ const initialFormDetails = {
 	firstName: "",
 	lastName: "",
 	email: "",
-	phoneNumber: "",
+	phoneNumber: "+254",
 	country: "Kenya",
 	county: "",
 	address: "",
@@ -105,7 +105,7 @@ export const DonationFormContext = createContext<DonationFormDetailsContext>({
 const DonationFormProvider = ({ children }: Props) => {
 	const [donationFormDetails, setDonationFormDetails] =
 		useState(initialFormDetails);
-	const { selectedCause }: any = useContext(RedcrossCausesContext);
+	const { selectedCause, countries }: any = useContext(RedcrossCausesContext);
 
 	const selectedCauseId = selectedCause?.id || "";
 
@@ -219,16 +219,21 @@ const DonationFormProvider = ({ children }: Props) => {
 			email: value,
 		});
 	};
-	const setPhoneNumber = (value: string) => {
+	const setPhoneNumber = (value: any) => {
 		setDonationFormDetails({
 			...donationFormDetails,
 			phoneNumber: value,
 		});
 	};
 	const setCountry = (value: string) => {
+		const phoneCode = countries.find(
+			(country: any) => country.label === value
+		).phoneCode;
+
 		setDonationFormDetails({
 			...donationFormDetails,
 			country: value,
+			phoneNumber: `+${phoneCode}`,
 		});
 	};
 	const setCounty = (value: string) => {

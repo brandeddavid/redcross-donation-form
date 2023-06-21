@@ -147,7 +147,6 @@ const DonationFormPersonalDetails = ({}: Props) => {
 								fullWidth
 								value={donationFormDetails?.country}
 								onChange={(event, data) => {
-									console.log({ event, data });
 									setCountry(event.target.value);
 								}}
 							>
@@ -193,7 +192,7 @@ const DonationFormPersonalDetails = ({}: Props) => {
 							placeholder="Enter phone"
 							variant="standard"
 							fullWidth
-							type="number"
+							// type="number"
 							value={donationFormDetails?.phoneNumber}
 							onChange={(event) => {
 								setPhoneNumber(event.target.value);
