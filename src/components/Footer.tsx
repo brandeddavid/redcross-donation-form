@@ -10,18 +10,18 @@ const Footer = () => {
 	return (
 		<footer className="flex flex-col px-[15px] mx-[25px] py-[48px] md:px-[60px]">
 			<div className="flex">
-				<div className="px-[15px] mb-[24px] max-w-[80px]">
-					<Image
-						src="https://www.redcross.or.ke/assets/img/redcross-emblem.svg"
-						alt=""
-						width={55}
-						height={70}
-						style={{
-							marginBottom: "16px",
-						}}
-					/>
-				</div>
-				<div className="flex justify-between w-full">
+				<div className="flex justify-between w-full lg:justify-evenly">
+					<div className="px-[15px] mb-[24px] max-w-[80px]">
+						<Image
+							src="https://www.redcross.or.ke/assets/img/redcross-emblem.svg"
+							alt=""
+							width={55}
+							height={70}
+							style={{
+								marginBottom: "16px",
+							}}
+						/>
+					</div>
 					<div className="flex flex-col">
 						<div className="mb-2">About us</div>
 						<ul className="text-[#6c757d]">
@@ -78,7 +78,7 @@ const Footer = () => {
 				</div>
 			</div>
 			<hr className="my-10" />
-			<div className="flex justify-between">
+			<div className="flex justify-between lg:justify-evenly">
 				<div className="">
 					<div className="text-sm px-[15px]">
 						&copy;{`${month} Kenya Red Cross Society.`}
