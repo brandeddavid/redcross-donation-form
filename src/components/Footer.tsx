@@ -8,10 +8,10 @@ const Footer = () => {
 	const month = DateTime.now().toFormat("MMMM yyyy");
 
 	return (
-		<footer className="flex flex-col px-[15px] mx-[25px] py-[48px] md:px-[60px]">
+		<footer className="flex flex-col pr-[15px] mx-[25px] py-[48px] md:px-[60px]">
 			<div className="flex">
 				<div className="flex justify-between w-full lg:justify-evenly">
-					<div className="px-[15px] mb-[24px] max-w-[80px]">
+					<div className="pr-[15px] mb-[24px] max-w-[80px]">
 						<Image
 							src="https://www.redcross.or.ke/assets/img/redcross-emblem.svg"
 							alt=""

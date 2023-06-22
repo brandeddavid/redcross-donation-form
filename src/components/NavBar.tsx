@@ -98,7 +98,7 @@ const NavBar = (props: Props) => {
 				</div>
 				<div className="hidden pt-4 text-xs font-bold text-[rgba(0,0,0,0.5)] uppercase md:flex px-[60px]">
 					<ul className="flex justify-between w-full text-center lg:justify-center">
-						<li className="navigationBorder">
+						<li className="pl-0 navigationBorder">
 							<Link className="p-2" href="https://www.redcross.or.ke/">
 								Home
 							</Link>
