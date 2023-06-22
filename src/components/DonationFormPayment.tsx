@@ -39,7 +39,7 @@ const DonationFormPayment = ({}: Props) => {
 				viewport={{ once: true }}
 				className="space-y-[40px]"
 			>
-				<div className="flex justify-center max-w-[300px] md:max-w-none mt-[20px]">
+				<div className="flex mt-[20px]">
 					<Tabs
 						value={donationFormDetails?.paymentOption}
 						variant="scrollable"
@@ -105,9 +105,12 @@ const DonationFormPayment = ({}: Props) => {
 							<Image
 								src="http://sandbox.finsprint.io/public-images/public/gateways/JBi9UKfRnZWtIT6kIH1dFtpmPhFKGmY6YQtOhpIj.png"
 								alt=""
-								height={300}
+								height={75}
 								width={300}
 								loader={imageLoader}
+								style={{
+									objectFit: "cover",
+								}}
 							/>
 						</div>
 					</div>

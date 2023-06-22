@@ -29,7 +29,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 								<NavBar />
 							</header>
 						</div>
-						<div className="absolute top-[175px] w-full z-10">
+						<div className="absolute top-[100px] md:top-[175px] w-full z-10">
 							<div className="">{children}</div>
 							<section className="hidden md:block py-12 bg-[#f8f9fa]">
 								<div className="my-4 max-w-[960px] px-[15px]">
@@ -41,6 +41,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 									src="https://www.redcross.or.ke/assets/img/Large.jpg"
 									alt=""
 									fill
+									style={{
+										objectFit: "cover",
+									}}
 								/>
 								<div className="absolute z-10 flex flex-col text-white transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
 									<div className="flex justify-center mb-6 text-4xl font-medium">

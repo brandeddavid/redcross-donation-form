@@ -98,6 +98,9 @@ const Home = () => {
 								alt=""
 								fill
 								loader={imageLoader}
+								style={{
+									objectFit: "cover",
+								}}
 							/>
 						</div>
 						{selectedCause && step > 0 && (
