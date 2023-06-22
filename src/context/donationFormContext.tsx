@@ -29,6 +29,7 @@ type DonationFormDetails = {
 	isSubmitting: boolean;
 	submissionComplete: boolean;
 	emailError: string;
+	phoneCode: string;
 } | null;
 type DonationFormDetailsContext = {
 	donationFormDetails: DonationFormDetails | null;
@@ -68,7 +69,7 @@ const initialFormDetails = {
 	firstName: "",
 	lastName: "",
 	email: "",
-	phoneNumber: "+254",
+	phoneNumber: "",
 	country: "Kenya",
 	county: "",
 	address: "",
@@ -76,6 +77,7 @@ const initialFormDetails = {
 	isSubmitting: false,
 	submissionComplete: false,
 	emailError: "",
+	phoneCode: "+254",
 };
 
 export const DonationFormContext = createContext<DonationFormDetailsContext>({
@@ -233,7 +235,7 @@ const DonationFormProvider = ({ children }: Props) => {
 		setDonationFormDetails({
 			...donationFormDetails,
 			country: value,
-			phoneNumber: `+${phoneCode}`,
+			phoneCode: `+${phoneCode}`,
 		});
 	};
 	const setCounty = (value: string) => {

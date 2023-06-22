@@ -56,7 +56,7 @@ const onSubmit = async ({
 				amount: handleProcessingFee ? totalDonationAmount : donationAmount,
 				currency: donationFormDetails?.selectedCurrency,
 				callback_url: "http://196.43.239.57/api/process-payment",
-				redirect_url: `http://196.43.239.57/status?id=${donationId}`,
+				// redirect_url: `http://196.43.239.57/status?id=${donationId}`,
 				msisdn: donationFormDetails?.phoneNumber,
 				email: donationFormDetails?.email,
 				address: donationFormDetails?.address,

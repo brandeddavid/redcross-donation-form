@@ -31,9 +31,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 						</div>
 						<div className="absolute top-[175px] w-full z-10">
 							<div className="">{children}</div>
-							<section className="py-12 bg-[#f8f9fa]">
+							<section className="hidden md:block py-12 bg-[#f8f9fa]">
 								<div className="my-4 max-w-[960px] px-[15px]">
-									<h3 className="text-4xl font-medium">Featured projects</h3>
+									<h3 className="text-4xl font-medium"></h3>
 								</div>
 							</section>
 							<section className="hidden md:block w-full h-[500px] relative">

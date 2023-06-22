@@ -59,15 +59,28 @@ const DonationFormPayment = ({}: Props) => {
 				{donationFormDetails?.paymentOption === "Mpesa" && (
 					<div className="flex justify-center min-h-[250px]">
 						<div className="flex flex-col justify-center space-y-[40px] w-[300px]">
-							<TextField
-								label="Enter Mpesa Number"
-								placeholder="Enter Mpesa number"
-								variant="standard"
-								value={donationFormDetails?.phoneNumber}
-								onChange={(event) => {
-									setPhoneNumber(event.target.value);
-								}}
-							/>
+							<div className="flex">
+								<TextField
+									label="Phone"
+									variant="standard"
+									value={donationFormDetails?.phoneCode}
+									sx={{
+										width: "50px",
+										"&:disabled": {
+											color: "black !important",
+										},
+									}}
+								/>
+								<TextField
+									label=" "
+									placeholder="Enter Mpesa number"
+									variant="standard"
+									value={donationFormDetails?.phoneNumber}
+									onChange={(event) => {
+										setPhoneNumber(event.target.value);
+									}}
+								/>
+							</div>
 
 							<TextField
 								label="Amount"

@@ -189,6 +189,18 @@ const DonationFormPersonalDetails = ({}: Props) => {
 					<div className="flex">
 						<TextField
 							label="Phone"
+							variant="standard"
+							value={donationFormDetails?.phoneCode}
+							sx={{
+								width: "50px",
+								"&:disabled": {
+									color: "black !important",
+								},
+							}}
+						/>
+
+						<TextField
+							label=" "
 							placeholder="Enter phone"
 							variant="standard"
 							fullWidth
