@@ -19,6 +19,7 @@ const Footer = () => {
 							height={70}
 							style={{
 								marginBottom: "16px",
+								objectFit: "cover",
 							}}
 						/>
 					</div>
