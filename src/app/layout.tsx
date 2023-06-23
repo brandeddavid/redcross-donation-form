@@ -5,7 +5,7 @@ import { Rubik } from "next/font/google";
 import RedcrossCausesProvider from "../context/redcrossCausesContext";
 import DonationFormProvider from "../context/donationFormContext";
 import NavBar from "../components/NavBar";
-import Footer from "@/components/Footer";
+import Footer from "../components/Footer";
 
 const inter = Rubik({ subsets: ["latin"] });
 

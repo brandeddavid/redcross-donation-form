@@ -18,12 +18,19 @@ import WhatsNew from "./WhatsNew";
 const NavBar = () => {
 	const [showMenu, setShowMenu] = useState(false);
 	const [activeDropdown, setActiveDropdown] = useState("");
+
 	const imageLoader = () => {
 		return "https://www.redcross.or.ke/assets/img/redcross-logo.svg";
 	};
+
 	const handleShowMenu = (menuItem: string) => {
 		setShowMenu(true);
 		setActiveDropdown(menuItem);
+	};
+
+	const handleCloseMenu = () => {
+		console.log("Clicked");
+		setShowMenu(false);
 	};
 
 	return (
@@ -172,10 +179,7 @@ const NavBar = () => {
 					</ul>
 				</div>
 				{showMenu && (
-					<DropDownMenuScaffold
-						open={showMenu}
-						onClose={() => setShowMenu(false)}
-					>
+					<DropDownMenuScaffold onClose={handleCloseMenu}>
 						<>
 							{activeDropdown === "get-involved" && <GetInvolvedMenu />}
 							{activeDropdown === "what-we-do" && <WhatWeDoMenu />}
