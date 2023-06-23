@@ -29,7 +29,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 								<NavBar />
 							</header>
 						</div>
-						<div className="absolute top-[100px] md:top-[175px] w-full z-10">
+						<div className="absolute top-[100px] md:top-[160px] w-full z-10">
 							<div className="">{children}</div>
 							<section className="hidden md:block py-12 bg-[#f8f9fa]">
 								<div className="my-4 max-w-[960px] px-[15px]">

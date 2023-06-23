@@ -1,12 +1,15 @@
 import React from "react";
-import { Box } from "@mui/material";
+import { Box, Modal } from "@mui/material";
 
 type Props = {
 	children?: JSX.Element | null;
+	open: boolean;
+	onClose: () => void;
 };
 
-const DropDownMenuScaffold = ({ children = null }: Props) => {
+const DropDownMenuScaffold = ({ children = null, open, onClose }: Props) => {
 	return (
+		// <Modal open={open} onClose={onClose}>
 		<Box
 			sx={{
 				backgroundColor: "#FFF1F1",
@@ -14,10 +17,12 @@ const DropDownMenuScaffold = ({ children = null }: Props) => {
 				"z-index": 1000,
 				left: "60px",
 				right: "60px",
+				top: "160px",
 			}}
 		>
 			{children}
 		</Box>
+		// </Modal>
 	);
 };
 
