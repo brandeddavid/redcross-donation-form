@@ -1,5 +1,6 @@
 "use client";
 import React, { useContext } from "react";
+import Image from "next/image";
 import {
 	Checkbox,
 	FormGroup,
@@ -10,6 +11,7 @@ import {
 	FormControl,
 	MenuItem,
 } from "@mui/material";
+import ReactCountryFlag from "react-country-flag";
 import { motion } from "framer-motion";
 import { DonationFormContext } from "../context/donationFormContext";
 import { RedcrossCausesContext } from "../context/redcrossCausesContext";
@@ -19,6 +21,24 @@ type CountryOption = {
 	id?: number;
 	label: string;
 	value: string;
+};
+
+const PhoneCode = () => {
+	const imageLoader = () => {
+		return "https://purecatamphetamine.github.io/country-flag-icons/3x2/KE.svg";
+	};
+
+	return (
+		<div className="flex flex-col justify-center w-[20px]">
+			<Image
+				src="https://purecatamphetamine.github.io/country-flag-icons/3x2/KE.svg"
+				width={20}
+				height={20}
+				alt=""
+				loader={imageLoader}
+			/>
+		</div>
+	);
 };
 
 const DonationFormPersonalDetails = ({}: Props) => {
@@ -187,15 +207,17 @@ const DonationFormPersonalDetails = ({}: Props) => {
 					</div>
 
 					<div className="flex">
+						<ReactCountryFlag
+							countryCode="KE"
+							svg
+							className="pt-[20px] mr-[2px]"
+						/>
 						<TextField
-							label="Phone"
+							label=" "
 							variant="standard"
 							value={donationFormDetails?.phoneCode}
 							sx={{
 								width: "50px",
-								"&:disabled": {
-									color: "black !important",
-								},
 							}}
 						/>
 
