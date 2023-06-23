@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,19 +18,20 @@ import WhatsNew from "./WhatsNew";
 const NavBar = () => {
 	const [showMenu, setShowMenu] = useState(false);
 	const [activeDropdown, setActiveDropdown] = useState("");
+	const [inNavBar, setInNavBar] = useState(true);
 
 	const imageLoader = () => {
 		return "https://www.redcross.or.ke/assets/img/redcross-logo.svg";
 	};
 
+	useEffect(() => {
+		if (!inNavBar && !activeDropdown) setShowMenu(false);
+	}, [inNavBar, activeDropdown]);
+
 	const handleShowMenu = (menuItem: string) => {
+		setInNavBar(true);
 		setShowMenu(true);
 		setActiveDropdown(menuItem);
-	};
-
-	const handleCloseMenu = () => {
-		console.log("Clicked");
-		setShowMenu(false);
 	};
 
 	return (
@@ -179,7 +180,13 @@ const NavBar = () => {
 					</ul>
 				</div>
 				{showMenu && (
-					<DropDownMenuScaffold onClose={handleCloseMenu}>
+					<DropDownMenuScaffold
+						onClickAway={() => {
+							console.log("Clicked");
+							setActiveDropdown("");
+							setInNavBar(false);
+						}}
+					>
 						<>
 							{activeDropdown === "get-involved" && <GetInvolvedMenu />}
 							{activeDropdown === "what-we-do" && <WhatWeDoMenu />}

@@ -4,12 +4,12 @@ import ClickAwayListener from "@mui/base/ClickAwayListener";
 
 type Props = {
 	children?: JSX.Element | null;
-	onClose: () => void;
+	onClickAway: () => void;
 };
 
-const DropDownMenuScaffold = ({ children = null, onClose }: Props) => {
+const DropDownMenuScaffold = ({ children = null, onClickAway }: Props) => {
 	return (
-		<ClickAwayListener onClickAway={onClose}>
+		<ClickAwayListener onClickAway={onClickAway}>
 			<Box
 				sx={{
 					backgroundColor: "#FFF1F1",
