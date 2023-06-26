@@ -29,6 +29,7 @@ const NavBar = () => {
 	}, [inNavBar, activeDropdown]);
 
 	const handleShowMenu = (menuItem: string) => {
+		console.log("show menu");
 		setInNavBar(true);
 		setShowMenu(true);
 		setActiveDropdown(menuItem);
