@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,13 +15,24 @@ import WhatWeDoMenu from "./WhatWeDoMenu";
 import WhoWeAre from "./WhoWeAre";
 import WhatsNew from "./WhatsNew";
 
-type Props = {};
-
-const NavBar = (props: Props) => {
-	const [showDropdown, toggleShowDropdown] = useState(false);
+const NavBar = () => {
+	const [showMenu, setShowMenu] = useState(false);
 	const [activeDropdown, setActiveDropdown] = useState("");
+	const [inNavBar, setInNavBar] = useState(true);
+
 	const imageLoader = () => {
 		return "https://www.redcross.or.ke/assets/img/redcross-logo.svg";
+	};
+
+	useEffect(() => {
+		if (!inNavBar && !activeDropdown) setShowMenu(false);
+	}, [inNavBar, activeDropdown]);
+
+	const handleShowMenu = (menuItem: string) => {
+		console.log("show menu");
+		setInNavBar(true);
+		setShowMenu(true);
+		setActiveDropdown(menuItem);
 	};
 
 	return (
@@ -104,13 +115,7 @@ const NavBar = (props: Props) => {
 							</Link>
 						</li>
 						<li className="navigationBorder">
-							<a
-								className="p-2"
-								onClick={() => {
-									toggleShowDropdown(!showDropdown);
-									setActiveDropdown("get-involved");
-								}}
-							>
+							<a className="p-2" onClick={() => handleShowMenu("get-involved")}>
 								Get Involved
 								<ExpandMoreIcon
 									fontSize="small"
@@ -119,13 +124,7 @@ const NavBar = (props: Props) => {
 							</a>
 						</li>
 						<li className="navigationBorder">
-							<a
-								onClick={() => {
-									toggleShowDropdown(!showDropdown);
-									setActiveDropdown("what-we-do");
-								}}
-								className="p-2"
-							>
+							<a onClick={() => handleShowMenu("what-we-do")} className="p-2">
 								What we do
 								<ExpandMoreIcon
 									fontSize="small"
@@ -134,13 +133,7 @@ const NavBar = (props: Props) => {
 							</a>
 						</li>
 						<li className="navigationBorder">
-							<a
-								onClick={() => {
-									toggleShowDropdown(!showDropdown);
-									setActiveDropdown("who-we-are");
-								}}
-								className="p-2"
-							>
+							<a onClick={() => handleShowMenu("who-we-are")} className="p-2">
 								Who we are
 								<ExpandMoreIcon
 									fontSize="small"
@@ -149,13 +142,7 @@ const NavBar = (props: Props) => {
 							</a>
 						</li>
 						<li className="navigationBorder">
-							<a
-								onClick={() => {
-									toggleShowDropdown(!showDropdown);
-									setActiveDropdown("whats-new");
-								}}
-								className="p-2"
-							>
+							<a onClick={() => handleShowMenu("whats-new")} className="p-2">
 								What's new
 								<ExpandMoreIcon
 									fontSize="small"
@@ -193,17 +180,23 @@ const NavBar = (props: Props) => {
 						</li>
 					</ul>
 				</div>
+				{showMenu && (
+					<DropDownMenuScaffold
+						onClickAway={() => {
+							console.log("Clicked");
+							setActiveDropdown("");
+							setInNavBar(false);
+						}}
+					>
+						<>
+							{activeDropdown === "get-involved" && <GetInvolvedMenu />}
+							{activeDropdown === "what-we-do" && <WhatWeDoMenu />}
+							{activeDropdown === "who-we-are" && <WhoWeAre />}{" "}
+							{activeDropdown === "whats-new" && <WhatsNew />}
+						</>
+					</DropDownMenuScaffold>
+				)}
 			</nav>
-			{showDropdown && (
-				<DropDownMenuScaffold>
-					<>
-						{activeDropdown === "get-involved" && <GetInvolvedMenu />}
-						{activeDropdown === "what-we-do" && <WhatWeDoMenu />}
-						{activeDropdown === "who-we-are" && <WhoWeAre />}{" "}
-						{activeDropdown === "whats-new" && <WhatsNew />}
-					</>
-				</DropDownMenuScaffold>
-			)}
 		</>
 	);
 };
