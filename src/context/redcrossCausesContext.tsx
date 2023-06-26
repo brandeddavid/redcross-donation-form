@@ -77,6 +77,14 @@ const RedcrossCausesProvider = ({ children }: Props) => {
 					}
 				);
 
+				const initialSelectedCause = formattedData.find(
+					(cause: any) => cause.label === "Where it matters"
+				);
+
+				console.log({ initialSelectedCause });
+
+				setSelectedCause(initialSelectedCause);
+
 				return setRedCrossCauses(formattedData);
 			} catch (error) {
 				console.error(error);
