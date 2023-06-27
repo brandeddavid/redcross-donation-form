@@ -81,8 +81,6 @@ const RedcrossCausesProvider = ({ children }: Props) => {
 					(cause: any) => cause.label === "Where it matters"
 				);
 
-				console.log({ initialSelectedCause });
-
 				setSelectedCause(initialSelectedCause);
 
 				return setRedCrossCauses(formattedData);

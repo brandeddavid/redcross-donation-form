@@ -30,6 +30,7 @@ type DonationFormDetails = {
 	submissionComplete: boolean;
 	emailError: string;
 	phoneCode: string;
+	pledgeFrequency: string;
 } | null;
 type DonationFormDetailsContext = {
 	donationFormDetails: DonationFormDetails | null;
@@ -53,6 +54,7 @@ type DonationFormDetailsContext = {
 	setCardToken: (value: any) => void;
 	resetDonationForm: () => void;
 	setEmailError: (value: string) => void;
+	setPledgeFrequency: (value: string) => void;
 };
 
 const initialFormDetails = {
@@ -78,6 +80,7 @@ const initialFormDetails = {
 	submissionComplete: false,
 	emailError: "",
 	phoneCode: "+254",
+	pledgeFrequency: "one-time",
 };
 
 export const DonationFormContext = createContext<DonationFormDetailsContext>({
@@ -102,6 +105,7 @@ export const DonationFormContext = createContext<DonationFormDetailsContext>({
 	setCardToken: () => {},
 	resetDonationForm: () => {},
 	setEmailError: () => {},
+	setPledgeFrequency: () => {},
 });
 
 const DonationFormProvider = ({ children }: Props) => {
@@ -117,6 +121,13 @@ const DonationFormProvider = ({ children }: Props) => {
 
 	const setDonateAs = (option: string) => {
 		setDonationFormDetails({ ...donationFormDetails, donateAs: option });
+	};
+
+	const setPledgeFrequency = (value: string) => {
+		setDonationFormDetails({
+			...donationFormDetails,
+			pledgeFrequency: value,
+		});
 	};
 
 	const setEmailError = (option: string) => {
@@ -332,6 +343,7 @@ const DonationFormProvider = ({ children }: Props) => {
 				setCardToken,
 				resetDonationForm,
 				setEmailError,
+				setPledgeFrequency,
 			}}
 		>
 			{children}

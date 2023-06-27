@@ -19,7 +19,10 @@ type LabelProps = {
 	currency: string | undefined;
 };
 
-const tabs = ["ONE TIME", "MONTHLY"];
+const tabs = [
+	{ label: "ONE TIME", value: "one-time" },
+	{ label: "MONTHLY", value: "monthly" },
+];
 const acceptedCurrency = [
 	{ label: "KES", value: "KES" },
 	{ label: "USD", value: "USD" },
@@ -43,7 +46,12 @@ const DonationFormAmount = ({}: Props) => {
 		setDonationOption,
 		toggleHandleProcessingFee,
 		setDonationAmount,
+		setPledgeFrequency,
 	} = useContext(DonationFormContext);
+
+	useEffect(() => {
+		setPledgeFrequency(activeTab === 0 ? "one-time" : "monthly");
+	}, [activeTab]);
 
 	return (
 		<div className="py-[10px] md:pb-[50px] md:px-5 flex flex-col space-y-[20px]">
@@ -72,13 +80,14 @@ const DonationFormAmount = ({}: Props) => {
 						<Tabs
 							value={activeTab}
 							onChange={(event, value) => {
+								console.log({ value });
 								setActiveTab(value);
 							}}
 							aria-label="basic tabs example"
 							className="flex w-full"
 						>
-							{tabs.map((tab) => (
-								<Tab className="flex-auto" key={tab} label={tab} />
+							{tabs.map(({ label, value }) => (
+								<Tab className="flex-auto" key={label} label={label} />
 							))}
 						</Tabs>
 					</div>
