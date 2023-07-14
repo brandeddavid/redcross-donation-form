@@ -123,7 +123,7 @@ const DonationFormProvider = ({ children }: Props) => {
 		setDonationFormDetails({
 			...donationFormDetails,
 			donateAs: option,
-			donateAnonymously: option === "organisation" ? false : true,
+			donateAnonymously: option === "organisation" && false,
 		});
 	};
 
@@ -153,6 +153,7 @@ const DonationFormProvider = ({ children }: Props) => {
 			...donationFormDetails,
 			donationOption: option,
 			paymentOption: option === "donate-now" ? "Mpesa" : "",
+			donateAnonymously: option === "make-pledge" && false,
 		});
 	};
 
