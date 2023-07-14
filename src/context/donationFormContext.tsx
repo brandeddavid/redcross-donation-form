@@ -120,7 +120,11 @@ const DonationFormProvider = ({ children }: Props) => {
 	};
 
 	const setDonateAs = (option: string) => {
-		setDonationFormDetails({ ...donationFormDetails, donateAs: option });
+		setDonationFormDetails({
+			...donationFormDetails,
+			donateAs: option,
+			donateAnonymously: option === "organisation" ? false : true,
+		});
 	};
 
 	const setPledgeFrequency = (value: string) => {
