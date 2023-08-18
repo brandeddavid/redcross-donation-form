@@ -27,7 +27,7 @@ const DonationFormPayment = ({}: Props) => {
 	);
 
 	const imageLoader = () => {
-		return "http://sandbox.finsprint.io/public-images/public/gateways/JBi9UKfRnZWtIT6kIH1dFtpmPhFKGmY6YQtOhpIj.png";
+		return "http://dev.finsprint.io/public-images/public/gateways/JBi9UKfRnZWtIT6kIH1dFtpmPhFKGmY6YQtOhpIj.png";
 	};
 
 	return (
@@ -103,7 +103,7 @@ const DonationFormPayment = ({}: Props) => {
 					<div className="flex justify-center texr-center pb-[50px]">
 						<div>
 							<Image
-								src="http://sandbox.finsprint.io/public-images/public/gateways/JBi9UKfRnZWtIT6kIH1dFtpmPhFKGmY6YQtOhpIj.png"
+								src="http://dev.finsprint.io/public-images/public/gateways/JBi9UKfRnZWtIT6kIH1dFtpmPhFKGmY6YQtOhpIj.png"
 								alt=""
 								height={75}
 								width={300}

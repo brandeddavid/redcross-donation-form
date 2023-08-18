@@ -7,7 +7,7 @@ const nextConfig = {
 		path: "http://196.43.239.57_next/image",
 		domains: [
 			"www.redcross.or.ke",
-			"sandbox.finsprint.io",
+			"dev.finsprint.io",
 			"brandeddavid.s3.eu-west-1.amazonaws.com",
 		],
 		remotePatterns: [

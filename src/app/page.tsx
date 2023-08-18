@@ -83,7 +83,7 @@ const Home = () => {
 	};
 
 	const imageLoader = () => {
-		return "https://brandeddavid.s3.eu-west-1.amazonaws.com/public/redcross.jpg";
+		return "https://iili.io/HbHqH91.md.jpg";
 	};
 
 	return (
@@ -94,8 +94,8 @@ const Home = () => {
 						<div className="flex justify-end w-full">
 							<Image
 								className="z-10"
-								src="https://brandeddavid.s3.eu-west-1.amazonaws.com/public/redcross.jpg"
-								alt=""
+								src="https://iili.io/HbHqH91.md.jpg"
+								alt="redcross image"
 								fill
 								loader={imageLoader}
 								style={{

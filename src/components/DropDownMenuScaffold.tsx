@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@mui/material";
-import ClickAwayListener from "@mui/base/ClickAwayListener";
+import { ClickAwayListener } from "@mui/base";
 
 type Props = {
 	children?: JSX.Element | null;

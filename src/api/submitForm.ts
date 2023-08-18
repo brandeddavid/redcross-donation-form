@@ -80,8 +80,8 @@ const onSubmit = async ({
 			let reqOptions = {
 				url:
 					donationOption === "donate-now"
-						? "https://sandbox.finsprint.io/api/v1/request-checkout"
-						: "https://sandbox.finsprint.io/api/v1/invoices/create",
+						? "https://dev.finsprint.io/api/v1/request-checkout"
+						: "https://dev.finsprint.io/api/v1/invoices/create",
 				method: "POST",
 				headers: headersList,
 				data:
