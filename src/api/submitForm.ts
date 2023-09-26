@@ -34,7 +34,7 @@ const onSubmit = async ({
 			firstName: donateAnonymously ? "Anonymous" : firstName,
 			lastName: donateAnonymously ? "Anonymous" : lastName,
 			companyName: donateAnonymously ? "Anonymous" : companyName,
-			phoneNumber: donateAnonymously ? "Anonymous" : phoneNumber,
+			phoneNumber: donateAnonymously ? 0 : phoneNumber,
 			address: donateAnonymously ? "Anonymous" : address,
 			county: donateAnonymously ? "Anonymous" : county,
 			country: donateAnonymously ? "Anonymous" : country,
@@ -51,14 +51,14 @@ const onSubmit = async ({
 			let headersList = {
 				Accept: "*/*",
 				"Content-Type": "application/json",
-				Authorization: "Bearer 2|xCkinFbNY92kH2dwZ2fHW6b0W2fVFfxouIatC5xG",
+				Authorization: "Bearer 8|z3ENPPlGqifZ09GfnHQhfpKWMvvm6tDwZ1k5IW1v",
 			};
 			let bodyContentShared = {
 				reference_id: donationId.toString(),
 				amount: handleProcessingFee ? totalDonationAmount : donationAmount,
 				currency: donationFormDetails?.selectedCurrency,
-				callback_url: "http://196.43.239.57/api/process-payment",
-				redirect_url: `http://196.43.239.57/status?id=${donationId}`,
+				callback_url: "http://52.68.51.77/api/process-payment",
+				redirect_url: `http://52.68.51.77/status?id=${donationId}`,
 				msisdn: donationFormDetails?.phoneNumber,
 				email: donationFormDetails?.email,
 				address: donationFormDetails?.address,
@@ -80,8 +80,8 @@ const onSubmit = async ({
 			let reqOptions = {
 				url:
 					donationOption === "donate-now"
-						? "https://dev.finsprint.io/api/v1/request-checkout"
-						: "https://dev.finsprint.io/api/v1/invoices/create",
+						? "https://ke.finsprint.io/api/v1/request-checkout"
+						: "https://ke.finsprint.io/api/v1/invoices/create",
 				method: "POST",
 				headers: headersList,
 				data:

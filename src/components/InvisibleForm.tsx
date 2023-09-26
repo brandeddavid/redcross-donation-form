@@ -22,7 +22,7 @@ const InvisibleForm = () => {
 	return (
 		<form
 			id="submitCheckout"
-			action="https://v3-uat.jengapgw.io/processPayment"
+			action="https://v3.jengapgw.io/processPayment"
 			method="POST"
 		>
 			<input
