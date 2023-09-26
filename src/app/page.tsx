@@ -13,8 +13,10 @@ import { RedcrossCausesContext } from "../context/redcrossCausesContext";
 import { DonationFormContext } from "../context/donationFormContext";
 import InvisibleForm from "../components/InvisibleForm";
 import onSubmit from "../api/submitForm";
+import getImageBase from "../helpers/getImageBase";
 
 const Home = () => {
+	const baseImageUrl = getImageBase();
 	const { push } = useRouter();
 	const [step, setStep] = useState(0);
 	const defaultDescription = `Donate today to support humanitarian work around Kenya. In times
@@ -83,7 +85,7 @@ const Home = () => {
 	};
 
 	const imageLoader = () => {
-		return "https://iili.io/HbHqH91.md.jpg";
+		return `${baseImageUrl}/hero.jpg`;
 	};
 
 	return (
@@ -94,7 +96,7 @@ const Home = () => {
 						<div className="flex justify-end w-full">
 							<Image
 								className="z-10"
-								src="https://iili.io/HbHqH91.md.jpg"
+								src={`${baseImageUrl}/hero.jpg`}
 								alt="redcross image"
 								fill
 								loader={imageLoader}

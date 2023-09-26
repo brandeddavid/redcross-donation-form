@@ -6,6 +6,7 @@ import RedcrossCausesProvider from "../context/redcrossCausesContext";
 import DonationFormProvider from "../context/donationFormContext";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
+import getImageBase from "../helpers/getImageBase";
 
 const inter = Rubik({ subsets: ["latin"] });
 
@@ -15,8 +16,9 @@ export const metadata = {
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
+	const baseImageUrl = getImageBase();
 	const imageLoader = () => {
-		return "https://www.redcross.or.ke/assets/img/Large.jpg";
+		return `${baseImageUrl}/large.jpeg`;
 	};
 
 	return (
@@ -38,7 +40,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 							</section>
 							<section className="hidden md:block w-full h-[500px] relative">
 								<Image
-									src="https://www.redcross.or.ke/assets/img/Large.jpg"
+									src={`${baseImageUrl}/large.jpeg`}
 									alt=""
 									fill
 									style={{

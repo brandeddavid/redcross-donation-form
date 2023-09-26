@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Tabs, Tab, TextField, Modal } from "@mui/material";
 import { DonationFormContext } from "../context/donationFormContext";
 import { motion } from "framer-motion";
+import getImageBase from "../helpers/getImageBase";
 
 type Props = {};
 
@@ -15,6 +16,7 @@ const getPaymentOptions = (currency: string | undefined) => {
 };
 
 const DonationFormPayment = ({}: Props) => {
+	const baseImageUrl = getImageBase();
 	const {
 		donationFormDetails,
 		setPaymentOption,
@@ -27,7 +29,7 @@ const DonationFormPayment = ({}: Props) => {
 	);
 
 	const imageLoader = () => {
-		return "http://dev.finsprint.io/public-images/public/gateways/JBi9UKfRnZWtIT6kIH1dFtpmPhFKGmY6YQtOhpIj.png";
+		return `${baseImageUrl}/card-payment.jpeg`;
 	};
 
 	return (
@@ -103,7 +105,7 @@ const DonationFormPayment = ({}: Props) => {
 					<div className="flex justify-center texr-center pb-[50px]">
 						<div>
 							<Image
-								src="http://dev.finsprint.io/public-images/public/gateways/JBi9UKfRnZWtIT6kIH1dFtpmPhFKGmY6YQtOhpIj.png"
+								src={`${baseImageUrl}/card-payment.jpeg`}
 								alt=""
 								height={75}
 								width={300}

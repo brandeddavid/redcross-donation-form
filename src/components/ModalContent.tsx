@@ -46,7 +46,8 @@ const Message = ({ type, paymentBody }: any) => {
 const getDonationStatus = (
 	status: string | number,
 	isMpesaPending: boolean,
-	isPledge: boolean
+	isPledge: boolean,
+	isCardPayment: boolean
 ) => {
 	if (status === -1) {
 		return {
@@ -58,7 +59,7 @@ const getDonationStatus = (
 		};
 	}
 
-	if (status === 1) {
+	if (status === 1 || isCardPayment) {
 		return {
 			status: "SUCCESSFUL",
 			message: (
@@ -103,11 +104,17 @@ const ModalContent = ({ status, fetchDonation, paymentBody }: Props) => {
 	const router = useRouter();
 	const [isMpesaPending, setIsMpesaPending] = useState(false);
 	const [isPledge, setIsPledge] = useState(false);
+	const [isCardPayment, setIsCardPayment] = useState(false);
+
 	const {
 		donationFormDetails: { paymentOption, donationOption },
 		resetDonationForm,
 	}: any = useContext(DonationFormContext);
 	const { setSelectedCause }: any = useContext(RedcrossCausesContext);
+
+	useEffect(() => {
+		setIsCardPayment(paymentOption === "Card");
+	}, [status, paymentOption]);
 
 	useEffect(() => {
 		setIsMpesaPending(Number(status) === 0 && paymentOption === "Mpesa");
@@ -120,7 +127,8 @@ const ModalContent = ({ status, fetchDonation, paymentBody }: Props) => {
 	const donationStatus = getDonationStatus(
 		Number(status),
 		isMpesaPending,
-		isPledge
+		isPledge,
+		isCardPayment
 	);
 
 	const onSubmit = () => {
