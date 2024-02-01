@@ -1,7 +1,8 @@
 "use client";
-import React from "react";
+import React, { useContext, useState } from "react";
 import Image from "next/image";
-import { useContext, useState } from "react";
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 import Button from "../components/Button";
 import SelectDropdown from "../components/SelectDropdown";
 import { SelectChangeEvent } from "@mui/material/Select";
@@ -10,8 +11,14 @@ import { ThemeProvider } from "@mui/material";
 import { theme } from "../theme/theme";
 import { RedcrossCausesContext } from "../context/redcrossCausesContext";
 import { DonationFormContext } from "../context/donationFormContext";
+import InvisibleForm from "../components/InvisibleForm";
+import onSubmit from "../api/submitForm";
+import getImageBase from "../helpers/getImageBase";
 
 const Home = () => {
+	const baseImageUrl = getImageBase();
+	const { push } = useRouter();
+	const [step, setStep] = useState(0);
 	const defaultDescription = `Donate today to support humanitarian work around Kenya. In times
 								of crisis, we meet the urgent needs of women, men, young and the
 								old. Help enable a rapid response to disasters. Your
@@ -19,22 +26,56 @@ const Home = () => {
 	const { redCrossCauses, selectedCause, onRedCrossCauseSelect } = useContext(
 		RedcrossCausesContext
 	);
-	const [step, setStep] = useState(0);
+	const {
+		setIsSubmitting,
+		donationFormDetails,
+		setSubmissionComplete,
+		setCardToken,
+	} = useContext(DonationFormContext);
+	const selectedCauseId = selectedCause?.id || "";
 
 	const onCauseSelect = (event: SelectChangeEvent) => {
 		onRedCrossCauseSelect(event.target.value);
 	};
 
-	const { onSubmit } = useContext(DonationFormContext);
-
-	const handleContinue = () => {
-		if (step >= 0 && step < 3) {
+	const handleContinue = async () => {
+		if (
+			(step >= 0 && step < 2) ||
+			(step === 2 && donationFormDetails?.donationOption === "donate-now")
+		) {
 			setStep(step + 1);
 		}
 
-		if (step === 3) {
-			console.log("final stage");
-			onSubmit();
+		if (
+			step === 3 ||
+			(step === 2 && donationFormDetails?.donationOption === "make-pledge")
+		) {
+			try {
+				const response = await onSubmit({
+					setIsSubmitting,
+					donationFormDetails,
+					selectedCauseId,
+				});
+				const { referenceId }: any = response;
+
+				if (
+					donationFormDetails?.paymentOption === "Mpesa" ||
+					donationFormDetails?.donationOption === "make-pledge"
+				) {
+					setSubmissionComplete(true);
+					push(`/status?id=${referenceId}`);
+				}
+
+				if (donationFormDetails?.paymentOption === "Card") {
+					if (donationFormDetails?.donationOption === "donate-now") {
+						setCardToken(response);
+					} else {
+						push(`/status?id=${referenceId}`);
+					}
+				}
+			} catch (error) {
+				console.error(error);
+			}
 		}
 	};
 	const handleBack = () => {
@@ -43,72 +84,93 @@ const Home = () => {
 		}
 	};
 
+	const imageLoader = () => {
+		return `${baseImageUrl}/hero.jpg`;
+	};
+
 	return (
-		<ThemeProvider theme={theme}>
-			<main className="flex w-full bg-[#f8f9fa]">
-				<div className="relative flex-col justify-center flex-1 hidden md:flex max-h-[650px] bg-[#f8f9fa] overflow-hidden">
-					<div className="flex justify-end w-full">
-						<Image
-							className="z-10 opacity-50"
-							src="/maasai.jpg"
-							// src={`/${selectedCause?.value || "maasai"}.jpg`}
-							alt=""
-							height={600}
-							width={400}
-						/>
+		<>
+			<ThemeProvider theme={theme}>
+				<main className="flex w-full bg-[#f8f9fa]">
+					<div className="relative flex-col justify-center flex-1 hidden md:flex h-[650px] bg-[#f8f9fa] overflow-hidden">
+						<div className="flex justify-end w-full">
+							<Image
+								className="z-10"
+								src={`${baseImageUrl}/hero.jpg`}
+								alt="redcross image"
+								fill
+								loader={imageLoader}
+								style={{
+									objectFit: "cover",
+								}}
+							/>
+						</div>
+						{selectedCause && step > 0 && (
+							<motion.div
+								initial={{ x: -100, opacity: 0 }}
+								transition={{ duration: 0.5 }}
+								whileInView={{ opacity: 1, x: 0 }}
+								viewport={{ once: true }}
+								className="z-50 absolute w-full right-0 h-[250px] bg-[#ed1c24] text-white flex flex-col text-center justify-center"
+							>
+								<div>
+									<h1 className="text-5xl font-bold">{`Support ${selectedCause?.label}`}</h1>
+									<p className="px-5 mt-5">
+										{selectedCause?.description || defaultDescription}
+									</p>
+								</div>
+							</motion.div>
+						)}
 					</div>
-					{selectedCause && step > 0 && (
-						<div className="z-20 absolute w-[400px] right-0 h-[400px] bg-[#ed1c24] text-white opacity-70 flex flex-col text-center justify-center">
-							<div>
-								<h1 className="text-3xl">{`Support ${selectedCause?.label}`}</h1>
+
+					{step === 0 && (
+						<div className="flex flex-col md:justify-center flex-1 text-center space-y-[50px] bg-white">
+							<div className="bg-[#ed1c24] text-white p-[20px] md:py-[40px] md:px-[20px] min-h-[250px]">
+								<h1 className="text-5xl font-bold">{`Support ${
+									selectedCause?.label || "our Cause"
+								}`}</h1>
 								<p className="px-5 mt-5">
 									{selectedCause?.description || defaultDescription}
 								</p>
 							</div>
+
+							<div>
+								<SelectDropdown
+									dropDownOptions={redCrossCauses}
+									selectedOption={selectedCause?.value || ""}
+									onChange={onCauseSelect}
+								/>
+							</div>
+							<div>
+								<Button
+									className="py-[10px] px-[40px]"
+									onClick={handleContinue}
+									disabled={!selectedCause}
+								>
+									Continue
+								</Button>
+							</div>
 						</div>
 					)}
-				</div>
-
-				{step === 0 && (
-					<div className="flex flex-col md:justify-center flex-1 text-center space-y-[50px] bg-white">
-						<div className="bg-[#ed1c24] text-white p-[20px] md:p-[40px]">
-							<h1 className="text-5xl">{`Support ${
-								selectedCause?.label || "our Cause"
-							}`}</h1>
-							<p className="px-5 mt-5">
-								{selectedCause?.description || defaultDescription}
-							</p>
-						</div>
-
-						<div>
-							<SelectDropdown
-								dropDownOptions={redCrossCauses}
-								selectedOption={selectedCause?.value || ""}
-								onChange={onCauseSelect}
+					{step > 0 && (
+						<motion.div
+							initial={{ x: 100, opacity: 0 }}
+							transition={{ duration: 0.5 }}
+							whileInView={{ opacity: 1, x: 0 }}
+							viewport={{ once: true }}
+							className="flex flex-col flex-1 bg-white space-y-[20px] md:h-[650px] overflow-y-scroll px-10"
+						>
+							<DonationForm
+								step={step}
+								onBack={handleBack}
+								onContinue={handleContinue}
 							/>
-						</div>
-						<div>
-							<Button
-								className="py-[10px] px-[40px]"
-								onClick={handleContinue}
-								disabled={!selectedCause}
-							>
-								Continue
-							</Button>
-						</div>
-					</div>
-				)}
-				{step > 0 && (
-					<div className="flex flex-col flex-1 bg-white space-y-[20px] md:h-[650px] overflow-y-scroll px-10">
-						<DonationForm
-							step={step}
-							onBack={handleBack}
-							onContinue={handleContinue}
-						/>
-					</div>
-				)}
-			</main>
-		</ThemeProvider>
+						</motion.div>
+					)}
+				</main>
+			</ThemeProvider>
+			<InvisibleForm />
+		</>
 	);
 };
 

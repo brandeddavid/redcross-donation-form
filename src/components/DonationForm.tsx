@@ -1,7 +1,14 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
-import { Divider, StepLabel, Step, Stepper, CardActions } from "@mui/material";
-import Button from "./Button";
+import {
+	Divider,
+	StepLabel,
+	Step,
+	Stepper,
+	CardActions,
+	Button,
+	CircularProgress,
+} from "@mui/material";
 import DonationFormAmount from "./DonationFormAmount";
 import DonationFormPersonalDetails from "./DonationFormPersonalDetails";
 import DonationFormPayment from "./DonationFormPayment";
@@ -19,10 +26,71 @@ const steps = ["Cause", "Amount", "Donate", "Pay"];
 const DonationForm = ({ step, onContinue, onBack }: Props) => {
 	const { donationFormDetails } = useContext(DonationFormContext);
 	const { selectedCause } = useContext(RedcrossCausesContext);
+	const [disabled, setDisabled] = useState(false);
+
+	const {
+		isSubmitting,
+		donationAmount,
+		donationOption,
+		firstName,
+		lastName,
+		email,
+		phoneNumber,
+		address,
+		donateAnonymously,
+		country,
+		county,
+		emailError,
+	}: any = donationFormDetails;
+
+	useEffect(() => {
+		if (isSubmitting) return setDisabled(true);
+
+		if (step === 1) {
+			return setDisabled(!donationAmount || !donationOption);
+		}
+
+		if (step === 2) {
+			return setDisabled(
+				!donateAnonymously &&
+					(!firstName ||
+						!lastName ||
+						!email ||
+						(email && emailError !== "") ||
+						!phoneNumber ||
+						(country === "Kenya" && !county))
+			);
+		}
+
+		if (step === 3) {
+			return setDisabled(isSubmitting);
+		}
+	}, [
+		isSubmitting,
+		donationAmount,
+		step,
+		donationOption,
+		isSubmitting,
+		firstName,
+		lastName,
+		email,
+		phoneNumber,
+		address,
+		donateAnonymously,
+		country,
+		county,
+		emailError,
+	]);
+
+	const showButtons =
+		step < 3 ||
+		(step === 3 &&
+			(donationFormDetails?.paymentOption === "Mpesa" ||
+				donationFormDetails?.paymentOption === "Card"));
 
 	return (
 		<div className="flex flex-col justify-between">
-			<div className="sticky top-0 z-50 bg-white">
+			<div className="sticky top-0 z-30 bg-white">
 				<Stepper
 					activeStep={step}
 					alternativeLabel
@@ -60,34 +128,51 @@ const DonationForm = ({ step, onContinue, onBack }: Props) => {
 							</p>
 						)}
 					</div>
-					<div className="flex flex-row justify-between w-full">
-						<div>
-							<Button
-								className="px-[10px] justify-start"
-								variant="outlined"
-								onClick={onBack}
-							>
-								Back
-							</Button>
-						</div>
+					{showButtons && (
+						<div className="flex flex-row justify-between w-full">
+							<div>
+								<Button
+									className="px-[10px] justify-start"
+									variant="outlined"
+									onClick={onBack}
+								>
+									Back
+								</Button>
+							</div>
 
-						<div>
-							<Button
-								className="px-[10px] bg-[#ed1c24] text-white hover:bg-[#ed1c24]"
-								onClick={onContinue}
-								loading={donationFormDetails?.isSubmitting}
-								disabled={donationFormDetails?.isSubmitting}
-							>
-								{step !== 3
-									? "Continue"
-									: `Donate ${donationFormDetails?.selectedCurrency} ${
+							<div>
+								<Button
+									onClick={onContinue}
+									startIcon={
+										donationFormDetails?.isSubmitting ? (
+											<CircularProgress size={20} />
+										) : null
+									}
+									disabled={disabled}
+									variant="outlined"
+									color="primary"
+								>
+									{(step < 2 ||
+										(step === 2 &&
+											donationFormDetails?.donationOption === "donate-now")) &&
+										"Continue"}
+									{step === 2 &&
+										donationFormDetails?.donationOption === "make-pledge" &&
+										`Make ${donationFormDetails?.selectedCurrency} ${
 											donationFormDetails?.handleProcessingFee
 												? donationFormDetails?.totalDonationAmount
 												: donationFormDetails?.donationAmount
-									  }`}
-							</Button>
+										} pledge`}
+									{step === 3 &&
+										`Donate ${donationFormDetails?.selectedCurrency} ${
+											donationFormDetails?.handleProcessingFee
+												? donationFormDetails?.totalDonationAmount
+												: donationFormDetails?.donationAmount
+										}`}
+								</Button>
+							</div>
 						</div>
-					</div>
+					)}
 				</CardActions>
 			</div>
 		</div>

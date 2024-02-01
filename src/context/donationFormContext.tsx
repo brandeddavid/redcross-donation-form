@@ -1,14 +1,8 @@
 "use client";
-import React, {
-	createContext,
-	useContext,
-	useCallback,
-	useEffect,
-	useState,
-} from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { RedcrossCausesContext } from "./redcrossCausesContext";
-import { useRouter } from "next/navigation";
+import "dotenv/config";
 
 type Props = {
 	children: JSX.Element;
@@ -27,12 +21,16 @@ type DonationFormDetails = {
 	firstName: string;
 	lastName: string;
 	email: string;
-	phoneNumber: string;
+	phoneNumber: string | number;
 	country: string;
 	county: string;
 	address: string;
 	recommended: number[] | string[];
 	isSubmitting: boolean;
+	submissionComplete: boolean;
+	emailError: string;
+	phoneCode: string;
+	pledgeFrequency: string;
 } | null;
 type DonationFormDetailsContext = {
 	donationFormDetails: DonationFormDetails | null;
@@ -51,12 +49,17 @@ type DonationFormDetailsContext = {
 	setCountry: (value: string) => void;
 	setCounty: (value: string) => void;
 	setAddress: (value: string) => void;
-	onSubmit: () => void;
+	setSubmissionComplete: (value: boolean) => void;
+	setIsSubmitting: (value: boolean) => void;
+	setCardToken: (value: any) => void;
+	resetDonationForm: () => void;
+	setEmailError: (value: string) => void;
+	setPledgeFrequency: (value: string) => void;
 };
 
 const initialFormDetails = {
-	donateAs: "individual",
-	donationOption: "",
+	donateAs: "private",
+	donationOption: "donate-now",
 	selectedCurrency: "KES",
 	handleProcessingFee: false,
 	donateAnonymously: false,
@@ -74,6 +77,10 @@ const initialFormDetails = {
 	address: "",
 	recommended: [],
 	isSubmitting: false,
+	submissionComplete: false,
+	emailError: "",
+	phoneCode: "+254",
+	pledgeFrequency: "one-time",
 };
 
 export const DonationFormContext = createContext<DonationFormDetailsContext>({
@@ -93,27 +100,51 @@ export const DonationFormContext = createContext<DonationFormDetailsContext>({
 	setCountry: () => {},
 	setCounty: () => {},
 	setAddress: () => {},
-	onSubmit: () => {},
+	setSubmissionComplete: () => {},
+	setIsSubmitting: () => {},
+	setCardToken: () => {},
+	resetDonationForm: () => {},
+	setEmailError: () => {},
+	setPledgeFrequency: () => {},
 });
 
 const DonationFormProvider = ({ children }: Props) => {
-	const { push } = useRouter();
-
 	const [donationFormDetails, setDonationFormDetails] =
 		useState(initialFormDetails);
-	const { selectedCause }: any = useContext(RedcrossCausesContext);
+	const { selectedCause, countries }: any = useContext(RedcrossCausesContext);
 
 	const selectedCauseId = selectedCause?.id || "";
 
+	const resetDonationForm = () => {
+		setDonationFormDetails({ ...donationFormDetails, ...initialFormDetails });
+	};
+
 	const setDonateAs = (option: string) => {
-		setDonationFormDetails({ ...donationFormDetails, donateAs: option });
+		setDonationFormDetails({
+			...donationFormDetails,
+			donateAs: option,
+			donateAnonymously: option === "organisation" && false,
+		});
+	};
+
+	const setPledgeFrequency = (value: string) => {
+		setDonationFormDetails({
+			...donationFormDetails,
+			pledgeFrequency: value,
+		});
+	};
+
+	const setEmailError = (option: string) => {
+		setDonationFormDetails({ ...donationFormDetails, emailError: option });
 	};
 
 	const setSelectedCurrency = (option: string) => {
-		console.log("Hello", option);
 		setDonationFormDetails({
 			...donationFormDetails,
 			selectedCurrency: option,
+			donationAmount: "",
+			paymentOption:
+				option === "USD" ? "Card" : donationFormDetails.paymentOption,
 		});
 	};
 
@@ -121,6 +152,8 @@ const DonationFormProvider = ({ children }: Props) => {
 		setDonationFormDetails({
 			...donationFormDetails,
 			donationOption: option,
+			paymentOption: option === "donate-now" ? "Mpesa" : "",
+			donateAnonymously: option === "make-pledge" && false,
 		});
 	};
 
@@ -139,12 +172,14 @@ const DonationFormProvider = ({ children }: Props) => {
 	};
 
 	const setDonationAmount = (amount: any) => {
-		const fee = 0.1 * Number(amount);
+		const fee = Math.ceil(0.035 * Number(amount));
+		const totalDonationAmount = (Number(amount) + fee).toString();
 
 		setDonationFormDetails({
 			...donationFormDetails,
 			donationAmount: amount,
 			processingFee: fee.toString(),
+			totalDonationAmount,
 		});
 	};
 
@@ -155,19 +190,20 @@ const DonationFormProvider = ({ children }: Props) => {
 		});
 	};
 
-	useEffect(() => {
-		setDonationFormDetails({ ...initialFormDetails });
-	}, []);
+	const setSubmissionComplete = (value: boolean) => {
+		setDonationFormDetails({
+			...donationFormDetails,
+			submissionComplete: value,
+			isSubmitting: false,
+		});
+	};
 
-	const setTotalDonationAmount = useCallback(
-		(amount: string) => {
-			setDonationFormDetails({
-				...donationFormDetails,
-				totalDonationAmount: amount,
-			});
-		},
-		[donationFormDetails]
-	);
+	const setTotalDonationAmount = (amount: string) => {
+		setDonationFormDetails({
+			...donationFormDetails,
+			totalDonationAmount: amount,
+		});
+	};
 
 	const setPaymentOption = (option: string) => {
 		setDonationFormDetails({
@@ -203,16 +239,21 @@ const DonationFormProvider = ({ children }: Props) => {
 			email: value,
 		});
 	};
-	const setPhoneNumber = (value: string) => {
+	const setPhoneNumber = (value: any) => {
 		setDonationFormDetails({
 			...donationFormDetails,
 			phoneNumber: value,
 		});
 	};
 	const setCountry = (value: string) => {
+		const phoneCode = countries.find(
+			(country: any) => country.label === value
+		).phoneCode;
+
 		setDonationFormDetails({
 			...donationFormDetails,
 			country: value,
+			phoneCode: `+${phoneCode}`,
 		});
 	};
 	const setCounty = (value: string) => {
@@ -227,33 +268,40 @@ const DonationFormProvider = ({ children }: Props) => {
 			address: value,
 		});
 	};
+	const setCardToken = (value: any) => {
+		setDonationFormDetails({
+			...donationFormDetails,
+			...value,
+		});
+	};
 
 	const { donationAmount, handleProcessingFee, processingFee } =
 		donationFormDetails;
 
 	useEffect(() => {
-		if (handleProcessingFee && donationAmount) {
+		if (handleProcessingFee) {
 			return setTotalDonationAmount(
-				(Number(donationAmount) + Number(processingFee)).toString()
+				(Number(donationAmount) + Math.ceil(Number(processingFee))).toString()
 			);
 		}
-
-		return;
-	}, [donationAmount, processingFee]);
+	}, [donationAmount, handleProcessingFee, processingFee]);
 
 	const { selectedCurrency, donateAs } = donationFormDetails;
 
 	useEffect(() => {
 		const fetchRecommended = async () => {
 			try {
-				const res = await axios.post("http://localhost:8800/api/recommended", {
-					currency: selectedCurrency === "KES" ? 1 : 2,
-					donorType: donateAs === "individual" ? 1 : 2,
-					campaignId: selectedCauseId,
-				});
+				const res = await axios.post(
+					`https://${process.env.API_HOST}/api/recommended`,
+					{
+						currency: selectedCurrency === "KES" ? 1 : 2,
+						donorType: donateAs === "private" ? 1 : 2,
+						campaignId: selectedCauseId,
+					}
+				);
 				const { data } = res;
 				let recommended: any = [];
-				data &&
+				data.length &&
 					data.forEach(({ Amount: amount }: never) => {
 						recommended.push(amount);
 					});
@@ -278,101 +326,6 @@ const DonationFormProvider = ({ children }: Props) => {
 		});
 	};
 
-	const onSubmit = async () => {
-		setIsSubmitting(true);
-
-		const {
-			selectedCurrency,
-			donateAs,
-			firstName,
-			lastName,
-			companyName,
-			phoneNumber,
-			address,
-			county,
-			country,
-			donationAmount,
-			paymentOption,
-			totalDonationAmount,
-			handleProcessingFee,
-			donateAnonymously,
-		} = donationFormDetails;
-
-		try {
-			const res = await axios.post("http://localhost:8800/api/donate", {
-				currency: selectedCurrency === "KES" ? 1 : 2,
-				donorType: donateAs === "individual" ? 1 : 2,
-				campaignId: selectedCauseId,
-				firstName: donateAnonymously ? "Anonymous" : firstName,
-				lastName: donateAnonymously ? "Anonymous" : lastName,
-				companyName: donateAnonymously ? "Anonymous" : companyName,
-				phoneNumber,
-				address,
-				county,
-				country,
-				amount: handleProcessingFee ? totalDonationAmount : donationAmount,
-				paymentMethod: paymentOption === "Mpesa" ? 1 : 2,
-			});
-			const {
-				data: { donationId },
-			} = res;
-			console.log({ donationId });
-
-			if (donationId) {
-				let headersList = {
-					Accept: "*/*",
-					"User-Agent": "Thunder Client (https://www.thunderclient.com)",
-					"Content-Type": "application/json",
-					Authorization: "Bearer 2|xCkinFbNY92kH2dwZ2fHW6b0W2fVFfxouIatC5xG",
-				};
-
-				let bodyContent = JSON.stringify({
-					reference_id: donationId.toString(),
-					amount: donationAmount,
-					currency: "KES",
-					callback_url: "http://localhost:3000",
-					redirect_url: "http://localhost:3000",
-					express_mpesa:
-						donationFormDetails.paymentOption === "Mpesa" ? true : false,
-					msisdn: donationFormDetails.phoneNumber,
-					first_name: donationFormDetails.firstName,
-					last_name: donationFormDetails.lastName,
-					address: donationFormDetails.address,
-					state: donationFormDetails.county,
-					country: donationFormDetails.country,
-				});
-
-				let reqOptions = {
-					url: "http://sandbox.finsprint.io/api/v1/request-checkout",
-					method: "POST",
-					headers: headersList,
-					data: bodyContent,
-				};
-
-				try {
-					const response = await axios.request(reqOptions);
-					const {
-						data: { status, url },
-					} = response;
-
-					if (status && donationFormDetails.paymentOption === "Mpesa")
-						push("/");
-
-					if (status && donationFormDetails.paymentOption === "Card") push(url);
-					setIsSubmitting(false);
-				} catch (error) {
-					console.error(error);
-					setIsSubmitting(false);
-				}
-			}
-		} catch (error) {
-			console.log(error);
-			setIsSubmitting(false);
-		} finally {
-			setIsSubmitting(false);
-		}
-	};
-
 	return (
 		<DonationFormContext.Provider
 			value={{
@@ -392,7 +345,12 @@ const DonationFormProvider = ({ children }: Props) => {
 				setCounty,
 				setEmail,
 				setPhoneNumber,
-				onSubmit,
+				setSubmissionComplete,
+				setIsSubmitting,
+				setCardToken,
+				resetDonationForm,
+				setEmailError,
+				setPledgeFrequency,
 			}}
 		>
 			{children}

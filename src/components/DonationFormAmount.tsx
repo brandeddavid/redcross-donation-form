@@ -8,9 +8,9 @@ import {
 	FormGroup,
 	FormControlLabel,
 	Checkbox,
+	Button,
 } from "@mui/material";
 import RadioButton from "./RadioButton";
-import Button from "../components/Button";
 import { DonationFormContext } from "../context/donationFormContext";
 
 type Props = {};
@@ -19,8 +19,14 @@ type LabelProps = {
 	currency: string | undefined;
 };
 
-const tabs = ["ONE TIME", "MONTHLY"];
-const acceptedCurrency = ["KES", "USD"];
+const tabs = [
+	{ label: "ONE TIME", value: "one-time" },
+	{ label: "MONTHLY", value: "monthly" },
+];
+const acceptedCurrency = [
+	{ label: "KES", value: "KES" },
+	{ label: "USD", value: "USD" },
+];
 
 const Label = ({ processingFee, currency }: LabelProps) => (
 	<div className="text-sm text-gray-500">
@@ -40,15 +46,20 @@ const DonationFormAmount = ({}: Props) => {
 		setDonationOption,
 		toggleHandleProcessingFee,
 		setDonationAmount,
+		setPledgeFrequency,
 	} = useContext(DonationFormContext);
 
+	useEffect(() => {
+		setPledgeFrequency(activeTab === 0 ? "one-time" : "monthly");
+	}, [activeTab]);
+
 	return (
-		<div className="py-[10px] md:py-[50px] md:px-5 flex flex-col space-y-[20px] md:space-y-[30px]">
+		<div className="py-[10px] md:pb-[50px] md:px-5 flex flex-col space-y-[20px]">
 			<RadioButton
 				formLabel="Select donate as"
 				radioOptions={[
-					{ label: "Individual", value: "individual" },
-					{ label: "Company", value: "company" },
+					{ label: "Private", value: "private" },
+					{ label: "Organisation", value: "organisation" },
 				]}
 				onChange={(value) => setDonateAs(value)}
 				selectedOption={donationFormDetails?.donateAs}
@@ -69,13 +80,14 @@ const DonationFormAmount = ({}: Props) => {
 						<Tabs
 							value={activeTab}
 							onChange={(event, value) => {
+								console.log({ value });
 								setActiveTab(value);
 							}}
 							aria-label="basic tabs example"
 							className="flex w-full"
 						>
-							{tabs.map((tab) => (
-								<Tab className="flex-auto" key={tab} label={tab} />
+							{tabs.map(({ label, value }) => (
+								<Tab className="flex-auto" key={label} label={label} />
 							))}
 						</Tabs>
 					</div>
@@ -87,22 +99,25 @@ const DonationFormAmount = ({}: Props) => {
 					<p className="flex text-sm text-gray-500 mb-[10px]">
 						Toggle currency
 					</p>
-					<ButtonGroup variant="outlined" aria-label="button group">
-						{acceptedCurrency.map((currency) => (
+					<ButtonGroup variant="outlined">
+						{acceptedCurrency.map(({ label, value }) => (
 							<Button
-								key={currency}
-								className={`${
-									(currency === donationFormDetails?.selectedCurrency &&
-										"bg-[#ed1c24] text-white hover:bg-[#ed1c24]") ||
-									""
-								}`}
+								key={value}
+								sx={{
+									backgroundColor:
+										(value === donationFormDetails?.selectedCurrency &&
+											"#ed1c24 !important") ||
+										"",
+									color:
+										(value === donationFormDetails?.selectedCurrency &&
+											"white !important") ||
+										"",
+								}}
 								onClick={() => {
-									console.log({ currency });
-									setSelectedCurrency(currency);
-									setDonationAmount("");
+									setSelectedCurrency(value);
 								}}
 							>
-								{currency}
+								{label}
 							</Button>
 						))}
 					</ButtonGroup>
@@ -127,12 +142,17 @@ const DonationFormAmount = ({}: Props) => {
 							{[...donationFormDetails?.recommended, "Other"].map((amount) => (
 								<div key={amount} className="flex mb-[10px]">
 									<Button
-										className={`min-w-[100px] ${
-											(amount === donationFormDetails?.donationAmount &&
-												"bg-[#ed1c24] text-white hover:bg-[#ed1c24]") ||
-											""
-										}`}
 										variant="outlined"
+										sx={{
+											backgroundColor:
+												(amount === donationFormDetails?.donationAmount &&
+													"#ed1c24 !important") ||
+												"",
+											color:
+												(amount === donationFormDetails?.donationAmount &&
+													"white !important") ||
+												"",
+										}}
 										onClick={() => {
 											if (amount === "Other") {
 												setShowOtherAmountInput(true);
@@ -155,7 +175,7 @@ const DonationFormAmount = ({}: Props) => {
 								</div>
 							))}
 						</div>
-						<div className="mt-[20px]">
+						<div className="">
 							{showOtherAmountInput && (
 								<Input
 									placeholder="Enter amount"

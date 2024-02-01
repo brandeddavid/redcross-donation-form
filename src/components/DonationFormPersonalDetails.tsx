@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import {
 	Checkbox,
 	FormGroup,
@@ -10,10 +10,13 @@ import {
 	FormControl,
 	MenuItem,
 } from "@mui/material";
+import { motion } from "framer-motion";
 import { DonationFormContext } from "../context/donationFormContext";
+import { RedcrossCausesContext } from "../context/redcrossCausesContext";
 
 type Props = {};
 type CountryOption = {
+	id?: number;
 	label: string;
 	value: string;
 };
@@ -30,69 +33,51 @@ const DonationFormPersonalDetails = ({}: Props) => {
 		setCounty,
 		setEmail,
 		setPhoneNumber,
-	} = useContext(DonationFormContext);
+		setEmailError,
+	}: any = useContext(DonationFormContext);
+	const { countries, counties } = useContext(RedcrossCausesContext);
 
-	const countryList: CountryOption[] = [
-		{
-			value: "KE",
-			label: "Kenya",
-		},
-		{
-			value: "US",
-			label: "United States",
-		},
-		{
-			value: "CA",
-			label: "Canada",
-		},
-		{
-			value: "AU",
-			label: "Australia",
-		},
-		{
-			value: "BR",
-			label: "Brazil",
-		},
-		{
-			value: "IN",
-			label: "India",
-		},
-		{
-			value: "GB",
-			label: "United Kingdom",
-		},
-		{
-			value: "NZ",
-			label: "New Zealand",
-		},
-		{
-			value: "SG",
-			label: "Singapore",
-		},
-		{
-			value: "JP",
-			label: "Japan",
-		},
-	];
+	const showDonateAnonymously =
+		donationFormDetails?.donateAs === "private" &&
+		donationFormDetails?.donationOption === "donate-now";
+
+	const validateEmail = () => {
+		const validEmailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+		if (donationFormDetails?.email.match(validEmailRegex)) {
+			setEmailError("");
+		} else {
+			setEmailError("Please enter a valid email address");
+		}
+	};
 
 	return (
-		<div className="p-[30px] flex flex-col space-y-[40px]">
-			<div>
-				<FormGroup>
-					<FormControlLabel
-						control={
-							<Checkbox
-								checked={donationFormDetails?.donateAnonymously}
-								onClick={setDonateAnonymously}
-							/>
-						}
-						label="Donate anonymously"
-					/>
-				</FormGroup>
-			</div>
+		<motion.div
+			initial={{ y: 100, opacity: 0 }}
+			transition={{ duration: 0.5 }}
+			whileInView={{ opacity: 1, y: 0 }}
+			viewport={{ once: true }}
+			className="p-[30px] flex flex-col space-y-[40px]"
+		>
+			{showDonateAnonymously && (
+				<div>
+					<FormGroup>
+						<FormControlLabel
+							control={
+								<Checkbox
+									checked={donationFormDetails?.donateAnonymously}
+									onClick={setDonateAnonymously}
+								/>
+							}
+							label="Donate anonymously"
+						/>
+					</FormGroup>
+				</div>
+			)}
+
 			{!donationFormDetails?.donateAnonymously && (
 				<FormGroup className="space-y-[40px]">
-					{donationFormDetails?.donateAs === "company" && (
+					{donationFormDetails?.donateAs === "organisation" && (
 						<div className="flex">
 							<TextField
 								label="Company name"
@@ -128,31 +113,28 @@ const DonationFormPersonalDetails = ({}: Props) => {
 							}}
 						/>
 					</div>
-					<div className="flex">
-						<TextField
-							label="Email"
-							placeholder="Enter email"
-							variant="standard"
-							fullWidth
-							type="email"
-							value={donationFormDetails?.email}
-							onChange={(event) => {
-								setEmail(event.target.value);
-							}}
-						/>
+					<div className="flex flex-col">
+						<div>
+							<TextField
+								label="Email"
+								placeholder="Enter email"
+								variant="standard"
+								fullWidth
+								type="email"
+								value={donationFormDetails?.email}
+								onChange={(event) => {
+									setEmail(event.target.value);
+								}}
+								onBlur={validateEmail}
+							/>
+						</div>
+						{donationFormDetails?.emailError && (
+							<div className="mt-[5px] text-[#ed1c24] text-xs">
+								{donationFormDetails?.emailError}
+							</div>
+						)}
 					</div>
-					<div className="flex">
-						<TextField
-							label="Phone"
-							placeholder="Enter phone"
-							variant="standard"
-							fullWidth
-							value={donationFormDetails?.phoneNumber}
-							onChange={(event) => {
-								setPhoneNumber(event.target.value);
-							}}
-						/>
-					</div>
+
 					<div className="flex justify-between space-x-5">
 						<FormControl variant="standard" className="flex-1 ">
 							<InputLabel id="demo-simple-select-standard-label">
@@ -164,13 +146,13 @@ const DonationFormPersonalDetails = ({}: Props) => {
 								variant="standard"
 								fullWidth
 								value={donationFormDetails?.country}
-								onChange={(event) => {
+								onChange={(event, data) => {
 									setCountry(event.target.value);
 								}}
 							>
-								{countryList.map(({ label, value }: CountryOption) => {
+								{countries.map(({ label, id }: CountryOption) => {
 									return (
-										<MenuItem key={value} value={label}>
+										<MenuItem key={id} value={label}>
 											{label}
 										</MenuItem>
 									);
@@ -191,10 +173,45 @@ const DonationFormPersonalDetails = ({}: Props) => {
 										setCounty(event.target.value);
 									}}
 									fullWidth
-								/>
+								>
+									{counties.map(({ label, value }: CountryOption) => {
+										return (
+											<MenuItem key={value} value={label}>
+												{label}
+											</MenuItem>
+										);
+									})}
+								</Select>
 							</FormControl>
 						)}
 					</div>
+
+					<div className="flex">
+						<TextField
+							label="Phone"
+							variant="standard"
+							value={donationFormDetails?.phoneCode}
+							sx={{
+								width: "50px",
+								"&:disabled": {
+									color: "black !important",
+								},
+							}}
+						/>
+
+						<TextField
+							label=" "
+							placeholder="Enter phone"
+							variant="standard"
+							fullWidth
+							// type="number"
+							value={donationFormDetails?.phoneNumber}
+							onChange={(event) => {
+								setPhoneNumber(event.target.value);
+							}}
+						/>
+					</div>
+
 					<div className="flex mb-[40px]">
 						<TextField
 							label="Physical address"
@@ -209,7 +226,7 @@ const DonationFormPersonalDetails = ({}: Props) => {
 					</div>
 				</FormGroup>
 			)}
-		</div>
+		</motion.div>
 	);
 };
 
