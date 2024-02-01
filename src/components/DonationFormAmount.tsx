@@ -58,7 +58,7 @@ const DonationFormAmount = ({}: Props) => {
 			<RadioButton
 				formLabel="Select donate as"
 				radioOptions={[
-					{ label: "Private", value: "private" },
+					{ label: "Individual", value: "private" },
 					{ label: "Organisation", value: "organisation" },
 				]}
 				onChange={(value) => setDonateAs(value)}

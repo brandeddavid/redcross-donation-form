@@ -65,7 +65,16 @@ const getDonationStatus = (
 			message: (
 				<Message paymentBody="Your donation has been successfully processed" />
 			),
-			icon: <CheckCircleOutlineIcon fontSize="large" sx={{ fill: "white" }} />,
+			icon: (
+				<CheckCircleOutlineIcon
+					fontSize="large"
+					color="success"
+					sx={{
+						fill: "white",
+						// color: "green",
+					}}
+				/>
+			),
 		};
 	}
 

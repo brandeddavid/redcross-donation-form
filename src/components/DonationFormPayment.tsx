@@ -11,7 +11,7 @@ const getPaymentOptions = (currency: string | undefined) => {
 	if (currency === "USD") {
 		return ["Card"];
 	} else {
-		return ["Mpesa", "Card", "Airtel Money", "TKash"];
+		return ["Mpesa", "Card"];
 	}
 };
 
