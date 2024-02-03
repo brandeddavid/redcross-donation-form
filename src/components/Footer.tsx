@@ -13,7 +13,7 @@ const Footer = () => {
 				<div className="flex justify-between w-full lg:justify-evenly">
 					<div className="pr-[15px] mb-[24px] max-w-[80px]">
 						<Image
-							src="https://www.redcross.or.ke/assets/img/redcross-emblem.svg"
+							src="https://www.redcross.or.ke/wp-content/uploads/2023/03/logo-203x114-1.png"
 							alt=""
 							width={55}
 							height={70}

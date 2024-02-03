@@ -38,8 +38,8 @@ const NavBar = () => {
 	return (
 		<>
 			<nav className="relative z-50 w-full">
-				{/* <div className="flex items-center w-full p-4 md:px-[60px] md:justify-between border-b-1 align-center flex-nowrap lg:justify-evenly"> */}
-				{/* <div className="flex justify-center text-center flex-nowrap">
+				<div className="flex items-center w-full p-4 md:px-[160px] md:justify-between border-b-1 align-center flex-nowrap lg:justify-evenly">
+					<div className="flex justify-center text-center flex-nowrap">
 						<Link href="/form">
 							<Image
 								src="https://www.redcross.or.ke/wp-content/uploads/2023/03/logo-203x114-1.png"
@@ -106,7 +106,7 @@ const NavBar = () => {
 							</li>
 						</ul>
 					</div>
-				</div> */}
+				</div>
 				<div className="hidden pt-4 text-xs font-bold text-[rgba(0,0,0,0.5)] uppercase md:flex px-[60px]">
 					<ul className="flex justify-between w-full text-center lg:justify-center">
 						<li className="pl-0 navigationBorder">
