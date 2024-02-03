@@ -25,15 +25,17 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 		<RedcrossCausesProvider>
 			<DonationFormProvider>
 				<html lang="en">
-					<body className={`${inter.className} flex flex-col font-sans`}>
-						<div className="fixed top-0 left-0 right-0 z-50 bg-white">
+					<body
+						className={`${inter.className} flex flex-col font-sans justify-center items-center min-h-screen`}
+					>
+						{/* <div className="fixed top-0 left-0 right-0 z-50 bg-white">
 							<header>
 								<NavBar />
 							</header>
-						</div>
-						<div className="absolute top-[100px] md:top-[80px] w-full z-10">
+						</div> */}
+						<div className="z-10 w-full">
 							<div className="">{children}</div>
-							<section className="hidden md:block py-12 bg-[#f8f9fa]">
+							{/* <section className="hidden md:block py-12 bg-[#f8f9fa]">
 								<div className="my-4 max-w-[960px] px-[15px]">
 									<h3 className="text-4xl font-medium"></h3>
 								</div>
@@ -57,7 +59,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 										</button>
 									</div>
 								</div>
-							</section>
+							</section> */}
 							{/* <section className="hidden w-full py-12 md:block">
 								<Footer />
 							</section> */}
