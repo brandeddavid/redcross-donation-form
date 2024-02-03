@@ -13,10 +13,14 @@ type Props = {
 	paymentBody: string;
 };
 
-const Message = ({ type, paymentBody }: any) => {
+const Message = ({ type, paymentBody, status = "pending" }: any) => {
 	if (type === "mpesa") {
 		return (
-			<div className="p-5 bg-[#ed1c24] text-white">
+			<div
+				className={`p-5 ${
+					status === 1 ? "bg-[#2A800A]" : "bg-[#ed1c24]"
+				} text-white`}
+			>
 				<span>
 					Complete payment by entering pin on your phone then press the verify
 					button.
@@ -27,7 +31,11 @@ const Message = ({ type, paymentBody }: any) => {
 
 	if (type === "pledge") {
 		return (
-			<div className="p-5 bg-[#ed1c24] text-white">
+			<div
+				className={`p-5 ${
+					status === 1 ? "bg-[#2A800A]" : "bg-[#ed1c24]"
+				} text-white`}
+			>
 				<span>
 					Invoice has been sent to your email address. Check your email to
 					complete payment.
@@ -37,7 +45,11 @@ const Message = ({ type, paymentBody }: any) => {
 	}
 
 	return (
-		<div className="p-5 bg-[#ed1c24] text-white">
+		<div
+			className={`p-5 ${
+				status === 1 ? "bg-[#2A800A]" : "bg-[#ed1c24]"
+			} text-white`}
+		>
 			<span>{paymentBody}</span>
 		</div>
 	);
@@ -63,7 +75,10 @@ const getDonationStatus = (
 		return {
 			status: "SUCCESSFUL",
 			message: (
-				<Message paymentBody="Your donation has been successfully processed" />
+				<Message
+					paymentBody="Your donation has been successfully processed"
+					status={status}
+				/>
 			),
 			icon: (
 				<CheckCircleOutlineIcon
@@ -81,7 +96,7 @@ const getDonationStatus = (
 	if (isMpesaPending) {
 		return {
 			status: "PENDING",
-			message: <Message type="mpesa" />,
+			message: <Message type="mpesa" status={status} />,
 			icon: <PendingOutlinedIcon fontSize="large" sx={{ fill: "white" }} />,
 		};
 	}
@@ -89,7 +104,7 @@ const getDonationStatus = (
 	if (isPledge) {
 		return {
 			status: "PENDING",
-			message: <Message type="pledge" />,
+			message: <Message type="pledge" status={status} />,
 			icon: <PendingOutlinedIcon fontSize="large" sx={{ fill: "white" }} />,
 		};
 	}
@@ -140,6 +155,8 @@ const ModalContent = ({ status, fetchDonation, paymentBody }: Props) => {
 		isCardPayment
 	);
 
+	console.log({ status, donationStatus });
+
 	const onSubmit = () => {
 		if (isMpesaPending) {
 			return fetchDonation();
@@ -152,7 +169,13 @@ const ModalContent = ({ status, fetchDonation, paymentBody }: Props) => {
 
 	return (
 		<Box className="w-[500px] my-5">
-			<div className="h-[200px] bg-[#ed1c24] flex flex-col justify-center text-center">
+			<div
+				className={`h-[200px] ${
+					donationStatus.status === "SUCCESSFUL"
+						? "bg-[#2A800A]"
+						: "bg-[#ed1c24]"
+				} flex flex-col justify-center text-center`}
+			>
 				<div>{donationStatus.icon}</div>
 				<div className="text-white">{donationStatus.status}</div>
 			</div>
