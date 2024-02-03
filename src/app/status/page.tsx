@@ -23,7 +23,7 @@ const page = (props: Props) => {
 	return (
 		<div className="flex justify-center">
 			<ModalContent
-				status={1}
+				status={donation?.payment_status}
 				fetchDonation={fetchDonation}
 				paymentBody={donation?.payment_body}
 			/>
