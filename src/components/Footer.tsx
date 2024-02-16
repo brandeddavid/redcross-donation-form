@@ -4,6 +4,7 @@ import { DateTime } from "luxon";
 import Link from "next/link";
 import Image from "next/image";
 import { Typography } from "@mui/material";
+import Socials from "./Socials";
 
 const Footer = () => {
 	const month = DateTime.now().toFormat("MMMM yyyy");
@@ -75,7 +76,7 @@ const Footer = () => {
 	];
 
 	return (
-		<footer className="flex flex-col pr-[15px] bg-[#0e1422] text-white py-[48px] md:px-[60px]">
+		<footer className="flex flex-col pr-[15px] bg-[#0e1422] text-white py-[50px] md:px-[60px]">
 			<div className="flex"></div>
 
 			<div className="flex flex-wrap justify-between">
@@ -217,6 +218,43 @@ const Footer = () => {
 							</li>
 						))}
 					</ul>
+				</div>
+			</div>
+
+			<div className="flex justify-between mt-[20px] pt-[50px] border-t-[2px] border-[#000000]">
+				<Typography variant="caption">
+					2024{" "}
+					<Typography
+						sx={{
+							color: "#ed1c24",
+						}}
+						variant="caption"
+					>
+						Kenya Red Cross Society
+					</Typography>
+					, All Rights
+				</Typography>
+				<div className="flex">
+					<Typography
+						sx={{
+							borderRight: "1px solid #ffffff",
+							px: "10px",
+						}}
+						variant="caption"
+					>
+						Accessibility Statement
+					</Typography>
+					<Typography
+						sx={{
+							px: "10px",
+						}}
+						variant="caption"
+					>
+						Privacy Policy
+					</Typography>
+				</div>
+				<div>
+					<Socials />
 				</div>
 			</div>
 		</footer>

@@ -3,11 +3,6 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
-	Facebook as FacebookIcon,
-	Instagram as InstagramIcon,
-	Twitter as TwitterIcon,
-	YouTube as YouTubeIcon,
-	LinkedIn as LinkedInIcon,
 	Mail as MailIcon,
 	Phone as PhoneIcon,
 	ExpandMore as ExpandMoreIcon,
@@ -19,6 +14,7 @@ import WhatWeDoMenu from "./WhatWeDoMenu";
 import WhoWeAre from "./WhoWeAre";
 import WhatsNew from "./WhatsNew";
 import { Box } from "@mui/material";
+import Socials from "./Socials";
 
 const NavBar = () => {
 	const [showMenu, setShowMenu] = useState(false);
@@ -44,64 +40,8 @@ const NavBar = () => {
 		<>
 			<nav className="relative z-50 flex flex-col w-full">
 				<div className="bg-[#1c2539] px-[50px] text-white flex">
-					<div className="flex-1 py-[20px]">
-						<ul className="hidden md:flex">
-							<li className="mr-[8px]">
-								<Link href="/form">
-									<FacebookIcon
-										fontSize="small"
-										sx={{
-											fill: "#ffffff",
-											"&:hover": { fill: "#ed1c24" },
-										}}
-									/>
-								</Link>
-							</li>
-							<li className="mx-[8px]">
-								<Link href="/form">
-									<TwitterIcon
-										fontSize="small"
-										sx={{
-											fill: "#ffffff",
-											"&:hover": { fill: "#ed1c24" },
-										}}
-									/>
-								</Link>
-							</li>
-							<li className="mx-[8px]">
-								<Link href="/form">
-									<InstagramIcon
-										fontSize="small"
-										sx={{
-											fill: "#ffffff",
-											"&:hover": { fill: "#ed1c24" },
-										}}
-									/>
-								</Link>
-							</li>
-							<li className="mx-[8px]">
-								<Link href="/form">
-									<LinkedInIcon
-										fontSize="small"
-										sx={{
-											fill: "#ffffff",
-											"&:hover": { fill: "#ed1c24" },
-										}}
-									/>
-								</Link>
-							</li>
-							<li className="mx-[8px]">
-								<Link href="/form">
-									<YouTubeIcon
-										fontSize="small"
-										sx={{
-											fill: "#ffffff",
-											"&:hover": { fill: "#ed1c24" },
-										}}
-									/>
-								</Link>
-							</li>
-						</ul>
+					<div className="flex-1 py-[20px] hidden md:flex">
+						<Socials />
 					</div>
 
 					<div className="items-center flex space-x-[20px]">
