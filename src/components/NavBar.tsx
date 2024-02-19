@@ -7,21 +7,21 @@ import {
 	Phone as PhoneIcon,
 	ExpandMore as ExpandMoreIcon,
 	Menu as MenuIcon,
+	Close as CloseIcon,
 } from "@mui/icons-material";
 import DropDownMenuScaffold from "./DropDownMenuScaffold";
 import GetInvolvedMenu from "./GetInvolvedMenu";
 import WhatWeDoMenu from "./WhatWeDoMenu";
 import WhoWeAre from "./WhoWeAre";
 import WhatsNew from "./WhatsNew";
-import { Box, Drawer, Typography } from "@mui/material";
+import { Box, Drawer, Popover, Typography } from "@mui/material";
 import Socials from "./Socials";
 import AboutUsDrawer from "./AboutUsDrawer";
 
 const NavBar = () => {
-	const [showMenu, setShowMenu] = useState(false);
-	const [activeDropdown, setActiveDropdown] = useState("");
-	const [inNavBar, setInNavBar] = useState(true);
+	const [activeMenu, setActiveMenu] = useState("");
 	const [openDrawer, setOpenDrawer] = useState(false);
+	const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
 	const onCloseDrawer = () => setOpenDrawer(false);
 
@@ -29,15 +29,14 @@ const NavBar = () => {
 		return "https://www.redcross.or.ke/wp-content/uploads/2023/03/logo-203x114-1.png";
 	};
 
-	useEffect(() => {
-		if (!inNavBar && !activeDropdown) setShowMenu(false);
-	}, [inNavBar, activeDropdown]);
+	const handleShowMenu = (event: any, menuItem: string) => {
+		setAnchorEl(event.currentTarget);
+		setActiveMenu(menuItem);
+	};
 
-	const handleShowMenu = (menuItem: string) => {
-		console.log("show menu");
-		setInNavBar(true);
-		setShowMenu(true);
-		setActiveDropdown(menuItem);
+	const handleCloseActiveMenu = () => {
+		setAnchorEl(null);
+		setActiveMenu("");
 	};
 
 	return (
@@ -106,7 +105,10 @@ const NavBar = () => {
 							<li className="hover:text-[#ed1c24]">
 								<Link
 									className="p-2"
-									onClick={() => handleShowMenu("get-involved")}
+									onMouseEnter={(event) =>
+										handleShowMenu(event, "get-involved")
+									}
+									onClick={(event) => handleShowMenu(event, "get-involved")}
 									href="/"
 									style={{
 										display: "flex",
@@ -133,7 +135,7 @@ const NavBar = () => {
 							<li className="hover:text-[#ed1c24]">
 								<Link
 									className="p-2"
-									onClick={() => handleShowMenu("who-we-are")}
+									onClick={(event) => handleShowMenu(event, "who-we-are")}
 									href="/"
 									style={{
 										display: "flex",
@@ -171,7 +173,7 @@ const NavBar = () => {
 							<li className="hover:text-[#ed1c24]">
 								<Link
 									className="p-2"
-									onClick={() => handleShowMenu("who-we-are")}
+									onClick={(event) => handleShowMenu(event, "what-we-do")}
 									href="/"
 									style={{
 										display: "flex",
@@ -218,18 +220,46 @@ const NavBar = () => {
 						}}
 						onClick={() => setOpenDrawer(true)}
 					>
-						<MenuIcon
-							fontSize="large"
-							sx={{
-								fill: "#ffffff",
-							}}
-						/>
+						{openDrawer ? (
+							<CloseIcon
+								fontSize="large"
+								sx={{
+									fill: "#ffffff",
+								}}
+							/>
+						) : (
+							<MenuIcon
+								fontSize="large"
+								sx={{
+									fill: "#ffffff",
+								}}
+							/>
+						)}
 					</Box>
 				</div>
 			</nav>
 			<Drawer open={openDrawer} onClose={onCloseDrawer}>
 				<AboutUsDrawer onClose={onCloseDrawer} />
 			</Drawer>
+			{activeMenu && (
+				<Popover
+					open={activeMenu !== ""}
+					anchorEl={anchorEl}
+					anchorOrigin={{
+						vertical: "bottom",
+						horizontal: "left",
+					}}
+					transformOrigin={{
+						vertical: "top",
+						horizontal: "left",
+					}}
+					onClose={handleCloseActiveMenu}
+					// onMouseLeave={handleCloseActiveMenu}
+					// onMouseOut={handleCloseActiveMenu}
+				>
+					{activeMenu === "get-involved" && <GetInvolvedMenu />}
+				</Popover>
+			)}
 		</>
 	);
 };
