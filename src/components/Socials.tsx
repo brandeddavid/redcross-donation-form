@@ -8,18 +8,25 @@ import {
 } from "@mui/icons-material";
 import Link from "next/link";
 
-type Props = {};
+type Props = {
+	variant?: "primary" | "secondary";
+};
 
-const Socials = (props: Props) => {
+const Socials = ({ variant = "primary" }: Props) => {
 	return (
 		<ul className="flex">
 			<li className="mr-[8px]">
 				<Link href="/form">
 					<FacebookIcon
-						fontSize="small"
+						fontSize={variant === "secondary" ? "large" : "small"}
 						sx={{
 							fill: "#ffffff",
 							"&:hover": { fill: "#ed1c24" },
+							...(variant === "secondary" && {
+								fill: "#1c2539",
+								height: "40px",
+								width: "40px",
+							}),
 						}}
 					/>
 				</Link>
@@ -31,6 +38,11 @@ const Socials = (props: Props) => {
 						sx={{
 							fill: "#ffffff",
 							"&:hover": { fill: "#ed1c24" },
+							...(variant === "secondary" && {
+								fill: "#1c2539",
+								height: "40px",
+								width: "40px",
+							}),
 						}}
 					/>
 				</Link>
@@ -42,6 +54,11 @@ const Socials = (props: Props) => {
 						sx={{
 							fill: "#ffffff",
 							"&:hover": { fill: "#ed1c24" },
+							...(variant === "secondary" && {
+								fill: "#1c2539",
+								height: "40px",
+								width: "40px",
+							}),
 						}}
 					/>
 				</Link>
@@ -53,6 +70,11 @@ const Socials = (props: Props) => {
 						sx={{
 							fill: "#ffffff",
 							"&:hover": { fill: "#ed1c24" },
+							...(variant === "secondary" && {
+								fill: "#1c2539",
+								height: "40px",
+								width: "40px",
+							}),
 						}}
 					/>
 				</Link>
@@ -64,6 +86,11 @@ const Socials = (props: Props) => {
 						sx={{
 							fill: "#ffffff",
 							"&:hover": { fill: "#ed1c24" },
+							...(variant === "secondary" && {
+								fill: "#1c2539",
+								height: "40px",
+								width: "40px",
+							}),
 						}}
 					/>
 				</Link>

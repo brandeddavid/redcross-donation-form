@@ -13,13 +13,17 @@ import GetInvolvedMenu from "./GetInvolvedMenu";
 import WhatWeDoMenu from "./WhatWeDoMenu";
 import WhoWeAre from "./WhoWeAre";
 import WhatsNew from "./WhatsNew";
-import { Box, Typography } from "@mui/material";
+import { Box, Drawer, Typography } from "@mui/material";
 import Socials from "./Socials";
+import AboutUsDrawer from "./AboutUsDrawer";
 
 const NavBar = () => {
 	const [showMenu, setShowMenu] = useState(false);
 	const [activeDropdown, setActiveDropdown] = useState("");
 	const [inNavBar, setInNavBar] = useState(true);
+	const [openDrawer, setOpenDrawer] = useState(false);
+
+	const onCloseDrawer = () => setOpenDrawer(false);
 
 	const imageLoader = () => {
 		return "https://www.redcross.or.ke/wp-content/uploads/2023/03/logo-203x114-1.png";
@@ -212,6 +216,7 @@ const NavBar = () => {
 							borderRadius: "15px",
 							cursor: "pointer",
 						}}
+						onClick={() => setOpenDrawer(true)}
 					>
 						<MenuIcon
 							fontSize="large"
@@ -222,6 +227,9 @@ const NavBar = () => {
 					</Box>
 				</div>
 			</nav>
+			<Drawer open={openDrawer} onClose={onCloseDrawer}>
+				<AboutUsDrawer onClose={onCloseDrawer} />
+			</Drawer>
 		</>
 	);
 };
