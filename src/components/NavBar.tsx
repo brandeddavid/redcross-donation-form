@@ -261,6 +261,7 @@ const NavBar = () => {
 				>
 					{activeMenu === "get-involved" && <GetInvolvedMenu />}
 					{activeMenu === "who-we-are" && <WhoWeAre />}
+					{activeMenu === "what-we-do" && <WhatWeDoMenu />}
 				</Popover>
 			)}
 		</>
