@@ -135,6 +135,7 @@ const NavBar = () => {
 							<li className="hover:text-[#ed1c24]">
 								<Link
 									className="p-2"
+									onMouseEnter={(event) => handleShowMenu(event, "who-we-are")}
 									onClick={(event) => handleShowMenu(event, "who-we-are")}
 									href="/"
 									style={{
@@ -173,6 +174,7 @@ const NavBar = () => {
 							<li className="hover:text-[#ed1c24]">
 								<Link
 									className="p-2"
+									onMouseEnter={(event) => handleShowMenu(event, "what-we-do")}
 									onClick={(event) => handleShowMenu(event, "what-we-do")}
 									href="/"
 									style={{
@@ -258,6 +260,7 @@ const NavBar = () => {
 					// onMouseOut={handleCloseActiveMenu}
 				>
 					{activeMenu === "get-involved" && <GetInvolvedMenu />}
+					{activeMenu === "who-we-are" && <WhoWeAre />}
 				</Popover>
 			)}
 		</>
