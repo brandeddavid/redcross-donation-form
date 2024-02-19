@@ -48,7 +48,7 @@ const NavBar = () => {
 					</div>
 
 					<div className="items-center flex space-x-[20px]">
-						<Link href="/">
+						<Link href="mailto:info@redcross.or.ke">
 							<MailIcon
 								sx={{
 									fill: "#ed1c24",
@@ -57,7 +57,7 @@ const NavBar = () => {
 							/>
 							<span>info@redcross.or.ke</span>
 						</Link>
-						<Link href="/">
+						<Link href="tel:+254703037000">
 							<PhoneIcon
 								sx={{
 									fill: "#ed1c24",
@@ -69,7 +69,7 @@ const NavBar = () => {
 					</div>
 
 					<div className="bg-[#ed1c24] ml-[40px] text-white px-[30px] py-[20px] items-center">
-						<Link href="/">El Nino</Link>
+						<Link href="https://www.redcross.or.ke/elnino">El Nino</Link>
 					</div>
 				</div>
 
@@ -109,7 +109,7 @@ const NavBar = () => {
 										handleShowMenu(event, "get-involved")
 									}
 									onClick={(event) => handleShowMenu(event, "get-involved")}
-									href="/"
+									href=""
 									style={{
 										display: "flex",
 									}}
@@ -137,7 +137,7 @@ const NavBar = () => {
 									className="p-2"
 									onMouseEnter={(event) => handleShowMenu(event, "who-we-are")}
 									onClick={(event) => handleShowMenu(event, "who-we-are")}
-									href="/"
+									href=""
 									style={{
 										display: "flex",
 									}}
@@ -161,7 +161,10 @@ const NavBar = () => {
 								</Link>
 							</li>
 							<li className="hover:text-[#ed1c24]">
-								<Link className="p-2" href="https://www.redcross.or.ke/">
+								<Link
+									className="p-2"
+									href="https://www.redcross.or.ke/reach-out-blog/"
+								>
 									<Typography
 										sx={{
 											fontWeight: "bold",
@@ -176,7 +179,7 @@ const NavBar = () => {
 									className="p-2"
 									onMouseEnter={(event) => handleShowMenu(event, "what-we-do")}
 									onClick={(event) => handleShowMenu(event, "what-we-do")}
-									href="/"
+									href=""
 									style={{
 										display: "flex",
 									}}
@@ -200,7 +203,10 @@ const NavBar = () => {
 								</Link>
 							</li>
 							<li className="hover:text-[#ed1c24]">
-								<Link className="p-2" href="https://www.redcross.or.ke/">
+								<Link
+									className="p-2"
+									href="https://www.redcross.or.ke/contact-us/"
+								>
 									<Typography
 										sx={{
 											fontWeight: "bold",

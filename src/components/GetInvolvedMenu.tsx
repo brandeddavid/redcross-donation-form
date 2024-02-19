@@ -10,31 +10,31 @@ const GetInvolvedMenu = (props: Props) => {
 	const menuItems = [
 		{
 			name: "Become a Volunteer",
-			linkTo: "/",
+			linkTo: "https://www.redcross.or.ke/volunteer/",
 		},
 		{
 			name: "Become a Member",
-			linkTo: "/",
+			linkTo: "https://www.redcross.or.ke/membership/",
 		},
 		{
 			name: "Regions and Branches",
-			linkTo: "/",
+			linkTo: "https://www.redcross.or.ke/regions-and-branches/",
 		},
 		{
 			name: "WEMA | Volunteer Opportunities",
-			linkTo: "/",
+			linkTo: "https://wema.redcross.or.ke/",
 		},
 		{
 			name: "Careers",
-			linkTo: "/",
+			linkTo: "https://www.redcross.or.ke/careers/",
 		},
 		{
 			name: "Publications",
-			linkTo: "/",
+			linkTo: "https://www.redcross.or.ke/publications/",
 		},
 		{
 			name: "Tenders",
-			linkTo: "/",
+			linkTo: "https://www.redcross.or.ke/tenders/",
 		},
 		{
 			name: "Donate",

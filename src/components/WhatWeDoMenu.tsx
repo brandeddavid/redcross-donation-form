@@ -18,11 +18,12 @@ const WhatWeDoMenu = (props: Props) => {
 		},
 		{
 			name: "Organisational Development",
-			linkTo: "/",
+			linkTo:
+				"https://www.redcross.or.ke/programmes/organizational-development",
 		},
 		{
 			name: "Youth Programmes",
-			linkTo: "/",
+			linkTo: "https://www.redcross.or.ke/what-we-do/youth-development/",
 		},
 		{
 			name: "Special Programmes",

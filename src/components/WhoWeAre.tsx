@@ -10,15 +10,15 @@ const WhoWeAre = (props: Props) => {
 	const menuItems = [
 		{
 			name: "About Us",
-			linkTo: "/",
+			linkTo: "https://www.redcross.or.ke/about-us/",
 		},
 		{
 			name: "Governance",
-			linkTo: "/",
+			linkTo: "https://www.redcross.or.ke/governance/",
 		},
 		{
 			name: "Managemant Team",
-			linkTo: "/",
+			linkTo: "https://www.redcross.or.ke/management/",
 		},
 	];
 

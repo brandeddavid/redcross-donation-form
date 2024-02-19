@@ -16,7 +16,7 @@ const Socials = ({ variant = "primary" }: Props) => {
 	return (
 		<ul className="flex">
 			<li className="mr-[8px]">
-				<Link href="/form">
+				<Link href="https://www.facebook.com/RedCrossKE">
 					<FacebookIcon
 						fontSize={variant === "secondary" ? "large" : "small"}
 						sx={{
@@ -32,7 +32,7 @@ const Socials = ({ variant = "primary" }: Props) => {
 				</Link>
 			</li>
 			<li className="mx-[8px]">
-				<Link href="/form">
+				<Link href="https://twitter.com/KenyaRedCross">
 					<TwitterIcon
 						fontSize="small"
 						sx={{
@@ -48,7 +48,7 @@ const Socials = ({ variant = "primary" }: Props) => {
 				</Link>
 			</li>
 			<li className="mx-[8px]">
-				<Link href="/form">
+				<Link href="https://www.instagram.com/redcrosske/">
 					<InstagramIcon
 						fontSize="small"
 						sx={{
@@ -64,7 +64,7 @@ const Socials = ({ variant = "primary" }: Props) => {
 				</Link>
 			</li>
 			<li className="mx-[8px]">
-				<Link href="/form">
+				<Link href="https://www.linkedin.com/company/kenya-red-cross/">
 					<LinkedInIcon
 						fontSize="small"
 						sx={{
@@ -80,7 +80,7 @@ const Socials = ({ variant = "primary" }: Props) => {
 				</Link>
 			</li>
 			<li className="mx-[8px]">
-				<Link href="/form">
+				<Link href="https://www.youtube.com/user/KenyaRedCross">
 					<YouTubeIcon
 						fontSize="small"
 						sx={{
