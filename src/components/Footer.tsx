@@ -11,45 +11,45 @@ const Footer = () => {
 	const quickLinks = [
 		{
 			name: "Careers",
-			linkTo: "/",
+			linkTo: "https://www.redcross.or.ke/careers/",
 		},
 		{
 			name: "Publications",
-			linkTo: "/",
+			linkTo: "https://www.redcross.or.ke/publications/",
 		},
 		{
 			name: "Tenders",
-			linkTo: "/",
+			linkTo: "https://www.redcross.or.ke/tenders/",
 		},
 		{
 			name: "Branches and Regions",
-			linkTo: "/",
+			linkTo: "https://www.redcross.or.ke/regions-and-branches/",
 		},
 		{
 			name: "Staff Portal",
-			linkTo: "/",
+			linkTo: "https://eportal.redcross.or.ke:809/Login.aspx",
 		},
 		{
 			name: "Staff Email",
-			linkTo: "/",
+			linkTo: "https://outlook.office.com/mail/",
 		},
 	];
 	const platforms = [
 		{
 			name: "WEMA Platform",
-			linkTo: "/",
+			linkTo: "https://wema.redcross.or.ke/",
 		},
 		{
 			name: "Membership and Volunteerism",
-			linkTo: "/",
+			linkTo: "https://www.redcross.or.ke/membership/",
 		},
 		{
 			name: "Referral Directories",
-			linkTo: "/",
+			linkTo: "https://referraldirectories.redcross.or.ke/",
 		},
 		{
 			name: "I.O.Me 254",
-			linkTo: "/",
+			linkTo: "https://www.iome.ke/",
 		},
 		{
 			name: "Donations Platform",
@@ -59,19 +59,19 @@ const Footer = () => {
 	const affiliates = [
 		{
 			name: "Boma Panafrican",
-			linkTo: "/",
+			linkTo: "https://www.bomapanafrican.com/",
 		},
 		{
 			name: "ICHA",
-			linkTo: "/",
+			linkTo: "https://www.icha.net/",
 		},
 		{
 			name: "IFRC",
-			linkTo: "/",
+			linkTo: "https://www.ifrc.org/",
 		},
 		{
 			name: "ICRC",
-			linkTo: "/",
+			linkTo: "https://www.icrc.org/",
 		},
 	];
 
