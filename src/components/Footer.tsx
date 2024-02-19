@@ -75,6 +75,29 @@ const Footer = () => {
 		},
 	];
 
+	const contacts = [
+		{
+			name: "(+254) 703 037 000",
+			linkTo: "tel:+254703037000",
+		},
+		{
+			name: "info@redcross.or.ke",
+			linkTo: "mailto:info@redcross.or.ke",
+		},
+		{
+			name: "P. O. Box 40712 - 00100 GPO Nairobi",
+			linkTo: "/",
+		},
+		{
+			name: "South C (Bellevue), Red Cross Road, Off Popo Road, Nairobi, Kenya",
+			linkTo: "/",
+		},
+		{
+			name: "Report a Concern",
+			linkTo: "https://ifrc.integrityline.org/",
+		},
+	];
+
 	return (
 		<footer className="flex flex-col pr-[15px] bg-[#0e1422] text-white py-[50px] md:px-[60px]">
 			<div className="flex"></div>
@@ -201,15 +224,15 @@ const Footer = () => {
 						Contact Us
 					</Typography>
 					<ul className="space-y-[15px]">
-						{affiliates.map(({ name, linkTo }: any) => (
+						{contacts.map(({ name, linkTo }: any) => (
 							<li key={name} className="hover:text-[#ed1c24]">
 								<Link href={linkTo}>
 									<Typography
-										sx={
-											{
-												// fontWeight: "bold",
-											}
-										}
+										sx={{
+											display: "flex",
+											flexWrap: "wrap",
+											maxWidth: "200px",
+										}}
 										variant="h6"
 									>
 										{name}
