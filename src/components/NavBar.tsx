@@ -13,7 +13,7 @@ import GetInvolvedMenu from "./GetInvolvedMenu";
 import WhatWeDoMenu from "./WhatWeDoMenu";
 import WhoWeAre from "./WhoWeAre";
 import WhatsNew from "./WhatsNew";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Socials from "./Socials";
 
 const NavBar = () => {
@@ -39,7 +39,7 @@ const NavBar = () => {
 	return (
 		<>
 			<nav className="relative z-50 flex flex-col w-full">
-				<div className="bg-[#1c2539] px-[50px] text-white flex">
+				<div className="bg-[#1c2539] px-[50px] text-white hidden md:flex">
 					<div className="flex-1 py-[20px] hidden md:flex">
 						<Socials />
 					</div>
@@ -65,7 +65,7 @@ const NavBar = () => {
 						</Link>
 					</div>
 
-					<div className="bg-[#ed1c24] ml-[40px] text-white p-[20px] items-center">
+					<div className="bg-[#ed1c24] ml-[40px] text-white px-[30px] py-[20px] items-center">
 						<Link href="/">El Nino</Link>
 					</div>
 				</div>
@@ -87,10 +87,16 @@ const NavBar = () => {
 					</Link>
 
 					<div className="hidden text-xl text-[#1c2539] md:flex px-[60px]">
-						<ul className="flex justify-between w-full text-center space-x-[20px] lg:justify-center">
+						<ul className="flex items-center justify-between w-full text-center space-x-[20px] lg:justify-center">
 							<li className="pl-0 hover:text-[#ed1c24]">
 								<Link className="p-2" href="https://www.redcross.or.ke/">
-									Home
+									<Typography
+										sx={{
+											fontWeight: "bold",
+										}}
+									>
+										Home
+									</Typography>
 								</Link>
 							</li>
 							<li className="hover:text-[#ed1c24]">
@@ -98,8 +104,17 @@ const NavBar = () => {
 									className="p-2"
 									onClick={() => handleShowMenu("get-involved")}
 									href="/"
+									style={{
+										display: "flex",
+									}}
 								>
-									Get Involved
+									<Typography
+										sx={{
+											fontWeight: "bold",
+										}}
+									>
+										Get Involved
+									</Typography>
 									<ExpandMoreIcon
 										sx={{
 											fill: "gray",
@@ -116,8 +131,17 @@ const NavBar = () => {
 									className="p-2"
 									onClick={() => handleShowMenu("who-we-are")}
 									href="/"
+									style={{
+										display: "flex",
+									}}
 								>
-									Who We Are
+									<Typography
+										sx={{
+											fontWeight: "bold",
+										}}
+									>
+										Who We Are
+									</Typography>
 									<ExpandMoreIcon
 										sx={{
 											fill: "gray",
@@ -131,7 +155,13 @@ const NavBar = () => {
 							</li>
 							<li className="hover:text-[#ed1c24]">
 								<Link className="p-2" href="https://www.redcross.or.ke/">
-									Reach Out Blog
+									<Typography
+										sx={{
+											fontWeight: "bold",
+										}}
+									>
+										Reach Out Blog
+									</Typography>
 								</Link>
 							</li>
 							<li className="hover:text-[#ed1c24]">
@@ -139,8 +169,17 @@ const NavBar = () => {
 									className="p-2"
 									onClick={() => handleShowMenu("who-we-are")}
 									href="/"
+									style={{
+										display: "flex",
+									}}
 								>
-									What We Do
+									<Typography
+										sx={{
+											fontWeight: "bold",
+										}}
+									>
+										What We Do
+									</Typography>
 									<ExpandMoreIcon
 										sx={{
 											fill: "gray",
@@ -154,7 +193,13 @@ const NavBar = () => {
 							</li>
 							<li className="hover:text-[#ed1c24]">
 								<Link className="p-2" href="https://www.redcross.or.ke/">
-									Contact Us
+									<Typography
+										sx={{
+											fontWeight: "bold",
+										}}
+									>
+										Contact Us
+									</Typography>
 								</Link>
 							</li>
 						</ul>
