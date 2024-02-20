@@ -15,7 +15,7 @@ const AboutUsDrawer = ({ onClose }: Props) => {
 	};
 
 	return (
-		<div className="w-[500px] px-[40px] py-[20px]">
+		<div className="w-full md:w-[500px] px-[40px] py-[20px]">
 			<div className="flex justify-end cursor-pointer">
 				<CloseIcon fontSize="small" onClick={onClose} />
 			</div>

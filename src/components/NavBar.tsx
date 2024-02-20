@@ -73,7 +73,7 @@ const NavBar = () => {
 					</div>
 				</div>
 
-				<div className="px-[50px] py-[20px] flex justify-center items-center">
+				<div className="px-[20px] md:px-[50px] py-[20px] flex justify-between md:justify-center items-center">
 					<Link href="https://www.redcross.or.ke/">
 						<Image
 							src="https://www.redcross.or.ke/wp-content/uploads/2023/03/logo-203x114-1.png"
