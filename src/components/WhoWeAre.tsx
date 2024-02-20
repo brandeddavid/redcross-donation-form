@@ -1,28 +1,60 @@
+import { List, ListItem, Typography } from "@mui/material";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import RemoveIcon from "@mui/icons-material/Remove";
 
 type Props = {};
 
 const WhoWeAre = (props: Props) => {
+	const [hoveredMenuItem, setHoveredMenuItem] = useState("");
+	const menuItems = [
+		{
+			name: "About Us",
+			linkTo: "https://www.redcross.or.ke/about-us/",
+		},
+		{
+			name: "Governance",
+			linkTo: "https://www.redcross.or.ke/governance/",
+		},
+		{
+			name: "Managemant Team",
+			linkTo: "https://www.redcross.or.ke/management/",
+		},
+	];
+
 	return (
-		<div className="flex justify-center p-12">
-			<nav>
-				<ul className="flex flex-col text-[#231F20] text-xs font-bold">
-					<li className="dropdownMenuItem w-[300px]">
-						<Link href="https://www.redcross.or.ke/aboutus">About us</Link>
-					</li>
-					<li className="dropdownMenuItem w-[300px]">
-						<Link href="https://www.redcross.or.ke/governance">Governance</Link>
-					</li>
-					<li className="dropdownMenuItem w-[300px]">
-						<Link href="https://www.redcross.or.ke/Team">Management Team</Link>
-					</li>
-					<li className="dropdownMenuItem w-[300px]">
-						<Link href="https://www.redcross.or.ke/Partners">Our Partners</Link>
-					</li>
-				</ul>
-			</nav>
-		</div>
+		<nav className="py-[40px] px-[20px]">
+			<List className="flex flex-col justify-between">
+				{menuItems.map(({ name, linkTo }) => (
+					<ListItem
+						sx={{
+							display: "flex",
+							color: "#231F20",
+							py: "15px",
+							borderBottom: "1px solid #cdcdcd",
+							"&:hover": {
+								color: "#ed1c24",
+							},
+						}}
+						key={name}
+						onMouseEnter={() => setHoveredMenuItem(name)}
+						onMouseLeave={() => setHoveredMenuItem("")}
+					>
+						{name === hoveredMenuItem && (
+							<RemoveIcon
+								sx={{
+									mr: "5px",
+									fill: "#ed1c24",
+								}}
+							/>
+						)}
+						<Link href={linkTo}>
+							<Typography>{name}</Typography>
+						</Link>
+					</ListItem>
+				))}
+			</List>
+		</nav>
 	);
 };
 

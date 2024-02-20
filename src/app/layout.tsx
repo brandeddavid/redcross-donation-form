@@ -33,7 +33,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 								<NavBar />
 							</header>
 						</div>
-						<div className="absolute top-[100px] md:top-[160px] z-10 w-full">
+						<div className="absolute top-[150px] md:top-[210px] z-10 w-full">
 							<div className="">{children}</div>
 							<section className="hidden md:block py-12 bg-[#f8f9fa]">
 								<div className="my-4 max-w-[960px] px-[15px]">
@@ -60,7 +60,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 									</div>
 								</div>
 							</section>
-							<section className="hidden w-full py-12 md:block">
+							<section className="hidden w-full md:block">
 								<Footer />
 							</section>
 						</div>
