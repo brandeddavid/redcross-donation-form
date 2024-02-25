@@ -102,10 +102,9 @@ const onSubmit = async ({
 						url,
 						trace_id,
 						reference_id,
-						token,
-						merchantCode,
-						extraData,
-						callbackUrl,
+						extra_data: {
+							jenga: { token, merchantCode, extraData, callbackUrl },
+						},
 					},
 				} = response;
 

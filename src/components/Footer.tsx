@@ -55,6 +55,10 @@ const Footer = () => {
 			name: "Donations Platform",
 			linkTo: "/",
 		},
+		{
+			name: "Admin Dashboard",
+			linkTo: "https://donationsportal.redcross.or.ke/",
+		},
 	];
 	const affiliates = [
 		{
