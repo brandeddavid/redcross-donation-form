@@ -11,6 +11,7 @@ type Props = {
 	status: string | number;
 	fetchDonation: () => void;
 	paymentBody: string;
+	paymentOption: string;
 };
 
 const Message = ({ type, paymentBody, status = "pending" }: any) => {
@@ -77,7 +78,7 @@ const getDonationStatus = (
 			message: (
 				<Message
 					paymentBody="Your donation has been successfully processed"
-					status={status}
+					status={1}
 				/>
 			),
 			icon: (
@@ -124,17 +125,24 @@ const getDonationStatus = (
 	};
 };
 
-const ModalContent = ({ status, fetchDonation, paymentBody }: Props) => {
+const ModalContent = ({
+	status,
+	fetchDonation,
+	paymentBody,
+	paymentOption,
+}: Props) => {
 	const router = useRouter();
 	const [isMpesaPending, setIsMpesaPending] = useState(false);
 	const [isPledge, setIsPledge] = useState(false);
 	const [isCardPayment, setIsCardPayment] = useState(false);
 
 	const {
-		donationFormDetails: { paymentOption, donationOption },
+		donationFormDetails: { donationOption },
 		resetDonationForm,
 	}: any = useContext(DonationFormContext);
 	const { setSelectedCause }: any = useContext(RedcrossCausesContext);
+
+	console.log({ paymentOption });
 
 	useEffect(() => {
 		setIsCardPayment(paymentOption === "Card");

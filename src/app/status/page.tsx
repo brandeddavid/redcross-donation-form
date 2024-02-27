@@ -26,6 +26,7 @@ const page = (props: Props) => {
 				status={donation?.payment_status}
 				fetchDonation={fetchDonation}
 				paymentBody={donation?.payment_body}
+				paymentOption={donation.payment_method === 1 ? "Mpesa" : "Card"}
 			/>
 		</div>
 	);

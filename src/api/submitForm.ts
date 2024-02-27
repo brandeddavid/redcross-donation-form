@@ -27,6 +27,7 @@ const onSubmit = async ({
 		donationOption,
 		pledgeFrequency,
 		processingFee,
+		paymentOption,
 	}: any = donationFormDetails;
 
 	try {
@@ -43,7 +44,7 @@ const onSubmit = async ({
 			country: donateAnonymously ? "Anonymous" : country,
 			email: donateAnonymously ? "Anonymous" : email,
 			amount: handleProcessingFee ? totalDonationAmount : donationAmount,
-			paymentMethod: donationOption === "donate-now" ? 1 : 2,
+			paymentMethod: paymentOption === "Mpesa" ? 1 : 2,
 			pledgeFrequency,
 			processingFee: handleProcessingFee ? processingFee : null,
 		});
