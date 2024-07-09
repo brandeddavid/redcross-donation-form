@@ -108,7 +108,7 @@ const DonationForm = ({ step, onContinue, onBack }: Props) => {
 			<div className="">
 				{step === 1 && <DonationFormAmount />}
 				{step === 2 && <DonationFormPersonalDetails />}
-				{step === 3 && <DonationFormPayment />}
+				{step === 3 && <DonationFormPayment/>}
 			</div>
 			<div className="sticky bottom-0 z-50 bg-white">
 				<Divider />
