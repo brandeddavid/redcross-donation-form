@@ -61,6 +61,7 @@ const RedcrossCausesProvider = ({ children }: Props) => {
 			try {
 				const res = await axios.get(
 					`https://${process.env.API_HOST}/api/campaigns`
+					
 				);
 				const { data } = res;
 
