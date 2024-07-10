@@ -10,10 +10,11 @@ import DonationForm from "../components/DonationForm";
 import { ThemeProvider } from "@mui/material";
 import { theme } from "../theme/theme";
 import { RedcrossCausesContext } from "../context/redcrossCausesContext";
-import { DonationFormContext } from "../context/donationFormContext";
+import { DonationFormContext, AuthDetailsContext } from "../context/donationFormContext";
 import InvisibleForm from "../components/InvisibleForm";
 import onSubmit from "../api/submitForm";
 import getImageBase from "../helpers/getImageBase";
+import proceedCheckout from "@/api/proceedCheckout";
 
 const Home = () => {
 	const baseImageUrl = getImageBase();
@@ -37,6 +38,11 @@ const Home = () => {
 	const onCauseSelect = (event: SelectChangeEvent) => {
 		onRedCrossCauseSelect(event.target.value);
 	};
+
+
+	const {  handleCheckout} = useContext(AuthDetailsContext);
+
+
 
 	const handleContinue = async () => {
 		if (
@@ -67,11 +73,13 @@ const Home = () => {
 				}
 
 				if (donationFormDetails?.paymentOption === "Card") {
-					if (donationFormDetails?.donationOption === "donate-now") {
-						setCardToken(response);
-					} else {
-						push(`/status?id=${referenceId}`);
-					}
+					// alert("Card Checkout")
+					handleCheckout();
+					// if (donationFormDetails?.donationOption === "donate-now") {
+					// 	setCardToken(response);
+					// } else {
+					// 	push(`/status?id=${referenceId}`);
+					// }
 				}
 			} catch (error) {
 				console.error(error);
