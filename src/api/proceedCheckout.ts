@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const proceedCheckout = async ({ phoneNumber, email, accessToken}: any) => {
+const proceedCheckout = async ({ phoneNumber, email, amount , accessToken}: any) => {
   const headersList = {
     Accept: "application/json",
     "Content-Type": "application/json",
@@ -17,7 +17,7 @@ const proceedCheckout = async ({ phoneNumber, email, accessToken}: any) => {
       merchant_logo:
         "https://www.redcross.or.ke/wp-content/uploads/2023/03/logo-203x114-1.png",
       currency: "KES",
-      amount: "100",
+      amount: amount,
       result_url: "https://fulgence.free.beeceptor.com",
       reference_id: "60987RED",
       remarks: "string",
