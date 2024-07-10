@@ -24,6 +24,8 @@ type Props = {
 const steps = ["Cause", "Amount", "Donate", "Pay"];
 
 const DonationForm = ({ step, onContinue, onBack }: Props) => {
+
+
 	const { donationFormDetails } = useContext(DonationFormContext);
 	const { selectedCause } = useContext(RedcrossCausesContext);
 	const [disabled, setDisabled] = useState(false);
@@ -163,12 +165,14 @@ const DonationForm = ({ step, onContinue, onBack }: Props) => {
 												? donationFormDetails?.totalDonationAmount
 												: donationFormDetails?.donationAmount
 										} pledge`}
-									{step === 3 &&
+									{step === 3 && donationFormDetails?.paymentOption === "Mpesa" && 
 										`Donate ${donationFormDetails?.selectedCurrency} ${
 											donationFormDetails?.handleProcessingFee
 												? donationFormDetails?.totalDonationAmount
 												: donationFormDetails?.donationAmount
 										}`}
+
+										{step === 3 && donationFormDetails?.paymentOption === "Card" && "Proceed to Checkout"}
 								</Button>
 							</div>
 						</div>

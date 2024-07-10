@@ -1,14 +1,15 @@
-import React, { useContext , useState} from "react";
+import React, { useContext } from "react";
+import { validateSafaricomNumber } from "@/helpers/functions";
 import Image from "next/image";
 import { Tabs, Tab, TextField, Modal } from "@mui/material";
 import {
-  DonationFormContext, AuthDetailsContext
+  DonationFormContext,
+  AuthDetailsContext,
 } from "../context/donationFormContext";
-import proceedCheckout from "@/api/proceedCheckout";
 import { motion } from "framer-motion";
 import getImageBase from "../helpers/getImageBase";
-import CardCheckout from "./CardCheckout";
-import Link from "next/link";
+import VisaLogo from "../../public/visa-x.png";
+import MpesaLogo from "../../public/M-PESA.png";
 
 type Props = {};
 
@@ -22,10 +23,7 @@ const getPaymentOptions = (currency: string | undefined) => {
 
 const DonationFormPayment = ({}: Props) => {
 
-  const [redirectURL, setRedirectURL]= useState<String>("")
-
-
-    const baseImageUrl = getImageBase();
+  const baseImageUrl = getImageBase();
   const {
     donationFormDetails,
     setPaymentOption,
@@ -33,42 +31,12 @@ const DonationFormPayment = ({}: Props) => {
     setPhoneNumber,
   } = useContext(DonationFormContext);
 
-  const {authDetails} = useContext(AuthDetailsContext);
-  
-
+  const { authDetails } = useContext(AuthDetailsContext);
   const paymentOptions = getPaymentOptions(
     donationFormDetails?.selectedCurrency
   );
-
   const imageLoader = () => {
     return `${baseImageUrl}/card-payment.jpeg`;
-  };
-
-
-  const handleCheckout = async () => {
-    try {
-      if (!authDetails?.accessToken) {
-        throw new Error("Field missing");
-      }
-
-      const response = await proceedCheckout({
-        phoneNumber: donationFormDetails?.phoneNumber || "0706723113", 
-        email: donationFormDetails?.email || "user@email.com",
-        accessToken: authDetails?.accessToken,
-      });
-
-      console.log("Checkout Response:", response);
-
-      if (response.status === 200 && response.data.redirect_url !== ""){
-        setRedirectURL(response.data.redirect_url);
-
-      }
-
-  
-    } catch (error) {
-      console.error("Error during checkout:", error);
-      // Handle error (e.g., show error message to user)
-    }
   };
 
 
@@ -100,8 +68,9 @@ const DonationFormPayment = ({}: Props) => {
           </Tabs>
         </div>
         {donationFormDetails?.paymentOption === "Mpesa" && (
-          <div className="flex justify-center min-h-[250px]">
+          <div className="flex justify-center min-h-[350px]">
             <div className="flex flex-col justify-center space-y-[40px] w-[300px]">
+            <Image alt="mpesa-logo" width={100} height={150} src={MpesaLogo} />
               <div className="flex">
                 <TextField
                   label="Phone"
@@ -122,7 +91,9 @@ const DonationFormPayment = ({}: Props) => {
                   onChange={(event) => {
                     setPhoneNumber(event.target.value);
                   }}
+                  // onBlur={validateSafaricomNumber(donationFormDetails?.phoneNumber)}
                 />
+            
               </div>
 
               <TextField
@@ -147,14 +118,9 @@ const DonationFormPayment = ({}: Props) => {
         {donationFormDetails?.paymentOption === "Card" && (
           <div className="flex justify-center texr-center pb-[50px]">
             <div>
-              <CardCheckout
-                handleClick={handleCheckout}
-              />
-              {/* {redirectURL && redirectURL !== "" && (
-        <Link href={redirectURL} rel="noopener noreferrer" target="_blank">
-          Go to Redirect URL
-        </Link>
-      )} */}
+              <Image src={VisaLogo} width={400} height={400} alt="visa-mastercard-logo"/>
+           
+         
             </div>
           </div>
         )}
