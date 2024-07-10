@@ -112,27 +112,30 @@ export const DonationFormContext = createContext<DonationFormDetailsContext>({
 });
 
 // auth details and context
-
 type AuthDetails = {
   accessToken: string;
   expiryTime: number;
+  handleCheckout: () => Promise<void>;
 } | null;
 
 type AuthDetailsTypeContext = {
   authDetails: AuthDetails | null;
   setAccessToken: (value: string) => void;
   setExpiryTime: (value: number) => void;
+  handleCheckout: () => Promise<void>;
 };
 
-const initialAuthDetails = {
+const initialAuthDetails: AuthDetails = {
   accessToken: "",
   expiryTime: 0,
+  handleCheckout: async () => {},
 };
 
 export const AuthDetailsContext = createContext<AuthDetailsTypeContext>({
   authDetails: initialAuthDetails,
   setAccessToken: () => {},
   setExpiryTime: () => {},
+  handleCheckout: async () => {},
 });
 
 // CREDIT CARD result below
@@ -365,30 +368,75 @@ const DonationFormProvider = ({ children }: Props) => {
   }, [selectedCurrency, donateAs, selectedCauseId]);
 
   // get the auth token
-  useEffect(() => {
-    const fetchToken = async () => {
-      try {
-        const response = await getAuthToken();
+  const fetchToken = async () => {
+    try {
+      const response = await getAuthToken();
 
-        if (response.status === 200 && response.data.access_token) {
+      if (response.status === 200 && response.data.access_token) {
+        const accessToken = response.data.access_token;
+        const expiryTime = response.data.expires_in;
 
-          const accessToken = response.data.access_token;
-		  const expiryTime = response.data.expires_in;
+        setAuthDetails((prevAuthDetails) => ({
+          ...prevAuthDetails,
+          accessToken: accessToken,
+          expiryTime: expiryTime,
+        }));
 
-		  
-          setAuthDetails((prevAuthDetails) => ({
-            ...prevAuthDetails,
-            accessToken: accessToken,
-			expiryTime: expiryTime,
-          }));
-        }
-      } catch (error) {
-        console.error("Error fetching access token:", error);
+        return accessToken;
+      } else {
+        throw new Error("Failed to fetch access token");
       }
-    };
+    } catch (error) {
+      console.error("Error fetching access token:", error);
+      throw error;
+    }
+  };
 
+  useEffect(() => {
     fetchToken();
   }, []);
+
+  //   proceed checkout fn
+  const handleCheckout = async () => {
+    try {
+      if (!authDetails?.accessToken) {
+        throw new Error("Access token is missing");
+      }
+
+      let response = await proceedCheckout({
+        phoneNumber: donationFormDetails?.phoneNumber || "0706723113",
+        email: donationFormDetails?.email || "user@email.com",
+        amount: donationFormDetails?.donationAmount,
+        accessToken: authDetails?.accessToken,
+      });
+
+      //   handle unauthorized 401
+      if (response.status === 401) {
+        // Fetch a new token
+        const newAccessToken = await fetchToken();
+        if (!newAccessToken) {
+          throw new Error("Failed to refresh access token");
+        }
+
+        // Retry the checkout with the new access token
+        response = await proceedCheckout({
+          phoneNumber: donationFormDetails?.phoneNumber || "0706723113",
+          email: donationFormDetails?.email || "user@email.com",
+          amount: donationFormDetails?.donationAmount,
+          accessToken: newAccessToken,
+        });
+      }
+      //   console.log("Checkout Response:", response);
+
+      if (response.status === 200 && response.data.redirect_url !== "") {
+        console.log("Redirecting to new URL");
+        window.open(response.data.redirect_url);
+      }
+    } catch (error) {
+      console.error("Error during checkout:", error);
+      throw new Error("Error during checkout, please try again");
+    }
+  };
 
   const setIsSubmitting = (value: boolean) => {
     setDonationFormDetails({
@@ -429,6 +477,7 @@ const DonationFormProvider = ({ children }: Props) => {
           authDetails,
           setAccessToken,
           setExpiryTime,
+          handleCheckout,
         }}
       >
         {children}
