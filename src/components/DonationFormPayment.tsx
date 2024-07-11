@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { validateSafaricomNumber } from "@/helpers/functions";
 import Image from "next/image";
 import { Tabs, Tab, TextField, Modal } from "@mui/material";
@@ -22,6 +22,7 @@ const getPaymentOptions = (currency: string | undefined) => {
 };
 
 const DonationFormPayment = ({}: Props) => {
+  const [phoneError, setPhoneError] = useState<String>("");
 
   const baseImageUrl = getImageBase();
   const {
@@ -40,6 +41,8 @@ const DonationFormPayment = ({}: Props) => {
   };
 
 
+
+  // console.log()
 
   return (
     <>
@@ -70,7 +73,12 @@ const DonationFormPayment = ({}: Props) => {
         {donationFormDetails?.paymentOption === "Mpesa" && (
           <div className="flex justify-center min-h-[350px]">
             <div className="flex flex-col justify-center space-y-[40px] w-[300px]">
-            <Image alt="mpesa-logo" width={100} height={150} src={MpesaLogo} />
+              <Image
+                alt="mpesa-logo"
+                width={100}
+                height={150}
+                src={MpesaLogo}
+              />
               <div className="flex">
                 <TextField
                   label="Phone"
@@ -84,16 +92,14 @@ const DonationFormPayment = ({}: Props) => {
                   }}
                 />
                 <TextField
-                  label=" "
+                  label="Phone Number"
                   placeholder="Enter Mpesa number"
                   variant="standard"
                   value={donationFormDetails?.phoneNumber}
                   onChange={(event) => {
-                    setPhoneNumber(event.target.value);
+                    setPhoneNumber(event.target.value.substring(0,9));
                   }}
-                  // onBlur={validateSafaricomNumber(donationFormDetails?.phoneNumber)}
                 />
-            
               </div>
 
               <TextField
@@ -118,9 +124,12 @@ const DonationFormPayment = ({}: Props) => {
         {donationFormDetails?.paymentOption === "Card" && (
           <div className="flex justify-center texr-center pb-[50px]">
             <div>
-              <Image src={VisaLogo} width={400} height={400} alt="visa-mastercard-logo"/>
-           
-         
+              <Image
+                src={VisaLogo}
+                width={400}
+                height={400}
+                alt="visa-mastercard-logo"
+              />
             </div>
           </div>
         )}
