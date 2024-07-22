@@ -22,6 +22,10 @@ const nextConfig = {
 	env: {
 		API_HOST: process.env.API_HOST,
 		HOME: process.env.HOME || "/form",
+		CLIENT_EMAIL: process.env.CLIENT_EMAIL,
+		CLIENT_ID: process.env.CLIENT_ID,
+		CLIENT_SECRET: process.env.CLIENT_SECRET,
+		
 	},
 };
 

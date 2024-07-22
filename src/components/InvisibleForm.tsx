@@ -13,14 +13,14 @@ const InvisibleForm = () => {
 		extraData,
 	}: any = donationFormDetails;
 
-	console.log({
-		traceId,
-		token,
-		merchantCode,
-		referenceId,
-		extraData,
-		callbackUrl,
-	});
+	// console.log({
+	// 	traceId,
+	// 	token,
+	// 	merchantCode,
+	// 	referenceId,
+	// 	extraData,
+	// 	callbackUrl,
+	// });
 
 	useEffect(() => {
 		if (traceId && token && merchantCode && referenceId) {
